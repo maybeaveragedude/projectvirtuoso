@@ -36,12 +36,12 @@
                         <div>
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab" href="#tab-1">Teachers</a></li>
-                                <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-2">Progress</a></li>
+                                <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-2">Courses</a></li>
                                 <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-3">Achievements</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" role="tabpanel" id="tab-1">
-                                    <h1 class="text-start" style="padding: 16px 16px;">Manage Teachers</h1>
+                                    <h1 class="text-start" style="padding: 16px 16px;border-bottom-width: 1px;border-bottom-style: solid;">Manage Teachers</h1>
                                     <div class="table-responsive">
                                         <table class="table">
                                             <thead>
@@ -57,10 +57,12 @@
                                     <div class="card-group"></div>
                                 </div>
                                 <div class="tab-pane" role="tabpanel" id="tab-2">
-                                    <h1 class="text-start" style="padding: 16px 16px;">Courses</h1>
+                                    <h1 class="text-start" style="padding: 16px 16px;border-bottom-width: 1px;border-bottom-style: solid;">Materials</h1>
                                     <div class="accordion" role="tablist" id="accordion-1">
                                         <?php
                                         include_once 'includes/adminmanagecourse.inc.php';
+                                        include_once 'includes/adminapprovecourse.inc.php';
+                                        include_once 'includes/adminviewsubject.inc.php';
                                         ?>
                                     </div>
                                 </div>
