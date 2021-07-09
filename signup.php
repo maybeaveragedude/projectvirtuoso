@@ -46,7 +46,8 @@
                     </form>
                 </div>
             </section>
-        <!-- </section> -->
+        <!-- </section> --> 
+        <!-- new comment line for stage change test -->
     </main>
     <footer class="page-footer">
         <div class="container">
