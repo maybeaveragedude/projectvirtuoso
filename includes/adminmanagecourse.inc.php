@@ -1,6 +1,8 @@
 <?php
+require_once "includes/dbh.inc.php";
+$sql = "SELECT * FROM courses";
 echo "<div class='accordion-item'>
-        <h2 class='accordion-header' role='tab'><button class='accordion-button' data-bs-toggle='collapse' data-bs-target='#accordion-1 .item-1' aria-expanded='true' aria-controls='accordion-1 .item-1'>Course List</button></h2>
+        <h2 class='accordion-header' role='tab'><button class='accordion-button collapsed' data-bs-toggle='collapse' data-bs-target='#accordion-1 .item-1' aria-expanded='true' aria-controls='accordion-1 .item-1'>Course List</button></h2>
         <div class='accordion-collapse collapse item-1 text-start' role='tabpanel' data-bs-parent='#accordion-1'>
             <div class='accordion-body'>
                 <div><a class='btn btn-primary listgroupdropMain' data-bs-toggle='collapse' aria-expanded='true' aria-controls='collapse-12' href='#collapse-12' role='button' style='font-family: Lato, sans-serif;'>Show Content</a>
@@ -25,22 +27,6 @@ echo "<div class='accordion-item'>
                         <p style='font-family: Lato, sans-serif;'>Collapse content.</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class='accordion-item'>
-        <h2 class='accordion-header' role='tab'><button class='accordion-button collapsed' data-bs-toggle='collapse' data-bs-target='#accordion-1 .item-2' aria-expanded='false' aria-controls='accordion-1 .item-2'>My Materials</button></h2>
-        <div class='accordion-collapse collapse item-2' role='tabpanel' data-bs-parent='#accordion-1'>
-            <div class='accordion-body'>
-                <p class='mb-0'>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-            </div>
-        </div>
-    </div>
-    <div class='accordion-item'>
-        <h2 class='accordion-header' role='tab'><button class='accordion-button collapsed' data-bs-toggle='collapse' data-bs-target='#accordion-1 .item-3' aria-expanded='false' aria-controls='accordion-1 .item-3'>Accordion Item</button></h2>
-        <div class='accordion-collapse collapse item-3' role='tabpanel' data-bs-parent='#accordion-1'>
-            <div class='accordion-body'>
-                <p class='mb-0'>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
             </div>
         </div>
     </div>";

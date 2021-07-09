@@ -12,30 +12,31 @@ if ($result -> num_rows > 0){
     echo "<tr>
     <td style='width: 265px;font-size: 24px;'>".$row["t_name"]."</td>
     <td style='width: 924px;'>
-        <div><a class='btn btn-primary' data-bs-toggle='collapse' aria-expanded='false' aria-controls='collapse-1' href='#collapse-".$row["t_ID"]."' role='button' style='float: right;'>View</a>
+        <div>
+        <a class='btn btn-primary listgroupdropMain' data-bs-toggle='collapse' aria-expanded='false' aria-controls='collapse-1' href='#collapse-".$row["t_ID"]."' role='button' style='float: right;'><i class='fas fa-ellipsis-h'></i></a>
             <div class='collapse' id='collapse-".$row["t_ID"]."' class='collapse' style='clear: right;'>
                 <div class='row'>
                     <div class='col'>
                         <p>Subject</p>
                     </div>
-                    <div class='col-xl-9'>
-                        <p style='text-align: left;'>".$row["t_sub"]."</p>
+                    <div class='col-xl-9'style='border-left-width: 1px;border-left-style: solid;'>
+                        <p style='text-align: left;padding-left: 10px;'>".$row["t_sub"]."</p>
                     </div>
                 </div>
                 <div class='row'>
                     <div class='col'>
                         <p>Brief Background</p>
                     </div>
-                    <div class='col-xl-9'>
-                        <p style='text-align: left;'>".$row["t_brief"]."</p>
+                    <div class='col-xl-9'style='border-left-width: 1px;border-left-style: solid;'>
+                        <p style='text-align: left;padding-left: 10px;'>".$row["t_brief"]."</p>
                     </div>
                 </div>
                 <div class='row'>
                     <div class='col'>
                         <p>Experience</p>
                     </div>
-                    <div class='col-xl-9'>
-                        <p style='text-align: left;'>".$row["t_years"]."</p>
+                    <div class='col-xl-9'style='border-left-width: 1px;border-left-style: solid;'>
+                        <p style='text-align: left;padding-left: 10px;'>".$row["t_years"]."</p>
                     </div>
                 </div>";
                 //fetch doc upload id
@@ -51,9 +52,9 @@ if ($result -> num_rows > 0){
                             <div class='col'>
                                 <p>Portfolio</p>
                             </div>
-                            <div class='col-xl-9'>
+                            <div class='col-xl-9'style='border-left-width: 1px;border-left-style: solid;'>
                                 <a style='text-align: left;' href='uploads/".$rowF["file_name"]."' download>
-                                <p style='text-align: left;'>".$rowF["file_name"]."</p>
+                                <p style='text-align: left;padding-left: 10px;'>".$rowF["file_name"]."</p>
                                 </a>
                             </div>
                         </div>";
@@ -64,8 +65,8 @@ if ($result -> num_rows > 0){
                             <div class='col'>
                                 <p>Portfolio</p>
                             </div>
-                            <div class='col-xl-9'>
-                                <p style='text-align: left;'>No uploaded files</p>
+                            <div class='col-xl-9'style='border-left-width: 1px;border-left-style: solid;'>
+                                <p style='text-align: left;padding-left: 10px;'>No uploaded files</p>
                             </div>
                         </div>";
                 }
@@ -73,8 +74,8 @@ if ($result -> num_rows > 0){
                     <div class='col'>
                         <p>Link</p>
                     </div>
-                    <div class='col-xl-9'>
-                        <p style='text-align: left;'>".$row["t_url"]."</p>
+                    <div class='col-xl-9'style='border-left-width: 1px;border-left-style: solid;'>
+                        <p style='text-align: left;padding-left: 10px;'>".$row["t_url"]."</p>
                     </div>
                 </div>";
                 //for status 0 = awaiting approval
@@ -83,8 +84,8 @@ if ($result -> num_rows > 0){
                         <div class='col'>
                             <p>Status</p>
                         </div>
-                        <div class='col-xl-9'>
-                            <p style='text-align: left;color: rgb(0,0,0,0.5);'>Pending</p>
+                        <div class='col-xl-9'style='border-left-width: 1px;border-left-style: solid;'>
+                            <p style='text-align: left;padding-left: 10px;color: rgb(0,0,0,0.5);'>Pending</p>
                         </div>
                     </div>";
                 //for status 1 = active
@@ -93,8 +94,8 @@ if ($result -> num_rows > 0){
                         <div class='col'>
                             <p>Status</p>
                         </div>
-                        <div class='col-xl-9'>
-                            <p style='text-align: left;color: rgb(52,231,7);'>Active</p>
+                        <div class='col-xl-9'style='border-left-width: 1px;border-left-style: solid;'>
+                            <p style='text-align: left;padding-left: 10px;color: rgb(52,231,7);'>Active</p>
                         </div>
                     </div>";
                 //for status 2 = disabled
@@ -103,8 +104,8 @@ if ($result -> num_rows > 0){
                         <div class='col'>
                             <p>Status</p>
                         </div>
-                        <div class='col-xl-9'>
-                            <p style='text-align: left;color: rgb(231,7,7);''>Disabled</p>
+                        <div class='col-xl-9'style='border-left-width: 1px;border-left-style: solid;'>
+                            <p style='text-align: left;padding-left: 10px;color: rgb(231,7,7);''>Disabled</p>
                         </div>
                     </div>";
                 } else {
@@ -112,8 +113,8 @@ if ($result -> num_rows > 0){
                         <div class='col'>
                             <p>Status</p>
                         </div>
-                        <div class='col-xl-9'>
-                            <p style='text-align: left;color: rgb(231,7,7);''>Error</p>
+                        <div class='col-xl-9'style='border-left-width: 1px;border-left-style: solid;'>
+                            <p style='text-align: left;padding-left: 10px;color: rgb(231,7,7);''>Error</p>
                         </div>
                     </div>";
                 }
