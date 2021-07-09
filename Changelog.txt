@@ -1,0 +1,66 @@
+Changes - 25/6
+-----------------
+Added 2 functions to includes/functions.inc.php*
+- loginAdminUser
+- createAdminUser
+-----------------
+
+New - 25/6
+-----------------
+AdminLogin.php
+includes/adminlogin.inc.php
+adminlogin.html
+adminsignup.php*
+adminsignup.html
+includes/adminsignup.inc.php
+-----------------
+
+*Check notes on these files
+
+Changes - 29/6
+-----------------
+Created new tables in db
+Changed column names in "admin" functions in functions.inc.php
+
+30/6
+-----------------
+Added adminhome.php/adminhome.html 
+- this not actually done, will be working on trying to get the table to auto generate for each teacher entry in the database
+
+1/7
+-----------------
+Updated adminhome.php a bit
+- I've figured out how to create a dynamically updating html table, its kinda scuffed but it works, I won't be creating and using most .inc files, may sound counterintuitive 	but it works for me, also I think the SQL the t_proposal_fid shouldn't be the FID for teachers
+
+Updated header.php
+-added check for admin session
+
+Fixed loginAdminUser function
+-changed session name to "adminid" from "learnerid"
+-added a closing '}'
+
+Fixed loginUser function
+-added a closing '}'
+
+Fixed invalidname function
+-changed if criteria
+
+5/7
+-----------------
+Updated adminhome.php3
+-displays uploaded files and can be downloaded
+
+Added adminmanageuser.inc.php
+-for adminhome.php
+
+Updated loginAdminUser function
+-redirects to admin home page
+
+8/7
+-----------------
+Created new files
+-modal.css
+-untitled-1.css
+
+updated adminhome.php
+-started on the manage courses part, need to get modal to work

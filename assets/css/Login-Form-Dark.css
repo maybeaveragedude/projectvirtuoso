@@ -1,0 +1,297 @@
+.login-dark {
+  height: 1000px;
+  background: #475d62 url(../../assets/img/star-sky.jpg);
+  background-size: cover;
+  position: relative;
+}
+
+.login-dark form {
+  max-width: 320px;
+  width: 90%;
+  background-color: #1e2833;
+  padding: 40px;
+  border-radius: 4px;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #fff;
+  box-shadow: 3px 3px 4px rgba(0,0,0,0.2);
+}
+
+.login-dark .illustration {
+  text-align: center;
+  padding: 15px 0 20px;
+  font-size: 100px;
+  color: #2980ef;
+}
+
+.login-dark form .form-control {
+  background: none;
+  border: none;
+  border-bottom: 1px solid #434a52;
+  border-radius: 0;
+  box-shadow: none;
+  outline: none;
+  color: inherit;
+}
+
+.login-dark form .btn-primary {
+  background: #214a80;
+  border: none;
+  border-radius: 4px;
+  padding: 11px;
+  box-shadow: none;
+  margin-top: 26px;
+  text-shadow: none;
+  outline: none;
+}
+
+.login-dark form .btn-primary:hover, .login-dark form .btn-primary:active {
+  background: #214a80;
+  outline: none;
+}
+
+.login-dark form .forgot {
+  display: block;
+  text-align: center;
+  font-size: 12px;
+  color: #6f7a85;
+  opacity: 0.9;
+  text-decoration: none;
+}
+
+.login-dark form .forgot:hover, .login-dark form .forgot:active {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.login-dark form .btn-primary:active {
+  transform: translateY(1px);
+}
+
+#overlay {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 2;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  padding-top: 150px;
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+  white-space: pre-wrap;
+}
+
+#avatar {
+  cursor: pointer;
+}
+
+#avatarpanel {
+  top: 50%;
+  align-self: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  white-space: initial;
+}
+
+.stopscrolling {
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.gridavatar {
+  pointer-events: auto;
+  cursor: pointer;
+  height: inherit;
+}
+
+#xbutton {
+  text-decoration: none;
+  pointer-events: fill;
+}
+
+#btnCancel {
+  pointer-events: fill;
+  text-decoration: none;
+}
+
+#btnCancel:hover {
+  text-decoration: underline;
+}
+
+#btnConfirm {
+  text-decoration: none;
+  pointer-events: fill;
+}
+
+#btnConfirm {
+  padding: 10px 20px;
+  border-radius: 12px;
+  border-style: solid;
+  border-color: #2980ef;
+  background: #2980ef;
+  color: var(--bs-white);
+}
+
+#btnConfirm:hover {
+  filter: grayscale(40%);
+}
+
+#profileavatar {
+  object-fit: cover;
+}
+
+.tab {
+  float: left;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+  width: 30%;
+  height: 500px;
+}
+
+.tablinks {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 17px;
+  opacity: 0.5;
+}
+
+.tab button:hover {
+  background-color: #ddd;
+}
+
+.tab button.active {
+  background-color: #ccc;
+}
+
+.tabcontent {
+  padding: 20px 16px;
+  height: 100%;
+  width: 100%;
+  height: 500px;
+  display: none;
+}
+
+.stepform {
+  float: left;
+  padding: 0px 12px;
+  border: 1px solid #ccc;
+  width: 100%;
+  border-left: none;
+  height: 500px;
+  box-shadow: 0px 2px 10px rgba(0,0,0,.1);
+}
+
+.checkwithlabel {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin-top: 2px;
+  width: 50%;
+}
+
+#choosefile {
+}
+
+.iconbutton:focus {
+  /*box-shadow: 0 0 0 .25rem rgba(50,174,255,.5);*/
+  /*border-color: #0b78bf;*/
+}
+
+.mybtn {
+  background-color: rgba(0,0,0,0);
+  border: none;
+  font-size: 44px;
+  float: right;
+  margin-top: -65px;
+  margin-left: 12px;
+  margin-right: 12px;
+  padding: 0px 6px;
+}
+
+.mybtn:hover {
+  color: #434a52;
+}
+
+.tablinks.active {
+  opacity: 1;
+}
+
+.tablinks.finish {
+  background-color: #aadd6d;
+}
+
+input.invalid {
+  background: #ffdddd;
+}
+
+textarea.invalid {
+  background: #ffdddd;
+}
+
+.dettxtbox {
+  width: 50%;
+}
+
+.middlelabel {
+  margin-top: 16px;
+}
+
+.dettxtbox:invalid {
+  background: #ffdddd;
+}
+
+.listgroupdropMain {
+  border-radius: 0px;
+  background: rgba(14,160,255,0);
+  color: rgb(0,0,0);
+  border-width: 0px;
+  margin: 8px 0px;
+}
+
+.listgroupdropMain.active {
+  background-color: rgba(0,0,0,0);
+  color: var(--bs-cyan);
+  text-decoration: underline;
+  border-color: rgba(0,0,0,0.2);
+}
+
+.btn-check:focus + .btn-primary, .btn-primary:focus {
+  color: var(--bs-green);
+  background-color: rgba(0,0,0,0);
+  border-color: rgba(0,0,0,0);
+  box-shadow: none;
+}
+
+.editor form {
+  max-width: 1300px;
+  padding: 20px;
+  margin: auto;
+  box-shadow: 0px 2px 10px rgba(0,0,0,.1);
+}
+
+.editor {
+  padding: 50px 75px;
+  padding-bottom: 50px;
+}
+
+.biggerlabel {
+  font-size: 28px;
+}
+
