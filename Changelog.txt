@@ -64,3 +64,6 @@ Created new files
 
 updated adminhome.php
 -started on the manage courses part, need to get modal to work
+
+
+****HELLO NEW CHANGELOG***
