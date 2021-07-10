@@ -267,10 +267,39 @@ function loginTeacherUser($conn, $email, $pwd) {
       session_start();
       $_SESSION["teacherid"] = $usernameExists["t_ID"];
       $_SESSION["username"] = $usernameExists["t_username"];
+      retrieveTeacherSubjects($conn);
       header("location: ../teacherhome.php");
       exit();
     }
 }
+
+function checkTeacherSubjects($conn, $teacherid) { //to list out materials created by tagged teacher
+    $sql = "SELECT * FROM subject WHERE t_fid = ?;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+      echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+      exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "s", $teacherid);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    $rows = [];
+
+    while ($row = mysqli_fetch_assoc($resultData)){ //getting the rows from the query result
+      // return $row;
+      $rows[] = $row;
+    }
+    if ($row != mysqli_fetch_assoc($resultData)){
+      $result = false;
+      return $result;
+    }
+
+    return $rows;
+    mysqli_stmt_close($stmt);
+}
+
 
 function checkSubjects($conn) {
     $sql = "SELECT * FROM subject;";
@@ -298,17 +327,95 @@ function checkSubjects($conn) {
     mysqli_stmt_close($stmt);
 }
 
+function checkTopics($conn) {
+    $sql = "SELECT * FROM topic;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+      echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+      exit();
+    }
+
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    $rows = [];
+
+    while ($row = mysqli_fetch_assoc($resultData)){ //getting the rows from the query result
+      // return $row;
+      $rows[] = $row;
+    }
+    if ($row != mysqli_fetch_assoc($resultData)){
+      $result = false;
+      return $result;
+    }
+
+    return $rows;
+    mysqli_stmt_close($stmt);
+}
+
 function retrieveSubjects($conn) {
     session_start();
-    $checkSubjects[] = checkSubjects($conn); //getting the $row results from checkSubjects function
+
+      $checkSubjects[] = checkSubjects($conn);
+      $checkTopics[] = checkTopics($conn);
+     //getting the $row results from checkSubjects function
     // $_SESSION["teachersubjectsName"] = $checkSubjects["sbjt_name"]; //putting them into variables
     // $_SESSION["teachersubjectsDesc"] = $checkSubjects["sbjt_desc"];
     // foreach ($checkSubjects as $value){
     //   echo '<pre>'; print_r($value); echo '</pre>';
     // }
 
+// THIS SNIPPET IS FOR RESULT TESTING ONLY
+    foreach($checkSubjects[0] as $result) { //this is for checking the results from query
+      echo $result['sbjt_name'], '<br>';
+      // $localvarName[]= $result['sbjt_name'];
+      // $_SESSION["teachersubjectsName"] = $localvarName;
 
-    foreach($checkSubjects[0] as $result) {
+
+      echo $result['sbjt_desc'], '<br>';
+      $localvarDesc[]= $result['sbjt_desc'];
+      // $_SESSION["teachersubjectsDesc"] = $localvarDesc;
+
+      echo '<br>';
+    }
+
+    foreach($checkTopics[0] as $result) { //this is for checking the results from query
+      echo $result['topic_name'], '<br>';
+      // $localvarName[]= $result['sbjt_name'];
+      // $_SESSION["teachersubjectsName"] = $localvarName;
+
+
+      echo $result['topic_desc'], '<br>';
+      // $localvarDesc[]= $result['sbjt_desc'];
+      // $_SESSION["teachersubjectsDesc"] = $localvarDesc;
+
+      echo '<br>';
+    }
+    // echo $_SESSION["teachersubjectsName"][0], '<br>';
+    $_SESSION["teachersubjectsCombined"] = $checkSubjects;
+    $_SESSION["teachertopicsCombined"] = $checkTopics;
+    header("Refresh:3; url=../teacheredit.php");
+    exit();
+}
+
+function retrieveTeacherSubjects($conn) {
+
+    if (isset($_SESSION["teacherid"])){
+      $teacherid = $_SESSION["teacherid"];
+      $checkSubjects[] = checkTeacherSubjects($conn, $teacherid);
+      echo "<script>alert('With teacher');</script>";
+
+    }
+
+     //getting the $row results from checkSubjects function
+    // $_SESSION["teachersubjectsName"] = $checkSubjects["sbjt_name"]; //putting them into variables
+    // $_SESSION["teachersubjectsDesc"] = $checkSubjects["sbjt_desc"];
+    // foreach ($checkSubjects as $value){
+    //   echo '<pre>'; print_r($value); echo '</pre>';
+    // }
+
+// THIS SNIPPET IS FOR RESULT TESTING ONLY
+    foreach($checkSubjects[0] as $result) { //this is for checking the results from query
       echo $result['sbjt_name'], '<br>';
       $localvarName[]= $result['sbjt_name'];
       $_SESSION["teachersubjectsName"] = $localvarName;
@@ -324,6 +431,6 @@ function retrieveSubjects($conn) {
     }
     // echo $_SESSION["teachersubjectsName"][0], '<br>';
     $_SESSION["teachersubjectsCombined"] = $checkSubjects;
-    header("Refresh:3; url=../teacheredit.php");
+    header("Refresh:0; url=../teacherhome.php");
     exit();
 }

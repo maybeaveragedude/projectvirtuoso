@@ -15,6 +15,7 @@ if (isset($_POST["submit"])){
   }
 
   loginTeacherUser($conn, $email, $pwd);
+
 }
 else {
   header("location: ../teacherlogin.php");
