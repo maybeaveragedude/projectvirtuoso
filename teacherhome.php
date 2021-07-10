@@ -41,21 +41,25 @@
                                         <h2 class="accordion-header" role="tab"><button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-1" aria-expanded="true" aria-controls="accordion-1 .item-1">My Courses</button></h2>
                                         <div class="accordion-collapse collapse show item-1 text-start" role="tabpanel" data-bs-parent="#accordion-1">
                                             <div class="accordion-body">
-                                                <div><a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1" role="button">Show Content</a>
+                                                <div>
+                                                  <a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1" role="button">Show Content</a>
                                                     <div class="collapse show" id="collapse-1">
                                                         <p>Collapse content.</p>
-                                                        <form method="post" action="includes/teacheredit.inc.php">
+                                                        <!-- <form method="post" action="includes/teacheredit.inc.php">
                                                           <button class="btn btn-primary" type="submit" name="submit" style="border-radius: 7px;background: #1eb53a;">Edit</button>
 
-                                                        </form>
+                                                        </form> -->
+                                                        <div><a class="btn btn-primary" style="border-radius: 7px;background: #1eb53a;" href="includes/teacheredit.inc.php">Cultivate something now!</a></div>
                                                     </div>
                                                 </div>
-                                                <div><a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-2" href="#collapse-2" role="button">Show Content</a>
+                                                <div>
+                                                  <a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-2" href="#collapse-2" role="button">Show Content</a>
                                                     <div class="collapse" id="collapse-2">
                                                         <p>Collapse content.</p>
                                                     </div>
                                                 </div>
-                                                <div><a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button">Show Content</a>
+                                                <div>
+                                                  <a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button">Show Content</a>
                                                     <div class="collapse" id="collapse-3">
                                                         <p>Collapse content.</p>
                                                     </div>
@@ -65,10 +69,48 @@
                                     </div>
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-2" aria-expanded="false" aria-controls="accordion-1 .item-2">My Materials</button></h2>
-                                        <div class="accordion-collapse collapse item-2" role="tabpanel" data-bs-parent="#accordion-1">
+                                        <div class="accordion-collapse collapse item-2 text-start" role="tabpanel" data-bs-parent="#accordion-1">
                                             <div class="accordion-body">
-                                                <p class="mb-0">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-                                            </div>
+                                              <?php
+                                              $num=0;
+                                              if (sizeof($_SESSION["teachersubjectsCombined"]) !== 0){
+                                                echo "<script>alert('Great Success');</script>";
+                                                foreach ($_SESSION["teachersubjectsCombined"][0] as $display) {
+                                                  $tempname = $display['sbjt_name'];
+                                                  $tempdesc = $display['sbjt_desc'];
+                                                  echo <<<GFG
+                                                      <div>
+                                                        <a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-{$num}" href="#collapse-{$num}" role="button">{$display['sbjt_name']}</a>
+                                                          <div class="collapse show" id="collapse-{$num}">
+                                                              <p>Collapse content.</p>
+
+                                                          </div>
+                                                      </div>
+                                                  GFG;
+
+
+
+                                                  // echo '<pre>'; print_r($result); echo '</pre>';
+                                                  // echo '<pre>'; print_r($display); echo '</pre>';
+                                                  $num += 1;
+                                                }
+                                              }
+                                              else {
+                                                echo "<script>alert('Poop');</script>";
+                                                echo <<<GFG
+                                                    <div>
+                                                      <a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1" role="button">It's pretty barren in here...}</a>
+                                                        <div class="collapse show" id="collapse-1">
+                                                            <p>Collapse content.</p>
+
+                                                        </div>
+                                                    </div>
+                                                    <div><a class="btn btn-primary" style="border-radius: 7px;background: #1eb53a;" href="includes/teacheredit.inc.php">Cultivate something now!</a></div>
+                                                GFG;
+
+                                              }
+                                               ?>
+                                               <div><a class="btn btn-primary" style="border-radius: 7px;background: #1eb53a;" href="includes/teacheredit.inc.php">Cultivate something now!</a></div>
                                         </div>
                                     </div>
                                     <div class="accordion-item">

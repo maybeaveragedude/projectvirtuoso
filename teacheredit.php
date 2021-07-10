@@ -25,10 +25,10 @@
                                         <div class="dropdown-menu" id="dropmenuboxSubj" >
                                           <?php
                                           $num = 0;
-                                          foreach ($_SESSION["teachersubjectsCombined"][0] as $display) {
+                                          foreach ($_SESSION["teachersubjectsCombined"][$num] as $display) {
                                             $tempname = $display['sbjt_name'];
                                             $tempdesc = $display['sbjt_desc'];
-                                            echo "<input type='button' class='dropdown-item' id='subject$num' onclick=\"setDisplay('$tempname', '$tempdesc')\" value = '$tempname'>";
+                                            echo "<input type='button' class='dropdown-item' id='subject$num' onclick=\"setSubjectDisplay('$tempname', '$tempdesc')\" value = '$tempname'>";
                                             // echo '<pre>'; print_r($result); echo '</pre>';
                                             // echo '<pre>'; print_r($display); echo '</pre>';
                                             $num += 1;
@@ -42,50 +42,44 @@
                                           <a class="dropdown-item" href="#">Second Item</a>
                                           <a class="dropdown-item" href="#">Third Item</a> -->
                                         </div>
-                                        <script>
-                                          function setDisplay(displaySubject, displayDesc){
-                                            console.log(displaySubject);
-                                            document.getElementById("subjectname").value = displaySubject;
-                                            document.getElementById("subjectdesc").value = displayDesc;
-                                            document.getElementById("subjectname").readOnly = true;
-                                            document.getElementById("subjectdesc").readOnly = true;
-                                            var element = document.getElementById("dropmenuSubj");
-                                            element.setAttribute('aria-expanded', 'false');
-                                            element.classList.toggle("show");
-                                            var element2 = document.getElementById("dropmenuboxSubj");
-                                            element2.classList.toggle("show");
 
-                                          }
-                                          function newSubj(){
-                                            document.getElementById("subjectname").value = "";
-                                            document.getElementById("subjectdesc").value = "";
-                                            document.getElementById("subjectname").readOnly = false;
-                                            document.getElementById("subjectdesc").readOnly = false;
-                                            var element = document.getElementById("dropmenuSubj");
-                                            element.setAttribute('aria-expanded', 'false');
-                                            element.classList.toggle("show");
-                                            var element2 = document.getElementById("dropmenuboxSubj");
-                                            element2.classList.toggle("show");
-                                          }
-
-                                        </script>
                                     </div>
                                     <input class="form-control sidetitles" type="text" id="subjectname" name="subjectname" placeholder="Subject Title" readonly="">
                                     <textarea class="form-control sidetitles" id="subjectdesc" name="subjectdesc" placeholder="Description" readonly=""></textarea>
-                                </div>
                             </div>
+                          </div>
                             <div class="row">
                                 <div class="col" style="padding: 0px;border-top-width: 0.5px;border-bottom-width: 1px;border-bottom-style: solid;">
-                                    <div class="dropdown" style="border-top-width: 0px;"><button class="btn btn-primary dropdown-toggle listgroupdropMain sidetitlesMain" aria-expanded="false" data-bs-toggle="dropdown" type="button">Topics</button>
-                                        <div class="dropdown-menu">
-                                          <a class="dropdown-item" href="#">First Item</a>
-                                          <a class="dropdown-item" href="#">Second Item</a>
-                                          <a class="dropdown-item" href="#">Third Item</a></div>
-                                    </div><input class="form-control sidetitles" type="text" readonly="" name="topicname" placeholder="Topic Title"><textarea class="form-control sidetitles" readonly="" name="topicdesc" placeholder="Description"></textarea>
+                                    <div class="dropdown" style="border-top-width: 0px;"><button class="btn btn-primary dropdown-toggle listgroupdropMain sidetitlesMain" id="dropmenuTopic" aria-expanded="false" data-bs-toggle="dropdown" type="button">Topics</button>
+                                        <div class="dropdown-menu" id="dropmenuboxTopics">
+                                          <?php
+                                          $num = 0;
+                                          foreach ($_SESSION["teachertopicsCombined"][$num] as $display) {
+                                            $tempname = $display['topic_name'];
+                                            $tempdesc = $display['topic_desc'];
+                                            echo "<input type='button' class='dropdown-item' id='topic$num' onclick=\"setTopicDisplay('$tempname', '$tempdesc')\" value = '$tempname'>";
+                                            // echo '<pre>'; print_r($result); echo '</pre>';
+                                            // echo '<pre>'; print_r($display); echo '</pre>';
+                                            $num += 1;
+
+
+                                          }
+                                          echo "<input type='button' class='dropdown-item' id='topic$num' onclick=\"newTopic()\" value = ' ➕ Topic'>";
+
+                                           ?>
+                                        </div>
+                                      </div>
+                                          <input class="form-control sidetitles" type="text" readonly="" id="topicname" name="topicname" placeholder="Topic Title">
+                                          <textarea class="form-control sidetitles" readonly="" id="topicdesc" name="topicdesc" placeholder="Description"></textarea>
+                                    </div>
                                 </div>
-                            </div>
                         </div>
-                        <div class="col" style="height: 900px;padding: 0px 40px;border-left-width: 1px;border-left-style: solid;margin: 14px 0px;"><label class="form-label middlelabel biggerlabel">Subtopic Title</label><input class="form-control" type="text"><label class="form-label middlelabel biggerlabel">Description</label><textarea class="form-control" style="height: 200px;"></textarea></div>
+                        <div class="col" style="height: 900px;padding: 0px 40px;border-left-width: 1px;border-left-style: solid;margin: 14px 0px;">
+                          <label class="form-label middlelabel biggerlabel">Subtopic Title</label>
+                          <input class="form-control" type="text">
+                          <label class="form-label middlelabel biggerlabel">Description</label>
+                          <textarea class="form-control" style="height: 200px;"></textarea>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -99,7 +93,61 @@
             <div class="social-icons"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-instagram-outline"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a></div>
         </div>
     </footer>
+    <script>
+      function setSubjectDisplay(displaySubject, displayDesc){
+        // console.log(displaySubject);
+        document.getElementById("subjectname").value = displaySubject;
+        document.getElementById("subjectdesc").value = displayDesc;
+        document.getElementById("subjectname").readOnly = true;
+        document.getElementById("subjectdesc").readOnly = true;
+        var element = document.getElementById("dropmenuSubj");
+        element.setAttribute('aria-expanded', 'false');
+        element.classList.toggle("show");
+        var element2 = document.getElementById("dropmenuboxSubj");
+        element2.classList.toggle("show");
 
+      }
+
+      function newSubj(){
+        document.getElementById("subjectname").value = "";
+        document.getElementById("subjectdesc").value = "";
+        document.getElementById("subjectname").readOnly = false;
+        document.getElementById("subjectdesc").readOnly = false;
+        var element = document.getElementById("dropmenuSubj");
+        element.setAttribute('aria-expanded', 'false');
+        element.classList.toggle("show");
+        var element2 = document.getElementById("dropmenuboxSubj");
+        element2.classList.toggle("show");
+      }
+
+      function setTopicDisplay(displayTopic, displayDesc){
+        // console.log(displayTopic);
+        // console.log(displayDesc);
+        document.getElementById("topicname").value = displayTopic;
+        document.getElementById("topicdesc").value = displayDesc;
+        document.getElementById("topicname").readOnly = true;
+        document.getElementById("topicdesc").readOnly = true;
+        var element = document.getElementById("dropmenuTopic");
+        element.setAttribute('aria-expanded', 'false');
+        element.classList.toggle("show");
+        var element2 = document.getElementById("dropmenuboxTopics");
+        element2.classList.toggle("show");
+
+      }
+
+      function newTopic(){
+        document.getElementById("topicname").value = "";
+        document.getElementById("topicdesc").value = "";
+        document.getElementById("topicname").readOnly = false;
+        document.getElementById("topicdesc").readOnly = false;
+        var element = document.getElementById("dropmenuTopic");
+        element.setAttribute('aria-expanded', 'false');
+        element.classList.toggle("show");
+        var element2 = document.getElementById("dropmenuboxTopics");
+        element2.classList.toggle("show");
+      }
+
+    </script>
 
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
