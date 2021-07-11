@@ -361,9 +361,12 @@ function retrieveSubjects($conn) {
      //getting the $row results from checkSubjects function
     // $_SESSION["teachersubjectsName"] = $checkSubjects["sbjt_name"]; //putting them into variables
     // $_SESSION["teachersubjectsDesc"] = $checkSubjects["sbjt_desc"];
-    // foreach ($checkSubjects as $value){
-    //   echo '<pre>'; print_r($value); echo '</pre>';
-    // }
+    foreach ($checkSubjects as $value){
+      echo '<pre>'; print_r($value); echo '</pre>';
+    }
+    foreach ($checkTopics as $value){
+      echo '<pre>'; print_r($value); echo '</pre>';
+    }
 
 // THIS SNIPPET IS FOR RESULT TESTING ONLY
     foreach($checkSubjects[0] as $result) { //this is for checking the results from query
@@ -394,7 +397,7 @@ function retrieveSubjects($conn) {
     // echo $_SESSION["teachersubjectsName"][0], '<br>';
     $_SESSION["teachersubjectsCombined"] = $checkSubjects;
     $_SESSION["teachertopicsCombined"] = $checkTopics;
-    header("Refresh:3; url=../teacheredit.php");
+    header("Refresh:60; url=../teacheredit.php");
     exit();
 }
 

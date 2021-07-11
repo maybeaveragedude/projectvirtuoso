@@ -28,9 +28,11 @@
                                           foreach ($_SESSION["teachersubjectsCombined"][$num] as $display) {
                                             $tempname = $display['sbjt_name'];
                                             $tempdesc = $display['sbjt_desc'];
-                                            echo "<input type='button' class='dropdown-item' id='subject$num' onclick=\"setSubjectDisplay('$tempname', '$tempdesc')\" value = '$tempname'>";
-                                            // echo '<pre>'; print_r($result); echo '</pre>';
-                                            // echo '<pre>'; print_r($display); echo '</pre>';
+                                            $tempSubId = $display['sbjt_id'];
+                                            echo <<<GFG
+                                              <input type='button' class='dropdown-item' id='subject{$num}' onclick="setSubjectDisplay('{$tempname}', '{$tempdesc}', {$tempSubId})" value = '{$tempname}'>
+
+                                            GFG;
                                             $num += 1;
 
 
@@ -44,8 +46,8 @@
                                         </div>
 
                                     </div>
-                                    <input class="form-control sidetitles" type="text" id="subjectname" name="subjectname" placeholder="Subject Title" readonly="">
-                                    <textarea class="form-control sidetitles" id="subjectdesc" name="subjectdesc" placeholder="Description" readonly=""></textarea>
+                                    <input class="form-control sidetitles" type="text" id="subjectname" name="subjectname" placeholder="Subject Title" disabled="">
+                                    <textarea class="form-control sidetitles" id="subjectdesc" name="subjectdesc" placeholder="Description" disabled=""></textarea>
                             </div>
                           </div>
                             <div class="row">
@@ -57,20 +59,21 @@
                                           foreach ($_SESSION["teachertopicsCombined"][$num] as $display) {
                                             $tempname = $display['topic_name'];
                                             $tempdesc = $display['topic_desc'];
-                                            echo "<input type='button' class='dropdown-item' id='topic$num' onclick=\"setTopicDisplay('$tempname', '$tempdesc')\" value = '$tempname'>";
+                                            $tempSubFId = $display['sbjt_fid'];
+                                            echo "<input type='button' class='dropdown-item dropdownTopics subjectFIDis{$tempSubFId}' id='topic{$num}' onclick=\"setTopicDisplay('$tempname', '$tempdesc')\" value = '$tempname'>";
                                             // echo '<pre>'; print_r($result); echo '</pre>';
                                             // echo '<pre>'; print_r($display); echo '</pre>';
                                             $num += 1;
 
 
                                           }
-                                          echo "<input type='button' class='dropdown-item' id='topic$num' onclick=\"newTopic()\" value = ' ➕ Topic'>";
+                                          echo "<input type='button' class='dropdown-item' id='topic$num' onclick=\"newTopic()\" value = ' ➕ New Topic'>";
 
                                            ?>
                                         </div>
                                       </div>
-                                          <input class="form-control sidetitles" type="text" readonly="" id="topicname" name="topicname" placeholder="Topic Title">
-                                          <textarea class="form-control sidetitles" readonly="" id="topicdesc" name="topicdesc" placeholder="Description"></textarea>
+                                          <input class="form-control sidetitles" type="text" disabled="" id="topicname" name="topicname" placeholder="Topic Title">
+                                          <textarea class="form-control sidetitles" disabled="" id="topicdesc" name="topicdesc" placeholder="Description"></textarea>
                                     </div>
                                 </div>
                         </div>
@@ -94,25 +97,38 @@
         </div>
     </footer>
     <script>
-      function setSubjectDisplay(displaySubject, displayDesc){
+      function setSubjectDisplay(displaySubject, displayDesc, subjectID){
         // console.log(displaySubject);
         document.getElementById("subjectname").value = displaySubject;
         document.getElementById("subjectdesc").value = displayDesc;
-        document.getElementById("subjectname").readOnly = true;
-        document.getElementById("subjectdesc").readOnly = true;
+        document.getElementById("subjectname").disabled = true;
+        document.getElementById("subjectdesc").disabled = true;
         var element = document.getElementById("dropmenuSubj");
         element.setAttribute('aria-expanded', 'false');
         element.classList.toggle("show");
         var element2 = document.getElementById("dropmenuboxSubj");
         element2.classList.toggle("show");
+        var elementfid = document.getElementsByClassName("dropdownTopics");
+        console.log(elementfid[0].className);//Still INCOMPLETE
+        for (var i = 0; i <= elementfid.length; i++) {
+          console.log(elementfid[i].className);
+          if (elementfid[i].classList.contains(`subjectFIDis${subjectID}`) == true){
+            console.log(elementfid[i].classList.contains(`subjectFIDis${subjectID}`));
+          }
+          else {
+            elementfid[i].display = "none";
+            console.log(elementfid[i].display)
+          }
+        }
+
 
       }
 
       function newSubj(){
         document.getElementById("subjectname").value = "";
         document.getElementById("subjectdesc").value = "";
-        document.getElementById("subjectname").readOnly = false;
-        document.getElementById("subjectdesc").readOnly = false;
+        document.getElementById("subjectname").disabled = false;
+        document.getElementById("subjectdesc").disabled = false;
         var element = document.getElementById("dropmenuSubj");
         element.setAttribute('aria-expanded', 'false');
         element.classList.toggle("show");
@@ -125,8 +141,8 @@
         // console.log(displayDesc);
         document.getElementById("topicname").value = displayTopic;
         document.getElementById("topicdesc").value = displayDesc;
-        document.getElementById("topicname").readOnly = true;
-        document.getElementById("topicdesc").readOnly = true;
+        document.getElementById("topicname").disabled = true;
+        document.getElementById("topicdesc").disabled = true;
         var element = document.getElementById("dropmenuTopic");
         element.setAttribute('aria-expanded', 'false');
         element.classList.toggle("show");
@@ -138,8 +154,8 @@
       function newTopic(){
         document.getElementById("topicname").value = "";
         document.getElementById("topicdesc").value = "";
-        document.getElementById("topicname").readOnly = false;
-        document.getElementById("topicdesc").readOnly = false;
+        document.getElementById("topicname").disabled = false;
+        document.getElementById("topicdesc").disabled = false;
         var element = document.getElementById("dropmenuTopic");
         element.setAttribute('aria-expanded', 'false');
         element.classList.toggle("show");

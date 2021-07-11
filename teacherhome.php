@@ -73,8 +73,9 @@
                                             <div class="accordion-body">
                                               <?php
                                               $num=0;
-                                              if (sizeof($_SESSION["teachersubjectsCombined"]) !== 0){
-                                                echo "<script>alert('Great Success');</script>";
+                                              if (!$_SESSION["teachersubjectsCombined"]){
+                                                // echo "<script>alert('Great Success');</script>";
+                                                // echo "<script>console.log(sizeof({$_SESSION["teachersubjectsCombined"]}));</script>";
                                                 foreach ($_SESSION["teachersubjectsCombined"][0] as $display) {
                                                   $tempname = $display['sbjt_name'];
                                                   $tempdesc = $display['sbjt_desc'];
@@ -94,15 +95,12 @@
                                                   // echo '<pre>'; print_r($display); echo '</pre>';
                                                   $num += 1;
                                                 }
-                                              }
-                                              else {
-                                                echo "<script>alert('Poop');</script>";
+                                              }else {
+                                                // echo "<script>alert('Poop');</script>";
                                                 echo <<<GFG
                                                     <div>
-                                                      <a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1" role="button">It's pretty barren in here...}</a>
+                                                      <a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1" role="button">It's pretty barren in here...</a>
                                                         <div class="collapse show" id="collapse-1">
-                                                            <p>Collapse content.</p>
-
                                                         </div>
                                                     </div>
                                                     <div><a class="btn btn-primary" style="border-radius: 7px;background: #1eb53a;" href="includes/teacheredit.inc.php">Cultivate something now!</a></div>
@@ -110,7 +108,7 @@
 
                                               }
                                                ?>
-                                               <div><a class="btn btn-primary" style="border-radius: 7px;background: #1eb53a;" href="includes/teacheredit.inc.php">Cultivate something now!</a></div>
+                                               <!-- <div><a class="btn btn-primary" style="border-radius: 7px;background: #1eb53a;" href="includes/teacheredit.inc.php">Cultivate something now!</a></div> -->
                                         </div>
                                     </div>
                                     <div class="accordion-item">
