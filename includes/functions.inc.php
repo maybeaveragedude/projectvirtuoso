@@ -397,7 +397,7 @@ function retrieveSubjects($conn) {
     // echo $_SESSION["teachersubjectsName"][0], '<br>';
     $_SESSION["teachersubjectsCombined"] = $checkSubjects;
     $_SESSION["teachertopicsCombined"] = $checkTopics;
-    header("Refresh:60; url=../teacheredit.php");
+    header("Refresh:5; url=../teacheredit.php");
     exit();
 }
 

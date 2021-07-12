@@ -16,7 +16,7 @@
         </section>
         <section class="editor">
             <div class="col">
-                <form method="post">
+                <form method="post" action="includes/teachersubmitedit.inc.php">
                     <div class="row">
                         <div class="col-xxl-4" style="padding: 0px 56px;padding-top: 16px;">
                             <div class="row">
@@ -37,7 +37,7 @@
 
 
                                           }
-                                          echo "<input type='button' class='dropdown-item' id='subject$num' onclick=\"newSubj()\" value = ' ➕ New Subject'>";
+                                          echo "<input type='button' class='dropdown-item' id='menuNewsubject' onclick=\"newSubj()\" value = ' ➕ New Subject'>";
 
                                            ?>
                                           <!-- <a class="dropdown-item" href="#">First Item</a>
@@ -46,8 +46,8 @@
                                         </div>
 
                                     </div>
-                                    <input class="form-control sidetitles" type="text" id="subjectname" name="subjectname" placeholder="Subject Title" disabled="">
-                                    <textarea class="form-control sidetitles" id="subjectdesc" name="subjectdesc" placeholder="Description" disabled=""></textarea>
+                                    <input class="form-control sidetitles" type="text" id="subjectname" name="subjectname" placeholder="Subject Title" required="" disabled="">
+                                    <textarea class="form-control sidetitles" id="subjectdesc" name="subjectdesc" placeholder="Description" required="" disabled=""></textarea>
                             </div>
                           </div>
                             <div class="row">
@@ -60,28 +60,33 @@
                                             $tempname = $display['topic_name'];
                                             $tempdesc = $display['topic_desc'];
                                             $tempSubFId = $display['sbjt_fid'];
-                                            echo "<input type='button' class='dropdown-item dropdownTopics subjectFIDis{$tempSubFId}' id='topic{$num}' onclick=\"setTopicDisplay('$tempname', '$tempdesc')\" value = '$tempname'>";
-                                            // echo '<pre>'; print_r($result); echo '</pre>';
-                                            // echo '<pre>'; print_r($display); echo '</pre>';
+                                            echo <<<GFG
+                                              <input type='button' class='dropdown-item dropdownTopics subjectFIDis{$tempSubFId}' id='topic{$num}' style='display:none;' onclick="setTopicDisplay('{$tempname}', '{$tempdesc}')" value = '{$tempname}'>
+                                            GFG;
+
                                             $num += 1;
 
 
                                           }
-                                          echo "<input type='button' class='dropdown-item' id='topic$num' onclick=\"newTopic()\" value = ' ➕ New Topic'>";
+                                          echo "<input type='button' class='dropdown-item dropdownNewTopic' id='menuNewtopic' style='display:none;' onclick=\"newTopic()\" value = ' ➕ New Topic'>";
 
                                            ?>
                                         </div>
                                       </div>
-                                          <input class="form-control sidetitles" type="text" disabled="" id="topicname" name="topicname" placeholder="Topic Title">
-                                          <textarea class="form-control sidetitles" disabled="" id="topicdesc" name="topicdesc" placeholder="Description"></textarea>
+                                          <input class="form-control sidetitles" type="text" required="" disabled="" id="topicname" name="topicname" placeholder="Topic Title">
+                                          <textarea class="form-control sidetitles" required="" disabled="" id="topicdesc" name="topicdesc" placeholder="Description"></textarea>
                                     </div>
                                 </div>
                         </div>
                         <div class="col" style="height: 900px;padding: 0px 40px;border-left-width: 1px;border-left-style: solid;margin: 14px 0px;">
                           <label class="form-label middlelabel biggerlabel">Subtopic Title</label>
-                          <input class="form-control" type="text">
+                          <input class="form-control" type="text" required="">
                           <label class="form-label middlelabel biggerlabel">Description</label>
-                          <textarea class="form-control" style="height: 200px;"></textarea>
+                          <textarea class="form-control" style="height: 200px;" required=""></textarea>
+                          <div>
+                            <button class="btn btn-primary" type="submit" name="submitSub" style="margin-top: 24px; float: right; border-radius: 7px;background: #1eb53a;">Send In!</button>
+                            <input class="simpleTextCancel" type="reset" value="Cancel" style="padding: 6px 16px; float: right; margin-top: 24px; background: #FFFFFF; border: 0px;">
+                          </div>
                         </div>
                     </div>
                 </form>
@@ -103,23 +108,34 @@
         document.getElementById("subjectdesc").value = displayDesc;
         document.getElementById("subjectname").disabled = true;
         document.getElementById("subjectdesc").disabled = true;
-        var element = document.getElementById("dropmenuSubj");
+        document.getElementById("menuNewtopic").style.display = "block";
+
+        var element = document.getElementById("dropmenuSubj"); //tweaking the behavior of dropdown menu
         element.setAttribute('aria-expanded', 'false');
         element.classList.toggle("show");
-        var element2 = document.getElementById("dropmenuboxSubj");
+
+        var element2 = document.getElementById("dropmenuboxSubj"); //tweaking the behavior of dropdown menu
         element2.classList.toggle("show");
-        var elementfid = document.getElementsByClassName("dropdownTopics");
-        console.log(elementfid[0].className);//Still INCOMPLETE
+
+        var elementfid = document.getElementsByClassName("dropdownTopics"); //making the topics to be dependant on the parent subjects
+        console.log(elementfid[0].className);
         for (var i = 0; i <= elementfid.length; i++) {
           console.log(elementfid[i].className);
           if (elementfid[i].classList.contains(`subjectFIDis${subjectID}`) == true){
             console.log(elementfid[i].classList.contains(`subjectFIDis${subjectID}`));
+            elementfid[i].style.display = "block";
           }
-          else {
-            elementfid[i].display = "none";
-            console.log(elementfid[i].display)
+          else{
+            elementfid[i].style.display = "none";
+            console.log(elementfid[i].display);
+            document.getElementById("topicname").value = "";
+            document.getElementById("topicdesc").value = "";
+            document.getElementById("topicname").disabled = true;
+            document.getElementById("topicdesc").disabled = true;
+
           }
         }
+
 
 
       }
@@ -129,11 +145,24 @@
         document.getElementById("subjectdesc").value = "";
         document.getElementById("subjectname").disabled = false;
         document.getElementById("subjectdesc").disabled = false;
+        document.getElementById("menuNewtopic").style.display = "block";
+
         var element = document.getElementById("dropmenuSubj");
         element.setAttribute('aria-expanded', 'false');
         element.classList.toggle("show");
         var element2 = document.getElementById("dropmenuboxSubj");
         element2.classList.toggle("show");
+
+        var elementfid = document.getElementsByClassName("dropdownTopics");
+        console.log(elementfid[0].className);
+        for (var i = 0; i <= elementfid.length; i++) {
+
+            elementfid[i].style.display = "none";
+
+        }
+        // var showNewTopic = document.getElementById("menuNewtopic");
+        // showNewTopic.style.display = "block";
+        // console.log(showNewTopic.style.display);
       }
 
       function setTopicDisplay(displayTopic, displayDesc){

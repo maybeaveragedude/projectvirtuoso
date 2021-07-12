@@ -295,3 +295,7 @@ textarea.invalid {
   font-size: 28px;
 }
 
+.simpleTextCancel:hover {
+  color: red;
+  text-decoration: underline;
+}
