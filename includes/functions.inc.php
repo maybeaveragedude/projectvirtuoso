@@ -353,20 +353,48 @@ function checkTopics($conn) {
     mysqli_stmt_close($stmt);
 }
 
+function checkSubtopics($conn) {
+    $sql = "SELECT * FROM subtopic;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+      echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+      exit();
+    }
+
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    $rows = [];
+
+    while ($row = mysqli_fetch_assoc($resultData)){ //getting the rows from the query result
+      // return $row;
+      $rows[] = $row;
+    }
+    if ($row != mysqli_fetch_assoc($resultData)){
+      $result = false;
+      return $result;
+    }
+
+    return $rows;
+    mysqli_stmt_close($stmt);
+}
+
 function retrieveSubjects($conn) {
     session_start();
+    header("Refresh:5; url=../teacheredit.php");
 
       $checkSubjects[] = checkSubjects($conn);
       $checkTopics[] = checkTopics($conn);
+      $checkSubtopics[] = checkSubtopics($conn);
      //getting the $row results from checkSubjects function
     // $_SESSION["teachersubjectsName"] = $checkSubjects["sbjt_name"]; //putting them into variables
     // $_SESSION["teachersubjectsDesc"] = $checkSubjects["sbjt_desc"];
-    foreach ($checkSubjects as $value){
-      echo '<pre>'; print_r($value); echo '</pre>';
-    }
-    foreach ($checkTopics as $value){
-      echo '<pre>'; print_r($value); echo '</pre>';
-    }
+    // foreach ($checkSubjects as $value){
+    //   echo '<pre>'; print_r($value); echo '</pre>';
+    // }
+    // foreach ($checkTopics as $value){
+    //   echo '<pre>'; print_r($value); echo '</pre>';
+    // }
 
 // THIS SNIPPET IS FOR RESULT TESTING ONLY
     foreach($checkSubjects[0] as $result) { //this is for checking the results from query
@@ -397,7 +425,7 @@ function retrieveSubjects($conn) {
     // echo $_SESSION["teachersubjectsName"][0], '<br>';
     $_SESSION["teachersubjectsCombined"] = $checkSubjects;
     $_SESSION["teachertopicsCombined"] = $checkTopics;
-    header("Refresh:5; url=../teacheredit.php");
+    $_SESSION["teachersubtopicsCombined"] = $checkSubtopics;
     exit();
 }
 
@@ -434,6 +462,76 @@ function retrieveTeacherSubjects($conn) {
     }
     // echo $_SESSION["teachersubjectsName"][0], '<br>';
     $_SESSION["teachersubjectsCombined"] = $checkSubjects;
-    header("Refresh:0; url=../teacherhome.php");
+    header("Refresh:2; url=../teacherhome.php");
     exit();
+}
+
+function insertNewSubtopic_SubjExist_TopicExist($conn, $topicID, $subtopicName, $subtopicDesc, $teacherid) {
+  // $sql = "INSERT INTO subtopic (sub_name, sub_desc, t_fid, topic_fid) VALUES (?, ?, ?, ?);";
+
+  $conn->autocommit(FALSE);
+  $sql1 = $conn->prepare("INSERT INTO subtopic (sub_name, sub_desc, t_fid, topic_fid) VALUES (?, ?, ?, ?)");
+  // $sql2 = $conn->prepare("INSERT INTO t_proposal (t_sub, t_years, t_brief, t_up_fid, t_url, t_fid) VALUES (?, ?, ?, ?, ?,?)");
+
+
+  $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
+
+  $sql1->bind_param("ssss", $subtopicName, $subtopicDesc, $teacherid, $topicID);
+  $sql1->execute();
+
+  // $last_teacher_id = $conn->insert_id; //teacher id is saved for referral in proposal
+
+  // $sql2->bind_param("ssssss", $subjectCombined, $years, $briefexp, $last_up_id, $weburl, $last_teacher_id);
+  // $sql2->execute();
+
+  $conn->autocommit(true);
+  header("location: ../teacherhome.php?create=newsubtopic");
+  exit();
+}
+
+function insertNewSubtopic_SubjExist_NEWTopic($conn, $subjID, $newtopicName, $newtopicDesc, $subtopicName, $subtopicDesc, $teacherid) {
+  // $sql = "INSERT INTO subtopic (sub_name, sub_desc, t_fid, topic_fid) VALUES (?, ?, ?, ?);";
+
+  $conn->autocommit(FALSE);
+  $sql1 = $conn->prepare("INSERT INTO topic (t_fid, topic_name, topic_desc, sbjt_fid) VALUES (?, ?, ?, ?)");
+  $sql2 = $conn->prepare("INSERT INTO subtopic (sub_name, sub_desc, t_fid, topic_fid) VALUES (?, ?, ?, ?)");
+
+
+  $sql1->bind_param("ssss", $teacherid, $newtopicName, $newtopicDesc, $subjID);
+  $sql1->execute();
+
+  $last_newTopic_id = $conn->insert_id; //teacher id is saved for referral in proposal
+
+  $sql2->bind_param("ssss", $subtopicName, $subtopicDesc, $teacherid, $last_newTopic_id);
+  $sql2->execute();
+
+  $conn->autocommit(true);
+  header("location: ../teacherhome.php?create=newtopicsubtopic");
+  exit();
+}
+
+function insertNewSubtopic_NEWSubj_NEWTopic($conn, $newsubjName, $newsubjDesc, $newtopicName, $newtopicDesc, $subtopicName, $subtopicDesc, $teacherid) {
+  // $sql = "INSERT INTO subtopic (sub_name, sub_desc, t_fid, topic_fid) VALUES (?, ?, ?, ?);";
+
+  $conn->autocommit(FALSE);
+  $sql = $conn->prepare("INSERT INTO subject (sbjt_name, sbjt_desc, t_fid) VALUES (?, ?, ?)");
+  $sql1 = $conn->prepare("INSERT INTO topic (t_fid, topic_name, topic_desc, sbjt_fid) VALUES (?, ?, ?, ?)");
+  $sql2 = $conn->prepare("INSERT INTO subtopic (sub_name, sub_desc, t_fid, topic_fid) VALUES (?, ?, ?, ?)");
+
+  $sql->bind_param("sss", $newsubjName, $newsubjDesc, $teacherid);
+  $sql->execute();
+
+  $last_newSubj_id = $conn->insert_id;
+
+  $sql1->bind_param("ssss", $teacherid, $newtopicName, $newtopicDesc, $last_newSubj_id);
+  $sql1->execute();
+
+  $last_newTopic_id = $conn->insert_id; //teacher id is saved for referral in proposal
+
+  $sql2->bind_param("ssss", $subtopicName, $subtopicDesc, $teacherid, $last_newTopic_id);
+  $sql2->execute();
+
+  $conn->autocommit(true);
+  header("location: ../teacherhome.php?create=newsubjecttopicsubtopic");
+  exit();
 }

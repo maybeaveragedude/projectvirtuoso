@@ -15,6 +15,20 @@
                           <div>
                             <?php
                              echo '<h1 class="d-xxl-flex justify-content-xxl-start">' . "$_SESSION[username]" . '</h1><small class="d-xxl-flex justify-content-xxl-start">Pick a nickname</small>';
+
+                             //this is error handling message for users
+                               if (isset($_GET["create"])) {
+                                 if ($_GET["create"] == "newsubtopic") {
+                                   echo "<script>alert('New subtopic created successfully!');</script>";
+                                 }
+                                 elseif ($_GET["create"] == "newtopicsubtopic"){
+                                   echo "<script>alert('New topic and subtopic created successfully!');</script>";
+                                 }
+                                 elseif ($_GET["create"] == "newsubjecttopicsubtopic"){
+                                   echo "<script>alert('New subject, topic and subtopic created successfully!');</script>";
+                                 }
+                               }
+
                             ?>
                           </div>
                         </div>
@@ -73,15 +87,45 @@
                                             <div class="accordion-body">
                                               <?php
                                               $num=0;
-                                              if (!$_SESSION["teachersubjectsCombined"]){
+                                              // $testingarray =$_SESSION["teachersubjectsCombined"];
+                                              // foreach ($testingarray as $value){
+                                              //   echo '<pre>'; print_r($value); echo '</pre>';
+                                              // }
+
+                                              if (empty($_SESSION["teachersubjectsCombined"])){
+                                                // echo "<script>alert('Poop');</script>";
+                                                echo <<<GFG
+                                                    <div>
+                                                      <a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1" role="button">It's pretty barren in here...</a>
+                                                        <div class="collapse show" id="collapse-1">
+                                                        </div>
+                                                    </div>
+                                                    <div><a class="btn btn-primary" style="border-radius: 7px;background: #1eb53a;" href="includes/teacheredit.inc.php">Cultivate something now!</a></div>
+                                                GFG;
+
+
+
+                                              }else {
                                                 // echo "<script>alert('Great Success');</script>";
                                                 // echo "<script>console.log(sizeof({$_SESSION["teachersubjectsCombined"]}));</script>";
+                                                if (empty(empty($_SESSION["teachersubjectsCombined"]))){
+                                                  echo <<<GFG
+                                                      <div>
+                                                        <a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1" role="button">It's pretty barren in here...</a>
+                                                          <div class="collapse show" id="collapse-1">
+                                                          </div>
+                                                      </div>
+                                                      <div><a class="btn btn-primary" style="border-radius: 7px;background: #1eb53a;" href="includes/teacheredit.inc.php">Cultivate something now!</a></div>
+                                                  GFG;
+                                                }
+
+
                                                 foreach ($_SESSION["teachersubjectsCombined"][0] as $display) {
                                                   $tempname = $display['sbjt_name'];
                                                   $tempdesc = $display['sbjt_desc'];
                                                   echo <<<GFG
                                                       <div>
-                                                        <a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-{$num}" href="#collapse-{$num}" role="button">{$display['sbjt_name']}</a>
+                                                        <a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-{$num}" href="#collapse-{$num}" role="button">{$tempname}</a>
                                                           <div class="collapse show" id="collapse-{$num}">
                                                               <p>Collapse content.</p>
 
@@ -95,16 +139,6 @@
                                                   // echo '<pre>'; print_r($display); echo '</pre>';
                                                   $num += 1;
                                                 }
-                                              }else {
-                                                // echo "<script>alert('Poop');</script>";
-                                                echo <<<GFG
-                                                    <div>
-                                                      <a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1" role="button">It's pretty barren in here...</a>
-                                                        <div class="collapse show" id="collapse-1">
-                                                        </div>
-                                                    </div>
-                                                    <div><a class="btn btn-primary" style="border-radius: 7px;background: #1eb53a;" href="includes/teacheredit.inc.php">Cultivate something now!</a></div>
-                                                GFG;
 
                                               }
                                                ?>
@@ -170,64 +204,7 @@
         </div>
     </div>
 </nav> -->
-<div id="overlay" class="overlay">
-    <div class="container text-start" id="avatarpanel" style="width: 700px;max-width: auto;padding-right: 36px;padding-left: 36px;padding-top: 20px;padding-bottom: 20px;background: #ffffff;justify-self: center;">
-        <div class="row" style="margin: 0px;">
-            <div class="col d-xxl-flex align-items-xxl-center">
-                <h1 class="align-items-xxl-center" style="text-align: left;vertical-align: middle;margin: 0;"><strong>Avatar</strong></h1>
-            </div>
-            <div class="col d-xxl-flex justify-content-xxl-end align-items-xxl-center" style="padding: 0px;text-align: right;"><a class="d-xxl-flex justify-content-xxl-center align-items-xxl-center" id="xbutton" onclick="off()" style="width: 54px;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" class="bi bi-x d-xxl-flex justify-content-xxl-center align-items-xxl-center" style="color: rgb(0,0,0);font-size: 43px;width: 43px;text-align: center;">
-                        <path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"></path>
-                    </svg></a></div>
-        </div>
-        <div class="row" style="margin: 0px;">
-            <div class="col m-auto" style="padding: 12px;"><a class="stretched-link" id="avatar1" style="margin: 30px 0px;" onclick="reply_click(this.id)">
-                    <picture class="text-center d-xxl-flex justify-content-xxl-center gridavatar" style="padding: 0px;justify-content: center;text-align: center;"><img class="rounded d-xxl-flex flex-fill justify-content-xxl-center" id="img1" src="assets/img/nature/image1.jpg" style="width: 128px;height: 128px;justify-self: center;"></picture>
-                </a></div>
-            <div class="col m-auto" style="padding: 12px;"><a class="stretched-link" id="avatar2" style="margin: 30px 0px;" onclick="reply_click(this.id)">
-                    <picture class="justify-content-xxl-center gridavatar" style="padding: 30px 0px;"><img class="rounded img-fluid d-xxl-flex flex-fill justify-content-xxl-center" src="assets/img/nature/image2.jpg" style="width: 128px;height: 128px;"></picture>
-                </a></div>
-            <div class="col m-auto" style="padding: 12px;"><a class="stretched-link" id="avatar3" style="margin: 30px 0px;" onclick="reply_click(this.id)">
-                    <picture class="gridavatar" style="padding: 30px 0px;"><img class="rounded img-fluid flex-fill" src="assets/img/nature/image3.jpg" style="width: 128px;height: 128px;"></picture>
-                </a></div>
-            <div class="col m-auto" style="padding: 12px;"><a class="stretched-link" id="avatar4" style="margin: 30px 0px;" onclick="reply_click(this.id)">
-                    <picture class="gridavatar" style="padding: 30px 0px;"><img class="rounded img-fluid flex-fill" src="assets/img/tech/image6.png" style="width: 128px;height: 128px;"></picture>
-                </a></div>
-        </div>
-        <div class="row" style="margin: 0px;">
-            <div class="col m-auto" style="padding: 12px;"><a class="stretched-link" id="avatar5" style="margin: 30px 0px;" onclick="reply_click(this.id)">
-                    <picture class="gridavatar" style="padding: 30px 0px;"><img class="rounded img-fluid flex-fill" src="assets/img/nature/image6.jpg" style="width: 128px;height: 128px;"></picture>
-                </a></div>
-            <div class="col m-auto" style="padding: 12px;"><a class="stretched-link" id="avatar6" style="margin: 30px 0px;" onclick="reply_click(this.id)">
-                    <picture class="gridavatar" style="padding: 30px 0px;"><img class="rounded img-fluid flex-fill" src="assets/img/nature/image1.jpg" style="width: 128px;height: 128px;"></picture>
-                </a></div>
-            <div class="col m-auto" style="padding: 12px;"><a class="stretched-link" id="avatar7" style="margin: 30px 0px;" onclick="reply_click(this.id)">
-                    <picture class="gridavatar" style="padding: 30px 0px;"><img class="rounded img-fluid flex-fill" src="assets/img/nature/image1.jpg" style="width: 128px;height: 128px;"></picture>
-                </a></div>
-            <div class="col m-auto" style="padding: 12px;"><a class="stretched-link" id="avatar8" style="margin: 30px 0px;" onclick="reply_click(this.id)">
-                    <picture class="gridavatar" style="padding: 30px 0px;"><img class="rounded img-fluid flex-fill" src="assets/img/avatars/avatar.jpg" style="width: 128px;height: 128px;"></picture>
-                </a></div>
-        </div>
-        <div class="row" style="margin: 0px;">
-            <div class="col m-auto" style="padding: 12px;"><a class="stretched-link" id="avatar9" style="margin: 30px 0px;" onclick="reply_click(this.id)">
-                    <picture class="gridavatar" style="padding: 30px 0px;"><img class="rounded img-fluid flex-fill" src="assets/img/star-sky.jpg" style="width: 128px;height: 128px;"></picture>
-                </a></div>
-            <div class="col m-auto" style="padding: 12px;"><a class="stretched-link" id="avatar10" style="margin: 30px 0px;" onclick="reply_click(this.id)">
-                    <picture class="gridavatar" style="padding: 30px 0px;"><img class="rounded img-fluid flex-fill" src="assets/img/tech/image4.jpg" style="width: 128px;height: 128px;"></picture>
-                </a></div>
-            <div class="col m-auto" style="padding: 12px;"><a class="stretched-link" id="avatar11" style="margin: 30px 0px;" onclick="reply_click(this.id)">
-                    <picture class="gridavatar" style="padding: 30px 0px;"><img class="rounded img-fluid flex-fill" src="assets/img/meeting.jpg" style="width: 128px;height: 128px;"></picture>
-                </a></div>
-            <div class="col m-auto" style="padding: 12px;"><a class="stretched-link" id="avatar12" style="margin: 30px 0px;" onclick="reply_click(this.id)">
-                    <picture class="gridavatar" style="padding: 30px 0px;"><img class="rounded img-fluid flex-fill" src="assets/img/nature/image1.jpg" style="width: 128px;height: 128px;"></picture>
-                </a></div>
-        </div>
-        <div class="row justify-content-end" style="margin: 0px;padding-top: 14px;width: 628px;">
-            <div class="col-2 text-center align-self-start" style="padding: 14px 6px;"><a id="btnCancel" href="#" style="padding: 14px 6px;color: var(--bs-red);"><strong>Cancel</strong></a></div>
-            <div class="col-auto d-xxl-flex align-items-xxl-center" style="padding: 0px;"><a class="text-center" id="btnConfirm" href="#" onclick="apply_image()"><strong>Confirm</strong></a></div>
-        </div>
-    </div>
-</div>
+
 <script src="assets/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>

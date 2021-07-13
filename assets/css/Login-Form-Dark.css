@@ -299,3 +299,8 @@ textarea.invalid {
   color: red;
   text-decoration: underline;
 }
+
+.blankbutton:hover{
+  background-color: white;
+  cursor: default;
+}
