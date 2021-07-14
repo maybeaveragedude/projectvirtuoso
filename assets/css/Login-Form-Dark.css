@@ -300,7 +300,44 @@ textarea.invalid {
   text-decoration: underline;
 }
 
+.simpleTextCancel{
+  padding: 6px 16px;
+  float: right;
+  margin-top: 24px;
+  background: #FFFFFF;
+  border: 0px;
+}
+
 .blankbutton:hover{
   background-color: white;
   cursor: default;
+}
+
+.topBorder{
+  border-top: 0.5px solid;
+}
+
+.botBorder{
+  border-color: rgba(0,0,0, 50%);
+  border-bottom: 0.25px solid;
+}
+
+.simpleTextEdit:hover {
+  color: #FFABCD;
+  text-decoration: underline;
+  /* background-color: rgba(0,0,0, 10%); */
+}
+
+.simpleTextEdit{
+  display: inline-block;
+  padding: 6px 16px;
+  margin-top: -8px;
+  margin-bottom: 6px;
+  height: 36px;
+  color: orange;
+  /* float: right; */
+  /* margin-top: 24px; */
+  background: #FFFFFF;
+  border: 0px;
+  vertical-align: middle;
 }

@@ -15,6 +15,7 @@ if (isset($_POST["submit"])){
   }
 
   loginTeacherUser($conn, $email, $pwd);
+  header("Refresh:2; url=../teacherhome.php");
 
 }
 else {

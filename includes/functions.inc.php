@@ -267,7 +267,8 @@ function loginTeacherUser($conn, $email, $pwd) {
       session_start();
       $_SESSION["teacherid"] = $usernameExists["t_ID"];
       $_SESSION["username"] = $usernameExists["t_username"];
-      retrieveTeacherSubjects($conn);
+      // retrieveTeacherSubjects($conn);
+      headlesstaillessretrieveSubjects($conn);
       header("location: ../teacherhome.php");
       exit();
     }
@@ -429,6 +430,44 @@ function retrieveSubjects($conn) {
     exit();
 }
 
+function headlesstaillessretrieveSubjects($conn) {
+      $checkSubjects[] = checkSubjects($conn);
+      $checkTopics[] = checkTopics($conn);
+      $checkSubtopics[] = checkSubtopics($conn);
+
+// THIS SNIPPET IS FOR RESULT TESTING ONLY
+    foreach($checkSubjects[0] as $result) { //this is for checking the results from query
+      echo $result['sbjt_name'], '<br>';
+      // $localvarName[]= $result['sbjt_name'];
+      // $_SESSION["teachersubjectsName"] = $localvarName;
+
+
+      echo $result['sbjt_desc'], '<br>';
+      $localvarDesc[]= $result['sbjt_desc'];
+      // $_SESSION["teachersubjectsDesc"] = $localvarDesc;
+
+      echo '<br>';
+    }
+
+    foreach($checkTopics[0] as $result) { //this is for checking the results from query
+      echo $result['topic_name'], '<br>';
+      // $localvarName[]= $result['sbjt_name'];
+      // $_SESSION["teachersubjectsName"] = $localvarName;
+
+
+      echo $result['topic_desc'], '<br>';
+      // $localvarDesc[]= $result['sbjt_desc'];
+      // $_SESSION["teachersubjectsDesc"] = $localvarDesc;
+
+      echo '<br>';
+    }
+    // echo $_SESSION["teachersubjectsName"][0], '<br>';
+    $_SESSION["teachersubjectsCombined"] = $checkSubjects;
+    $_SESSION["teachertopicsCombined"] = $checkTopics;
+    $_SESSION["teachersubtopicsCombined"] = $checkSubtopics;
+
+}
+
 function retrieveTeacherSubjects($conn) {
 
     if (isset($_SESSION["teacherid"])){
@@ -461,7 +500,7 @@ function retrieveTeacherSubjects($conn) {
       echo '<br>';
     }
     // echo $_SESSION["teachersubjectsName"][0], '<br>';
-    $_SESSION["teachersubjectsCombined"] = $checkSubjects;
+    $_SESSION["singleteachersubjectsCombined"] = $checkSubjects;
     header("Refresh:2; url=../teacherhome.php");
     exit();
 }
@@ -479,12 +518,8 @@ function insertNewSubtopic_SubjExist_TopicExist($conn, $topicID, $subtopicName, 
   $sql1->bind_param("ssss", $subtopicName, $subtopicDesc, $teacherid, $topicID);
   $sql1->execute();
 
-  // $last_teacher_id = $conn->insert_id; //teacher id is saved for referral in proposal
-
-  // $sql2->bind_param("ssssss", $subjectCombined, $years, $briefexp, $last_up_id, $weburl, $last_teacher_id);
-  // $sql2->execute();
-
   $conn->autocommit(true);
+  headlesstaillessretrieveSubjects($conn);
   header("location: ../teacherhome.php?create=newsubtopic");
   exit();
 }
@@ -506,6 +541,7 @@ function insertNewSubtopic_SubjExist_NEWTopic($conn, $subjID, $newtopicName, $ne
   $sql2->execute();
 
   $conn->autocommit(true);
+  headlesstaillessretrieveSubjects($conn);
   header("location: ../teacherhome.php?create=newtopicsubtopic");
   exit();
 }
@@ -532,6 +568,7 @@ function insertNewSubtopic_NEWSubj_NEWTopic($conn, $newsubjName, $newsubjDesc, $
   $sql2->execute();
 
   $conn->autocommit(true);
+  headlesstaillessretrieveSubjects($conn);
   header("location: ../teacherhome.php?create=newsubjecttopicsubtopic");
   exit();
 }

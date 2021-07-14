@@ -44,6 +44,7 @@ if (isset($_POST["submitSub"])){
       insertNewSubtopic_NEWSubj_NEWTopic($conn, $newsubjName, $newsubjDesc, $newtopicName, $newtopicDesc, $subtopicName, $subtopicDesc, $teacherid);
       break;
   }
+  testretrieveSubjects();
 
 }
 else {
