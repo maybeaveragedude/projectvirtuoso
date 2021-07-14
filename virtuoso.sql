@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 12, 2021 at 07:40 AM
+-- Generation Time: Jul 14, 2021 at 03:37 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -130,7 +130,10 @@ CREATE TABLE `subject` (
 
 INSERT INTO `subject` (`sbjt_id`, `sbjt_name`, `sbjt_desc`, `t_fid`, `approval_admin_fid`) VALUES
 (2, 'Science', 'Science is the pursuit and application of knowledge and understanding of the natural and social world following a systematic methodology based on evidence.', 25, NULL),
-(3, 'Maths', 'Mathematics includes the study of such topics as quantity, structure, space, and change. It has no generally accepted definition. Mathematicians seek and use patterns to formulate new conjectures; they resolve the truth or falsity of such by mathematical proof.', 25, NULL);
+(3, 'Maths', 'Mathematics includes the study of such topics as quantity, structure, space, and change. It has no generally accepted definition. Mathematicians seek and use patterns to formulate new conjectures; they resolve the truth or falsity of such by mathematical proof.', 25, NULL),
+(4, 'Computer Programming', 'Computer programming is the process of designing and building an executable computer program to accomplish a specific computing result or to perform a specific task.', 26, NULL),
+(5, 'English', 'the language of England, widely used in many varieties throughout the world.', 26, NULL),
+(6, 'Chinese', 'Chinese is a group of language varieties that form the Sinitic branch of the Sino-Tibetan languages, spoken by the ethnic Han Chinese majority and many minority ethnic groups in Greater China. About 1.3 billion people speak a variety of Chinese as their first language.', 26, NULL);
 
 -- --------------------------------------------------------
 
@@ -152,7 +155,18 @@ CREATE TABLE `subtopic` (
 --
 
 INSERT INTO `subtopic` (`sub_id`, `sub_name`, `sub_desc`, `t_fid`, `approval_admin_fid`, `topic_fid`) VALUES
-(1, 'Atomic Structure', 'the structure of an atom, theoretically consisting of a positively charged nucleus surrounded and neutralized by negatively charged electrons revolving in orbits at varying distances from the nucleus, the constitution of the nucleus and the arrangement of the electrons differing with various chemical elements.', 25, NULL, 1);
+(1, 'Atomic Structure', 'the structure of an atom, theoretically consisting of a positively charged nucleus surrounded and neutralized by negatively charged electrons revolving in orbits at varying distances from the nucleus, the constitution of the nucleus and the arrangement of the electrons differing with various chemical elements.', 25, NULL, 1),
+(3, 'Cells', 'Cells are the basic building blocks of all living things. The human body is composed of trillions of cells. They provide structure for the body, take in nutrients from food, convert those nutrients into energy, and carry out specialized functions. Cells also contain the body’s hereditary material and can make copies of themselves.', 25, NULL, 4),
+(4, 'Units and Standards', 'These are called the base quantities for that system and their units are the system\'s base units. All other physical quantities can then be expressed as algebraic combinations of the base quantities. Each of these physical quantities is then known as a derived quantity and each unit is called a derived unit.', 26, NULL, 5),
+(5, 'Descriptive statistics', 'A descriptive statistic is a summary statistic that quantitatively describes or summarizes features from a collection of information, while descriptive statistics is the process of using and analysing those statistics.', 26, NULL, 6),
+(6, 'Looping with C', 'Looping Statements in C execute the sequence of statements many times until the stated condition becomes false. A loop in C consists of two parts, a body of a loop and a control statement. The control statement is a combination of some conditions that direct the body of the loop to execute until the specified condition becomes false. The purpose of the C loop is to repeat the same code a number of times.', 26, NULL, 7),
+(7, 'Variables in C', 'Your C programs can use two types of values: immediate and variable. An immediate value is one that you specify in the source code — a value you type or a defined constant. Variables are also values, but their contents can change. That’s why they’re called variables and not all-the-time-ables.', 26, NULL, 7),
+(8, 'C Arithmetic Operators', 'An arithmetic operator performs mathematical operations such as addition, subtraction, multiplication, division etc on numerical values (constants and variables).', 26, NULL, 7),
+(9, 'A Poison Tree', '\"A Poison Tree\" is a poem written by William Blake, published in 1794 as part of his Songs of Experience collection. It describes the narrator\'s repressed feelings of anger towards an individual, emotions which eventually lead to murder.', 26, NULL, 8),
+(10, 'Probability', 'the quality or state of being probable; the extent to which something is likely to happen or be the case.', 26, NULL, 6),
+(11, 'The Art of War', 'The Art of War is an ancient Chinese military treatise dating from the Late Spring and Autumn Period. The work, which is attributed to the ancient Chinese military strategist Sun Tzu, is composed of 13 chapters.', 26, NULL, 9),
+(12, 'Pointer in C', 'The Pointer in C, is a variable that stores address of another variable. A pointer can also be used to refer to another pointer function. A pointer can be incremented/decremented, i.e., to point to the next/ previous memory location. The purpose of pointer is to save memory space and achieve faster execution time.', 28, NULL, 7),
+(13, 'Header Files in C', 'In C language, header files contain the set of predefined standard library functions. The “#include” preprocessing directive is used to include the header files with “.h” extension in the program.', 28, NULL, 7);
 
 -- --------------------------------------------------------
 
@@ -191,7 +205,10 @@ INSERT INTO `teacher` (`t_ID`, `t_username`, `t_name`, `t_email`, `t_pwd`, `t_st
 (23, 'dummytwo333', 'Shawn Lee Wen Xuen', 'rebornedshawnlee@hotmail.com', '$2y$10$vqmOvsMseDuaFkhlxjg2FO8aHNLjvH.M5MKFN/1FzBjVrvluE3Pym', 3, NULL),
 (24, 'AverageDude', 'Shawn Lee Wen Xuen', 'textable@mail.com', '$2y$10$j5e5Oh68epXR8IuHDr35fOcRSYBe5/luIrNpDRJAsvJqHZdJflEr2', 3, NULL),
 (25, 'offteacher', 'Official Test', 'testteacher@mail.com', '$2y$10$5GGWibvVF1pbiRpsayZa8uhTjbzEbCXAAGF5/9J2Xd.TIwBU1k5Oa', 3, NULL),
-(26, 'newdummy', 'New Dummy', 'new@mail.com', '$2y$10$SH6y2mIvF.BcngxS2rg/MOxwrlaHnZYfKvwJQpsKkpeQlo/JR4oZC', 0, NULL);
+(26, 'newdummy', 'New Dummy', 'new@mail.com', '$2y$10$SH6y2mIvF.BcngxS2rg/MOxwrlaHnZYfKvwJQpsKkpeQlo/JR4oZC', 0, NULL),
+(27, 'emptyteacher', 'Empty New Teacher', 'empty@mail.com', '$2y$10$MF8Rybph61xRbCMCf6LF9.SXak7qETo81ez8GcQflptymSLNykZmm', 0, NULL),
+(28, 'yanteaches', 'Leysu Yan', 'yan@mail.com', '$2y$10$H4YJakfIZ6tOyPiX33G2X.1GeJEQBDS..jfo5UDSFqSG2PG.dWV8i', 0, NULL),
+(29, 'clementteaches', 'Clement Ho', 'clement@mail.com', '$2y$10$BMTNRdp8HN7Sj8VcHzA6Pumahpu755bJbl3zDaNNqs9IaV/FlclNO', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -215,7 +232,13 @@ CREATE TABLE `topic` (
 INSERT INTO `topic` (`topic_id`, `t_fid`, `topic_name`, `topic_desc`, `approval_admin_fid`, `sbjt_fid`) VALUES
 (1, 25, 'Chemistry', 'the branch of science concerned with the substances of which matter is composed, the investigation of their properties and reactions, and the use of such reactions to form new substances.', NULL, 2),
 (2, 25, 'Arithmetic ', 'the branch of mathematics dealing with the properties and manipulation of numbers.', NULL, 3),
-(3, 26, 'Trigonometry', 'the branch of mathematics dealing with the relations of the sides and angles of triangles and with the relevant functions of any angles.', NULL, 3);
+(3, 26, 'Trigonometry', 'the branch of mathematics dealing with the relations of the sides and angles of triangles and with the relevant functions of any angles.', NULL, 3),
+(4, 26, 'Biology', 'Biology is the scientific study of life. It is a natural science with a broad scope but has several unifying themes that tie it together as a single, coherent field.', NULL, 2),
+(5, 26, 'Physics', 'the branch of science concerned with the nature and properties of matter and energy. The subject matter of physics includes mechanics, heat, light and other radiation, sound, electricity, magnetism, and the structure of atoms.', NULL, 2),
+(6, 26, 'Statistics', 'Statistics is the discipline that concerns the collection, organization, analysis, interpretation, and presentation of data. In applying statistics to a scientific, industrial, or social problem, it is conventional to begin with a statistical population or a statistical model to be studied.', NULL, 3),
+(7, 26, 'C', 'It was mainly developed as a system programming language to write an operating system. The main features of the C language include low-level memory access, a simple set of keywords, and a clean style, these features make C language suitable for system programmings like an operating system or compiler development', NULL, 4),
+(8, 26, 'Literature', 'Literature broadly is any collection of written work, but it is also used more narrowly for writings specifically considered to be an art form, especially prose fiction, drama, and poetry. In recent centuries, the definition has expanded to include oral literature, much of which has been transcribed.', NULL, 5),
+(9, 26, 'Chinese literature', 'The history of Chinese literature extends thousands of years, from the earliest recorded dynastic court archives to the mature vernacular fiction novels that arose during the Ming dynasty to entertain the masses of literate Chinese.', NULL, 6);
 
 -- --------------------------------------------------------
 
@@ -240,7 +263,10 @@ CREATE TABLE `t_proposal` (
 INSERT INTO `t_proposal` (`t_proposal_id`, `t_sub`, `t_years`, `t_brief`, `t_up_fid`, `t_url`, `t_fid`) VALUES
 (11, 'Science, Engineering, adasdasd', '2', 'qweqweqwe', 22, '', 24),
 (12, 'Science', '2', 'asdasdasdasd', 23, '', 25),
-(13, 'Technology', '1', 'asdasd', 24, '', 26);
+(13, 'Technology', '1', 'asdasd', 24, '', 26),
+(14, 'Technology', '1', 'empty yes', 25, '', 27),
+(15, 'Technology', '2', 'yan yes cooks', 26, '', 28),
+(16, 'Science, adasdasd', '1', 'dsfdgdvbvbdfgwr', 27, '', 29);
 
 -- --------------------------------------------------------
 
@@ -272,7 +298,10 @@ INSERT INTO `uploads` (`up_id`, `file_name`, `uploaded_on`, `status`) VALUES
 (21, 'Hnet.com-image.gif', '2021-07-02 22:41:35', '1'),
 (22, 'ezgif.com-gif-maker.png', '2021-07-02 22:54:06', '1'),
 (23, 'Hnet.com-image.gif', '2021-07-06 13:57:58', '1'),
-(24, 'vibe.gif', '2021-07-09 18:52:35', '1');
+(24, 'vibe.gif', '2021-07-09 18:52:35', '1'),
+(25, 'dead.jpg', '2021-07-13 20:49:35', '1'),
+(26, 'image_2021-07-13_234124.png', '2021-07-13 23:41:29', '1'),
+(27, 'dead.jpg', '2021-07-14 15:37:12', '1');
 
 --
 -- Indexes for dumped tables
@@ -399,37 +428,37 @@ ALTER TABLE `materials`
 -- AUTO_INCREMENT for table `subject`
 --
 ALTER TABLE `subject`
-  MODIFY `sbjt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `sbjt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `subtopic`
 --
 ALTER TABLE `subtopic`
-  MODIFY `sub_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `sub_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `teacher`
 --
 ALTER TABLE `teacher`
-  MODIFY `t_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `t_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `topic`
 --
 ALTER TABLE `topic`
-  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `t_proposal`
 --
 ALTER TABLE `t_proposal`
-  MODIFY `t_proposal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `t_proposal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `uploads`
 --
 ALTER TABLE `uploads`
-  MODIFY `up_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `up_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Constraints for dumped tables
