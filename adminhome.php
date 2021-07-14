@@ -62,7 +62,7 @@
                                         <?php
                                         include_once 'includes/adminmanagecourse.inc.php';
                                         include_once 'includes/adminapprovecourse.inc.php';
-                                        include_once 'includes/adminviewsubject.inc.php';
+                                        // include_once 'includes/adminviewsubject.inc.php';
                                         ?>
                                     </div>
                                 </div>
