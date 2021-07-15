@@ -44,7 +44,7 @@ if (isset($_POST["signup"])){
     exit();
   }
 
-  createUser($conn, $name, $username, $email, $pwd);
+  createAdminUser($conn, $name, $username, $email, $pwd);
 
 
 }

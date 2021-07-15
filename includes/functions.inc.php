@@ -122,7 +122,7 @@ function loginUser($conn, $email, $pwd) {
 function createAdminUser($conn, $name, $username, $email, $pwd) {
   //Change the table name and column names
   //$sql = "INSERT INTO /*Admin table name*/ (/*Admin Table column values*/) VALUES (?, ?, ?, ?);";
-  $sql = "INSERT INTO admin (admin_name, admin_username, admin_email, admin_pwd) VALUES (?, ?, ?, ?);"; //filled in the db details - Shawn
+  $sql = "INSERT INTO admin (admin_name, admin_username, admin_email, admin_pwd) VALUES (?, ?, ?, ?);";
   $stmt = mysqli_stmt_init($conn);
   if (!mysqli_stmt_prepare($stmt, $sql)){
     header("location: ../adminsignup.php?error=stmtfailed");
@@ -131,23 +131,46 @@ function createAdminUser($conn, $name, $username, $email, $pwd) {
 
   $hashedPwd = password_hash($pwd, PASSWORD_DEFAULT);
 
-  mysqli_stmt_bind_param($stmt, "ssss", $email, $hashedPwd, $username, $name);
+  mysqli_stmt_bind_param($stmt, "ssss", $name, $username, $email, $hashedPwd);
   mysqli_stmt_execute($stmt);
   mysqli_stmt_close($stmt);
   header("location: ../adminsignup.php?error=none");
   exit();
 }
 
+function usernameAdminExists($conn, $username, $email) {
+    $sql = "SELECT * FROM admin WHERE admin_username = ? OR admin_email = ? ;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+      header("location: ../teachsignupbuffer.php?error=stmtfailed");
+      exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "ss", $username, $email);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+
+    if ($row = mysqli_fetch_assoc($resultData)){
+      return $row;
+    }
+    else {
+      $result = false;
+      return $result;
+    }
+    mysqli_stmt_close($stmt);
+}
+
 //Admin Login Function - Mark
 function loginAdminUser($conn, $email, $pwd) {
-  $usernameExists = usernameExists($conn, $email, $email);
+  $usernameExists = usernameAdminExists($conn, $email, $email);
 
   if ($usernameExists === false) {
     header("location: ../adminlogin.php?error=wronglogin");
   }
 
   // $pwdHashed = $usernameExists["l_pwd"];
-  $pwdHashed = $usernameExists["admin_pwd"];//changed to the correct column - Shawn
+  $pwdHashed = $usernameExists["admin_pwd"];
   $checkPwd = password_verify($pwd, $pwdHashed);
 
   if ($checkPwd === false) {
@@ -156,14 +179,14 @@ function loginAdminUser($conn, $email, $pwd) {
   }
   elseif ($checkPwd === true) {
     session_start();
-    //Change these lines according to admin table
-    $_SESSION["adminid"] = $usernameExists["admin_ID"];//added db column
-    $_SESSION["username"] = $usernameExists["admin_username"];//added db column
-    //
+    $_SESSION["adminid"] = $usernameExists["admin_ID"];
+    $_SESSION["adminname"] = $usernameExists["admin_username"];
+    
     header("location: ../adminhome.php");
     exit();
   }
 }
+
   //teacher account creation
 function usernameTeacherExists($conn, $username, $email) {
     $sql = "SELECT * FROM teacher WHERE t_username = ? OR t_email = ? ;";
