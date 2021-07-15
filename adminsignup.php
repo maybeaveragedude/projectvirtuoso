@@ -40,7 +40,7 @@
                             elseif ($_GET["error"] == "none") {
                               echo "<p>Account created successfully!<p>";
                               //***This line redirects user to learner home page***
-                              header("Refresh:2; url=learnerhome.php");
+                              header("Refresh:2; url=adminhome.php");
                             }
                           }
                         ?>
