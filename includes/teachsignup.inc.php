@@ -85,14 +85,20 @@ if (isset($_POST["completeform"])){
               }else{
                   $statusMsg = "File upload failed, please try again.";
                   echo "<script>alert('$statusMsg');</script>";
+                  header("location: ../teachsignupbuffer.php?error");
+                  exit();
               }
           }else{
               $statusMsg = "Sorry, there was an error uploading your file.";
               echo "<script>alert('$statusMsg');</script>";
+              header("location: ../teachsignupbuffer.php?error");
+              exit();
           }
       }else{
           $statusMsg = 'Sorry, only JPG, JPEG, PNG, GIF, & PDF files are allowed to upload.';
           echo "<script>alert('$statusMsg');</script>";
+          header("location: ../teachsignupbuffer.php?error");
+          exit();
       }
   }
 

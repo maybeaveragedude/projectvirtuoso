@@ -207,6 +207,7 @@
         document.getElementById("subjectname").readOnly = false;
         document.getElementById("subjectdesc").readOnly = false;
         document.getElementById("menuNewtopic").style.display = "block";
+        destroySubtopics();
 
         var element = document.getElementById("dropmenuSubj");
         element.setAttribute('aria-expanded', 'false');
@@ -314,6 +315,8 @@
         document.getElementById("topicdesc").value = "";
         document.getElementById("topicname").readOnly = false;
         document.getElementById("topicdesc").readOnly = false;
+
+        destroySubtopics();
 
         topiccount = 1;
         document.getElementById("hiddenTotalCount").value = subcount+topiccount;

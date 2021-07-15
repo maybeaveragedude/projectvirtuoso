@@ -22,10 +22,20 @@
     <link rel="stylesheet" href="assets/css/Sidebar-Menu-1.css">
     <link rel="stylesheet" href="assets/css/Sidebar-Menu.css">
     <link rel="stylesheet" href="assets/css/untitled.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 </head>
 <body>
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="color: rgb(255, 255, 255);background: rgb(255,255,255);">
-        <div class="container"><a class="navbar-brand logo" href="index.php" style="color: var(--bs-dark);font-family: Alatsi, sans-serif;"><img src="assets/img/Artboard%202@8x.png" style="width: 64px;padding: 0px;margin: -10px;">VIRTUOSO Teach</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span class="text-dark visually-hidden" style="color: rgb(0,0,0);">Toggle navigation</span><span class="navbar-toggler-icon text-dark" style="color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgba(255,255,255,0);"><i class="fa fa-bars" style="color: rgb(0,0,0);text-align: center;margin: 4px;"></i></span></button>
+        <div class="container">
+          <a class="navbar-brand logo" href="index.php" style="color: var(--bs-dark);font-family: Alatsi, sans-serif;">
+          <img src="assets/img/Artboard%202@8x.png" style="width: 64px;padding: 0px;margin: -10px;">VIRTUOSO Teach</a>
+          <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav">
+            <span class="text-dark visually-hidden" style="color: rgb(0,0,0);">Toggle navigation</span>
+            <span class="navbar-toggler-icon text-dark" style="color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgba(255,255,255,0);">
+              <i class="fa fa-bars" style="color: rgb(0,0,0);text-align: center;margin: 4px;"></i>
+            </span>
+          </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <?php

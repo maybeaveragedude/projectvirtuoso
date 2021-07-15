@@ -81,6 +81,7 @@ function createUser($conn, $name, $username, $email, $pwd) {
   mysqli_stmt_execute($stmt);
   mysqli_stmt_close($stmt);
   header("location: ../signup.php?error=none");
+  loginUser($conn, $email, $pwd);
   exit();
 }
 
@@ -435,32 +436,32 @@ function headlesstaillessretrieveSubjects($conn) {
       $checkTopics[] = checkTopics($conn);
       $checkSubtopics[] = checkSubtopics($conn);
 
-// THIS SNIPPET IS FOR RESULT TESTING ONLY
-    foreach($checkSubjects[0] as $result) { //this is for checking the results from query
-      echo $result['sbjt_name'], '<br>';
-      // $localvarName[]= $result['sbjt_name'];
-      // $_SESSION["teachersubjectsName"] = $localvarName;
-
-
-      echo $result['sbjt_desc'], '<br>';
-      $localvarDesc[]= $result['sbjt_desc'];
-      // $_SESSION["teachersubjectsDesc"] = $localvarDesc;
-
-      echo '<br>';
-    }
-
-    foreach($checkTopics[0] as $result) { //this is for checking the results from query
-      echo $result['topic_name'], '<br>';
-      // $localvarName[]= $result['sbjt_name'];
-      // $_SESSION["teachersubjectsName"] = $localvarName;
-
-
-      echo $result['topic_desc'], '<br>';
-      // $localvarDesc[]= $result['sbjt_desc'];
-      // $_SESSION["teachersubjectsDesc"] = $localvarDesc;
-
-      echo '<br>';
-    }
+// // THIS SNIPPET IS FOR RESULT TESTING ONLY
+//     foreach($checkSubjects[0] as $result) { //this is for checking the results from query
+//       echo $result['sbjt_name'], '<br>';
+//       // $localvarName[]= $result['sbjt_name'];
+//       // $_SESSION["teachersubjectsName"] = $localvarName;
+//
+//
+//       echo $result['sbjt_desc'], '<br>';
+//       $localvarDesc[]= $result['sbjt_desc'];
+//       // $_SESSION["teachersubjectsDesc"] = $localvarDesc;
+//
+//       echo '<br>';
+//     }
+//
+//     foreach($checkTopics[0] as $result) { //this is for checking the results from query
+//       echo $result['topic_name'], '<br>';
+//       // $localvarName[]= $result['sbjt_name'];
+//       // $_SESSION["teachersubjectsName"] = $localvarName;
+//
+//
+//       echo $result['topic_desc'], '<br>';
+//       // $localvarDesc[]= $result['sbjt_desc'];
+//       // $_SESSION["teachersubjectsDesc"] = $localvarDesc;
+//
+//       echo '<br>';
+//     }
     // echo $_SESSION["teachersubjectsName"][0], '<br>';
     $_SESSION["teachersubjectsCombined"] = $checkSubjects;
     $_SESSION["teachertopicsCombined"] = $checkTopics;

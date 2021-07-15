@@ -341,3 +341,45 @@ textarea.invalid {
   border: 0px;
   vertical-align: middle;
 }
+
+body.dragging, body.dragging * {
+  cursor: move !important;
+}
+
+.dragged {
+  position: absolute;
+  opacity: 0.5;
+  z-index: 2000;
+}
+
+ul.subtopicRepo li.placeholder {
+  position: relative;
+  /** More li styles **/
+}
+ul.subtopicRepo li.placeholder:before {
+  position: absolute;
+
+}
+
+.listObjects {
+  margin-bottom: 12px;
+  padding: 4px 0px;
+  border-color: rgba(0,0,0, 50%);
+  border-bottom: 1px solid;
+}
+
+.listObjects:hover {
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 12px 0px 0px 0px;
+  background-color: rgba(240, 200, 0, 25%);
+  /* border-bottom: 1px solid; */
+}
+
+.listPlaceholder {
+  margin-bottom: 12px;
+  padding: 4px 0px;
+  height: 40px;
+  background-color: rgba(120, 200, 50, 25%);
+  border-radius: 15px 50px;
+}

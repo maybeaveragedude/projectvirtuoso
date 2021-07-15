@@ -162,7 +162,7 @@
                                                  <div>
                                                  <button id="emptyNotice" class="" style="display: none; padding: 16px 4px; margin-bottom: 12px; cursor: default; background: #FFFFFF; border: 0px;" role="button" >It's pretty barren in here...</button>
                                                </div>
-                                                 <a class="btn btn-primary" style="padding-top: 12px; margin-top: 12px; margin-left: 10px;border-radius: 7px;background: #1eb53a;" href="includes/teacheredit.inc.php">Cultivate something new!</a>
+                                                 <a class="btn btn-primary" style="margin-top: 12px; margin-left: 10px;border-radius: 7px;background: #1eb53a;" href="includes/teacheredit.inc.php">Cultivate something new!</a>
                                                </div>
                                         </div>
                                     </div>
@@ -285,9 +285,6 @@
               // console.log(row4);
               for (var p=0; p< row4.length; p++){
                 var row5 = row4[p].children;
-
-                // console.log(row5);
-                // console.log(jsTeacherID);
 
                 if (row5[0].classList.contains(`teacheridIs_${jsTeacherID}`)== true){
                   // row[i].style.display = "block";
