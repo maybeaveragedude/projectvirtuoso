@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2021 at 03:37 PM
+-- Generation Time: Jul 15, 2021 at 08:56 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -65,7 +65,8 @@ CREATE TABLE `course` (
 
 CREATE TABLE `course_subtopics` (
   `course_fid` int(11) NOT NULL,
-  `sub_fid` int(11) NOT NULL
+  `sub_fid` int(11) NOT NULL,
+  `display_order` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
