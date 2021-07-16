@@ -2,6 +2,7 @@
 session_start();
 require_once 'dbh.inc.php';
 require_once 'functions.inc.php';
+invalidIncludesUserAcess();
 
 $courseName = $_POST['coursename'];
 $courseDesc = $_POST['coursedesc'];

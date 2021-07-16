@@ -48,6 +48,6 @@ if (isset($_POST["submitSub"])){
 
 }
 else {
-  header("location: ../teacherlogin.php");
+  invalidIncludesUserAcess();
   exit();
 }

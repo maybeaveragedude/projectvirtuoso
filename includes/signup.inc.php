@@ -1,4 +1,6 @@
 <?php
+require_once 'dbh.inc.php';
+require_once 'functions.inc.php';
 
 if (isset($_POST["signup"])){
 
@@ -11,8 +13,7 @@ if (isset($_POST["signup"])){
 
   //echo $name . $username . $email . $pwd .$pwdRepeat;
 
-  require_once 'dbh.inc.php';
-  require_once 'functions.inc.php';
+
 
   if (emptyInputSignup($name, $username, $email, $pwd, $pwdRepeat) !== false) {
     header("location: ../signup.php?error=emptyinput");
@@ -44,6 +45,6 @@ if (isset($_POST["signup"])){
 
 }
 else {
-  header("location: ../signup.php");
+  invalidIncludesUserAcess();
   exit();
 }

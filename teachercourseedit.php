@@ -1,5 +1,6 @@
 <?php
   include_once 'teacherheader.php';
+  invalidUserAcess();
 
 ?>
 <script src="assets/js/external/jquery/jquery.js"></script>
@@ -22,10 +23,10 @@
             <form id="courseeditForm"style="padding-top: 40px;padding-bottom: 40px;" method="post" action="includes/coursenew.inc.php">
                 <div class="row" style="padding-right: 80px;padding-left: 80px;">
                     <div class="col-xxl-8" style="height: 311px;padding: 0px;margin: 0px 0px;border-right-width: 1px;border-left-width: 1px;margin-bottom: 14px;padding-right: 0px;">
-                      <label class="form-label middlelabel biggerlabel" style="font-size: 36px;">Course Name</label>
-                      <input name="coursename" class="form-control" type="text" style="width: 560px;">
+                      <label class="form-label middlelabel biggerlabel" style="font-size: 36px;" >Course Name</label>
+                      <input name="coursename" class="form-control" type="text" required=""style="width: 560px;">
                       <label class="form-label middlelabel biggerlabel">Description</label>
-                      <textarea name="coursedesc" class="form-control" style="height: 140px;width: 716px;"></textarea>
+                      <textarea name="coursedesc" class="form-control"required="" style="height: 140px;width: 716px;"></textarea>
                     </div>
                     <div class="col-xxl-4" style="margin-bottom: 14px;padding: 16px;padding-top: 16px;background: #effff2;padding-right: 24px;padding-left: 24px;border-top-right-radius: 100px;border-bottom-left-radius: 100px;border-top-left-radius: 16px;border-bottom-right-radius: 16px;">
                         <h3>Basic Guidelines</h3>
@@ -49,8 +50,10 @@
                             <li class="listObjects">Item 3</li>
                             <li class="listObjects">Item 4</li> -->
                             <?php
+
                             require_once 'includes/dbh.inc.php';
                             require_once 'includes/functions.inc.php';
+
                             headlesstaillessretrieveSubjects($conn);
                             $num=0;
 

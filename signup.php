@@ -1,5 +1,6 @@
 <?php
   include_once 'header.php';
+  loggedInInvalidUserAcess();
 ?>
 
     <main class="page hire-me-page">
@@ -46,7 +47,7 @@
                     </form>
                 </div>
             </section>
-        <!-- </section> --> 
+        <!-- </section> -->
         <!-- new comment line for stage change test -->
     </main>
     <footer class="page-footer">

@@ -112,6 +112,6 @@ if (isset($_POST["completeform"])){
 
 }
 else {
-  header("location: ../teachsignupbuffer.php");
+  loggedInInvalidIncludesUserAcess();
   exit();
 }

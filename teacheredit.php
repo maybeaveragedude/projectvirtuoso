@@ -1,6 +1,6 @@
 <?php
   include_once 'teacherheader.php';
-
+  invalidUserAcess();
 ?>
 
     <main class="page lanidng-page">

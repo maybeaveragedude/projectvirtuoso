@@ -1,5 +1,13 @@
 <?php
   include_once 'header.php';
+  if (isset($_GET["error"])) {
+    if ($_GET["error"] == "internetpolice") {
+      echo "<script>alert('Stop Right There! Criminal Scum!\n\nPlease LOGIN with your account credentials before proceeding.');</script>";
+    }
+    elseif ($_GET["error"] == "wronglogin"){
+      echo "<p>Incorrect login credentials.<p>";
+    }
+  }
 ?>
 
     <main class="page landing-page">
@@ -15,7 +23,7 @@
                 </div>
             </div>
         </section>
-        <section class="portfolio-block skills" style="padding: 50px 75px;padding-top: 75px;">
+        <section class="portfolio-block skills" style="padding: 50px 75px;padding-top: 75px; border: 0px;">
             <h1 style="text-align: center;font-family: Lato, sans-serif;font-weight: bold;">Why Virtuoso works</h1>
             <div class="container" style="padding: 50px 12px;padding-top: 100px;">
                 <div class="row" style="padding: 0px 100px;">
@@ -46,7 +54,7 @@
                 </div>
             </div>
         </section>
-        <section class="portfolio-block block-intro" style="padding: 50px 75px;padding-top: 0px;">
+        <section class="portfolio-block block-intro" style="padding: 50px 75px;padding-top: 0px;  border: 0px;">
             <div class="container">
                 <div class="row" style="border-top-style: solid;padding-top: 50px;">
                     <div class="col-5 align-self-center">

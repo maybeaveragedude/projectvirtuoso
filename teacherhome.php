@@ -1,5 +1,7 @@
 <?php
   include_once 'teacherheader.php';
+  invalidUserAcess();
+
 ?>
 
 <main class="page lanidng-page">
@@ -70,9 +72,9 @@
                                                   // $tempTID = $_SESSION["teacherid"];
                                                   echo <<<GFG
                                                       <div class="coursetitle" id="coursetitle{$tempCourseId}">
-                                                        <a class="btn btn-primary listgroupdropMain subjectList" style="font-size: 20px; margin: 14px 0px;"data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$num}" href="#collapseCourse-{$tempCourseId}" role="button"><strong>{$tempname}</strong></a>
+                                                        <a class="btn btn-primary listgroupdropMain subjectList" style="font-size: 20px; margin: 14px 0px;"data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$num}" href="#collapseCourse-{$num}" role="button"><strong>{$tempname}</strong></a>
                                                         <a class="simpleTextEdit" style="margin: 14px 0px;" href="teachercourseedit.php?edit=course_{$tempCourseId}">Edit</a>
-                                                          <div class="collapse" id="collapseCourse-{$tempCourseId}">
+                                                          <div class="collapse" id="collapseCourse-{$num}">
 
                                                  GFG;
                                                     //DISPLAY ORDERED SUBTOPICS
@@ -149,6 +151,8 @@
                                                     </div>
                                                 </div> -->
                                                 <div>
+                                                  <button id="courseemptyNotice" class="" style="display: none; padding: 16px 4px; margin-left: 10px; margin-bottom: 12px; cursor: default; background: #FFFFFF; border: 0px;" role="button" >It's pretty barren in here...</button>
+
                                                   <div><a class="btn btn-primary" style="margin-top: 12px; margin-left: 10px;border-radius: 7px;background: #1eb53a;" href="teachercourseedit.php">Tinker a New Course!</a></div>
                                                 </div>
                                             </div>
@@ -233,7 +237,7 @@
 
                                                <div>
                                                  <div>
-                                                 <button id="emptyNotice" class="" style="display: none; padding: 16px 4px; margin-bottom: 12px; cursor: default; background: #FFFFFF; border: 0px;" role="button" >It's pretty barren in here...</button>
+                                                 <button id="emptyNotice" class="" style="display: none; padding: 16px 4px; margin-bottom: 12px; margin-left: 10px; cursor: default; background: #FFFFFF; border: 0px;" role="button" >It's pretty barren in here...</button>
                                                </div>
                                                  <a class="btn btn-primary" style="margin-top: 12px; margin-left: 10px;border-radius: 7px;background: #1eb53a;" href="includes/teacheredit.inc.php">Cultivate something new!</a>
                                                </div>
@@ -297,6 +301,13 @@
       // amplify.store("initialSubCount",length);
       onlyTeacherSpecificDisplay(jsTeacherID);
 
+    }
+    var emptyelement =document.getElementById("collapseCourse-0");
+
+    if (typeof(emptyelement)!= 'undefined' && emptyelement != null){
+      document.getElementById("courseemptyNotice").style.display = "none";
+    }else{
+      document.getElementById("courseemptyNotice").style.display = "block";
     }
 
 

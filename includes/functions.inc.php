@@ -1,5 +1,31 @@
 <?php
+function invalidIncludesUserAcess() {
+  if(!isset($_SESSION['username'])){
+    $statusMessage = '\nSTOP RIGHT THERE Criminal Scum!\n\nPlease LOGIN with your account credentials or CREATE AN ACCOUNT before proceeding.';
+    echo <<<GFG
+      <script>
+        alert("$statusMessage");
+        window.location.href='../index.php?error=internetpolice';
+      </script>
+    GFG;
+    exit();
+  }
+}
 
+function loggedInInvalidIncludesUserAcess() {
+  if(isset($_SESSION['username'])){
+    $tempname = $_SESSION['username'];
+    $statusMessage = '\nSTOP RIGHT THERE Criminal Scum!\n\nYou are already logged in as '.$tempname.'!';
+
+    echo <<<GFG
+      <script>
+        alert("$statusMessage");
+        window.location.href='../index.php';
+      </script>
+    GFG;
+    exit();
+  }
+}
 function emptyInputSignup($name, $username, $email, $pwd, $pwdRepeat) {
   $result;
   if (empty($name) || empty($username) || empty($email) || empty($pwd) || empty($pwdRepeat)) {

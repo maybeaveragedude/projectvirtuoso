@@ -1,5 +1,31 @@
 <?php
   session_start();
+  function invalidUserAcess() {
+    if(!isset($_SESSION['username'])){
+      $statusMessage = '\nSTOP RIGHT THERE Criminal Scum!\n\nPlease LOGIN with your account credentials or CREATE AN ACCOUNT before proceeding.';
+      echo <<<GFG
+        <script>
+          alert("$statusMessage");
+          window.location.href='index.php?error=internetpolice';
+        </script>
+      GFG;
+      exit();
+    }
+  }
+  function loggedInInvalidUserAcess() {
+    if(isset($_SESSION['username'])){
+      $tempname = $_SESSION['username'];
+      $statusMessage = '\nSTOP RIGHT THERE Criminal Scum!\n\nYou are already logged in as '.$tempname.'!';
+
+      echo <<<GFG
+        <script>
+          alert("$statusMessage");
+          window.location.href='index.php';
+        </script>
+      GFG;
+      exit();
+    }
+  }
 ?>
 
 <!DOCTYPE html>
@@ -52,7 +78,7 @@
                       }
                       else {
                         echo '<li class="nav-item"><a class="nav-link" href="login.php" style="color: var(--bs-dark);">Log In</a></li>';
-                        echo '<li class="nav-item"><a class="nav-link" href="index.php" style="color: var(--bs-dark);">Cancel</a></li>';
+                        echo '<li class="nav-item"><a class="nav-link" href="signup.php" style="color: var(--bs-dark);">Create Account</a></li>';
                       }
                     ?>
                 </ul>

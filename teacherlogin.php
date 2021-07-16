@@ -1,5 +1,6 @@
 <?php
   include_once 'teacherheader.php';
+  loggedInInvalidUserAcess();
 ?>
 
     <main class="page hire-me-page">
