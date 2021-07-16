@@ -179,7 +179,7 @@ function loginAdminUser($conn, $email, $pwd) {
   }
   elseif ($checkPwd === true) {
     session_start();
-    $_SESSION["adminid"] = $usernameExists["admin_ID"];
+    $_SESSION["adminid"] = $usernameExists["admin_id"];
     $_SESSION["adminname"] = $usernameExists["admin_username"];
     
     header("location: ../adminhome.php");
