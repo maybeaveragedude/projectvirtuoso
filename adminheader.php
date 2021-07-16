@@ -30,7 +30,7 @@
     <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="color: rgb(255, 255, 255);background: rgb(255,255,255);">
         <div class="container">
           <a class="navbar-brand logo" href="index.php" style="color: var(--bs-dark);font-family: Alatsi, sans-serif;">
-          <img src="assets/img/Artboard%202@8x.png" style="width: 64px;padding: 0px;margin: -10px;">VIRTUOSO</a>
+          <img src="assets/img/Artboard%202@8x.png" style="width: 64px;padding: 0px;margin: -10px;">VIRTUOSO Admin</a>
           <button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav">
             <span class="text-dark visually-hidden" style="color: rgb(0,0,0);">Toggle navigation</span>
             <span class="navbar-toggler-icon text-dark" style="color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgba(255,255,255,0);">
@@ -51,8 +51,8 @@
                         echo "<li class='nav-item'><a class='nav-link' href='includes/logout.inc.php' style='color: var(--bs-dark);'>Log out</a></li>";
                       }
                       else {
-                        echo '<li class="nav-item"><a class="nav-link" href="login.php" style="color: var(--bs-dark);">Log In</a></li>';
-                        echo '<li class="nav-item"><a class="nav-link" href="index.php" style="color: var(--bs-dark);">Cancel</a></li>';
+                        echo '<li class="nav-item"><a class="nav-link" href="adminlogin.php" style="color: var(--bs-dark);">Log In</a></li>';
+                        echo '<li class="nav-item"><a class="nav-link" href="includes/logout.inc.php" style="color: var(--bs-dark);">Cancel</a></li>';
                       }
                     ?>
                 </ul>

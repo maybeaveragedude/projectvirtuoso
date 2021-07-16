@@ -1,5 +1,5 @@
 <?php
-  include_once 'header.php';
+  include_once 'adminheader.php';
 ?>
 <main class="page lanidng-page">
         <section class="portfolio-block block-intro" style="padding: 50px 75px;padding-bottom: 50px;background: #ededed;">
@@ -102,16 +102,6 @@
             <div class="social-icons"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-instagram-outline"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a></div>
         </div>
     </footer>
-    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-white portfolio-navbar gradient" style="color: rgb(255, 255, 255);background: rgb(255,255,255);">
-        <div class="container"><a class="navbar-brand logo" href="index.html" style="color: var(--bs-dark);font-family: Alatsi, sans-serif;"><img src="assets/img/Artboard%202@8x.png" style="width: 64px;padding: 0px;margin: -10px;">VIRTUOSO</a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navbarNav"><span class="text-dark visually-hidden" style="color: rgb(0,0,0);">Toggle navigation</span><span class="navbar-toggler-icon text-dark" style="color: rgb(0,0,0);background: rgba(255,255,255,0);border-color: rgba(255,255,255,0);"><i class="fa fa-bars" style="color: rgb(0,0,0);text-align: center;margin: 4px;"></i></span></button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="login.html" style="color: var(--bs-dark);">Support</a></li>
-                    <li class="nav-item"><a class="nav-link" href="signup.html" style="color: var(--bs-dark);">My Account</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
     <div id="overlay" class="overlay">
         <div class="container text-start" id="avatarpanel" style="width: 700px;max-width: auto;padding-right: 36px;padding-left: 36px;padding-top: 20px;padding-bottom: 20px;background: #ffffff;justify-self: center;">
             <div class="row" style="margin: 0px;">
