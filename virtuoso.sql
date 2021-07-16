@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2021 at 08:56 AM
+-- Generation Time: Jul 16, 2021 at 12:52 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -52,10 +52,17 @@ INSERT INTO `admin` (`admin_id`, `admin_username`, `admin_name`, `admin_email`, 
 CREATE TABLE `course` (
   `course_id` int(11) NOT NULL,
   `course_name` varchar(128) NOT NULL,
-  `course_desc` int(11) NOT NULL,
+  `course_desc` text NOT NULL,
   `t_fid` int(11) NOT NULL,
-  `approval_admin_fid` int(11) NOT NULL
+  `approval_admin_fid` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `course`
+--
+
+INSERT INTO `course` (`course_id`, `course_name`, `course_desc`, `t_fid`, `approval_admin_fid`) VALUES
+(72, 'Definitely a New Course', 'A legit description', 26, NULL);
 
 -- --------------------------------------------------------
 
@@ -68,6 +75,19 @@ CREATE TABLE `course_subtopics` (
   `sub_fid` int(11) NOT NULL,
   `display_order` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `course_subtopics`
+--
+
+INSERT INTO `course_subtopics` (`course_fid`, `sub_fid`, `display_order`) VALUES
+(72, 9, 1),
+(72, 6, 2),
+(72, 1, 3),
+(72, 3, 4),
+(72, 5, 5),
+(72, 13, 6),
+(72, 11, 7);
 
 -- --------------------------------------------------------
 
@@ -95,7 +115,10 @@ INSERT INTO `learners` (`l_ID`, `l_email`, `l_pwd`, `l_username`, `l_nickname`, 
 (3, 'dummytwo@mail.com', '$2y$10$5LJq8U7CHZmaAkYIPVwEGOxGDITO2CRkZu2UJJZhlpE0UGtb7OqwC', 'dummytwo', NULL, 'Dummytwo', 0),
 (4, 'leysu@mail.com', '$2y$10$CvIkMDXGg0xM.IFahsLMLe13nNwXg/KIf7/7uWIGDon1qiT3G5wxa', 'Leysu', NULL, 'leysu', 0),
 (5, 'textable@mail.com', '$2y$10$PlZwMn7Pb7wnykiQBkXH3uNDtoCygvygJB3TAg0g31NeCugG2H/s2', 'verytestable', NULL, 'Testing', 0),
-(6, 'leysuyan@mail.com', '$2y$10$kQC1WHhQJ45fgKHAOVCEl.YLI6hFTbpBF6q5dKQfj7HzkqHkw6i.a', 'leysuyan', NULL, 'Leysuyan', 0);
+(6, 'leysuyan@mail.com', '$2y$10$kQC1WHhQJ45fgKHAOVCEl.YLI6hFTbpBF6q5dKQfj7HzkqHkw6i.a', 'leysuyan', NULL, 'Leysuyan', 0),
+(7, 'mail@mailmail.com', '$2y$10$2nDYA7XmxnUKhtN63HLBbOMJLWCbO1wV4sxu4lcz6HYIvHmJ1a81O', 'yessir', NULL, 'yes', 0),
+(8, 'newtest@test.com', '$2y$10$gXpiQ6L6/BPI4tHZOX5og.1cyYblvG90UzcZIpqo3pyHGRCUB5vSm', 'testlearner', NULL, 'TestUser', 0),
+(9, 'yessir222@mail.com', '$2y$10$mmRo0TX/9adhye7FrfW4x.v/zH/6VCVgyqAx7K6HgsH2NBWh744Je', 'yessir2', NULL, 'yessir two', 0);
 
 -- --------------------------------------------------------
 
@@ -167,7 +190,8 @@ INSERT INTO `subtopic` (`sub_id`, `sub_name`, `sub_desc`, `t_fid`, `approval_adm
 (10, 'Probability', 'the quality or state of being probable; the extent to which something is likely to happen or be the case.', 26, NULL, 6),
 (11, 'The Art of War', 'The Art of War is an ancient Chinese military treatise dating from the Late Spring and Autumn Period. The work, which is attributed to the ancient Chinese military strategist Sun Tzu, is composed of 13 chapters.', 26, NULL, 9),
 (12, 'Pointer in C', 'The Pointer in C, is a variable that stores address of another variable. A pointer can also be used to refer to another pointer function. A pointer can be incremented/decremented, i.e., to point to the next/ previous memory location. The purpose of pointer is to save memory space and achieve faster execution time.', 28, NULL, 7),
-(13, 'Header Files in C', 'In C language, header files contain the set of predefined standard library functions. The “#include” preprocessing directive is used to include the header files with “.h” extension in the program.', 28, NULL, 7);
+(13, 'Header Files in C', 'In C language, header files contain the set of predefined standard library functions. The “#include” preprocessing directive is used to include the header files with “.h” extension in the program.', 28, NULL, 7),
+(14, 'Object oriented programming with Java', 'The OOPs Concepts in Java are abstraction, encapsulation, inheritance, and polymorphism. These concepts aim to implement real-world entities in programs.', 30, NULL, 10);
 
 -- --------------------------------------------------------
 
@@ -209,7 +233,8 @@ INSERT INTO `teacher` (`t_ID`, `t_username`, `t_name`, `t_email`, `t_pwd`, `t_st
 (26, 'newdummy', 'New Dummy', 'new@mail.com', '$2y$10$SH6y2mIvF.BcngxS2rg/MOxwrlaHnZYfKvwJQpsKkpeQlo/JR4oZC', 0, NULL),
 (27, 'emptyteacher', 'Empty New Teacher', 'empty@mail.com', '$2y$10$MF8Rybph61xRbCMCf6LF9.SXak7qETo81ez8GcQflptymSLNykZmm', 0, NULL),
 (28, 'yanteaches', 'Leysu Yan', 'yan@mail.com', '$2y$10$H4YJakfIZ6tOyPiX33G2X.1GeJEQBDS..jfo5UDSFqSG2PG.dWV8i', 0, NULL),
-(29, 'clementteaches', 'Clement Ho', 'clement@mail.com', '$2y$10$BMTNRdp8HN7Sj8VcHzA6Pumahpu755bJbl3zDaNNqs9IaV/FlclNO', 0, NULL);
+(29, 'clementteaches', 'Clement Ho', 'clement@mail.com', '$2y$10$BMTNRdp8HN7Sj8VcHzA6Pumahpu755bJbl3zDaNNqs9IaV/FlclNO', 0, NULL),
+(30, 'helloworld', 'another yes sir', 'another@mail.com', '$2y$10$fxU1iUiK5O7QiAvHu41s4uOM52gZ/Ek0ZF.ktqMqgxgU0.PIisKWC', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -232,14 +257,13 @@ CREATE TABLE `topic` (
 
 INSERT INTO `topic` (`topic_id`, `t_fid`, `topic_name`, `topic_desc`, `approval_admin_fid`, `sbjt_fid`) VALUES
 (1, 25, 'Chemistry', 'the branch of science concerned with the substances of which matter is composed, the investigation of their properties and reactions, and the use of such reactions to form new substances.', NULL, 2),
-(2, 25, 'Arithmetic ', 'the branch of mathematics dealing with the properties and manipulation of numbers.', NULL, 3),
-(3, 26, 'Trigonometry', 'the branch of mathematics dealing with the relations of the sides and angles of triangles and with the relevant functions of any angles.', NULL, 3),
 (4, 26, 'Biology', 'Biology is the scientific study of life. It is a natural science with a broad scope but has several unifying themes that tie it together as a single, coherent field.', NULL, 2),
 (5, 26, 'Physics', 'the branch of science concerned with the nature and properties of matter and energy. The subject matter of physics includes mechanics, heat, light and other radiation, sound, electricity, magnetism, and the structure of atoms.', NULL, 2),
 (6, 26, 'Statistics', 'Statistics is the discipline that concerns the collection, organization, analysis, interpretation, and presentation of data. In applying statistics to a scientific, industrial, or social problem, it is conventional to begin with a statistical population or a statistical model to be studied.', NULL, 3),
 (7, 26, 'C', 'It was mainly developed as a system programming language to write an operating system. The main features of the C language include low-level memory access, a simple set of keywords, and a clean style, these features make C language suitable for system programmings like an operating system or compiler development', NULL, 4),
 (8, 26, 'Literature', 'Literature broadly is any collection of written work, but it is also used more narrowly for writings specifically considered to be an art form, especially prose fiction, drama, and poetry. In recent centuries, the definition has expanded to include oral literature, much of which has been transcribed.', NULL, 5),
-(9, 26, 'Chinese literature', 'The history of Chinese literature extends thousands of years, from the earliest recorded dynastic court archives to the mature vernacular fiction novels that arose during the Ming dynasty to entertain the masses of literate Chinese.', NULL, 6);
+(9, 26, 'Chinese literature', 'The history of Chinese literature extends thousands of years, from the earliest recorded dynastic court archives to the mature vernacular fiction novels that arose during the Ming dynasty to entertain the masses of literate Chinese.', NULL, 6),
+(10, 30, 'Java', 'Java is a high-level, class-based, object-oriented programming language that is designed to have as few implementation dependencies as possible.', NULL, 4);
 
 -- --------------------------------------------------------
 
@@ -411,13 +435,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT for table `learners`
 --
 ALTER TABLE `learners`
-  MODIFY `l_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `l_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `materials`
@@ -435,25 +459,25 @@ ALTER TABLE `subject`
 -- AUTO_INCREMENT for table `subtopic`
 --
 ALTER TABLE `subtopic`
-  MODIFY `sub_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `sub_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `teacher`
 --
 ALTER TABLE `teacher`
-  MODIFY `t_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `t_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `topic`
 --
 ALTER TABLE `topic`
-  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `topic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `t_proposal`
 --
 ALTER TABLE `t_proposal`
-  MODIFY `t_proposal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `t_proposal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `uploads`
