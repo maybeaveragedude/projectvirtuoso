@@ -27,6 +27,9 @@
                                  elseif ($_GET["create"] == "newsubjecttopicsubtopic"){
                                    echo "<script>alert('New subject, topic and subtopic created successfully!');</script>";
                                  }
+                                 elseif ($_GET["create"] == "newcourse"){
+                                   echo "<script>alert('New course created successfully!');</script>";
+                                 }
                                }
 
                             ?>
@@ -55,28 +58,98 @@
                                         <h2 class="accordion-header" role="tab"><button class="accordion-button" data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-1" aria-expanded="true" aria-controls="accordion-1 .item-1">My Courses</button></h2>
                                         <div class="accordion-collapse collapse show item-1 text-start" role="tabpanel" data-bs-parent="#accordion-1">
                                             <div class="accordion-body">
-                                                <div>
+                                              <?php
+                                              $num=0;
+
+                                              //COURSE PART
+                                                foreach ($_SESSION["singleTeacherCourse"][$num] as $display) {
+                                                  $tempCourseId = $display['course_id'];
+                                                  $tempname = $display['course_name'];
+                                                  $tempdesc = $display['course_desc'];
+                                                  $tempTFID = $display['t_fid'];
+                                                  // $tempTID = $_SESSION["teacherid"];
+                                                  echo <<<GFG
+                                                      <div class="coursetitle" id="coursetitle{$tempCourseId}">
+                                                        <a class="btn btn-primary listgroupdropMain subjectList" style="font-size: 20px; margin: 14px 0px;"data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$num}" href="#collapseCourse-{$tempCourseId}" role="button"><strong>{$tempname}</strong></a>
+                                                        <a class="simpleTextEdit" style="margin: 14px 0px;" href="teachercourseedit.php?edit=course_{$tempCourseId}">Edit</a>
+                                                          <div class="collapse" id="collapseCourse-{$tempCourseId}">
+
+                                                 GFG;
+                                                    //DISPLAY ORDERED SUBTOPICS
+                                                    $subsnum = 0;
+                                                    foreach ($_SESSION["singleTeacherCourseSubtopics"][$subsnum] as $coursesubsDisp){
+                                                      $tempSubname = $coursesubsDisp['sub_name'];
+                                                      $tempSubdesc = $coursesubsDisp['sub_desc'];
+                                                      // $tempSubFId = $coursesubsDisp['sbjt_fid'];
+                                                      // $tempTopicId = $coursesubsDisp['topic_id'];
+
+                                                          echo <<<GFG
+                                                              <div class="singleTopicRow" id="singleTopicRow{$subsnum}">
+                                                                <a class="btn btn-primary listgroupdropMain TopicList" style="padding-top: 0px; padding-bottom: 2px;margin-left: 24px; margin-top: 0px; margin-bottom: 12px;" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$subsnum}" href="#collapseTopic-{$subsnum}" role="button">{$tempSubname}</a>
+                                                                  <div class="collapse" id="collapseTopic-{$subsnum}">
+                                                          GFG;
+
+                                                          //SUBTOPIC PART
+                                                          // $subtopicnum = 0; //for id
+                                                          // foreach ($_SESSION["teachersubtopicsCombined"][$subtopicnum] as $subtopicDisplay){
+                                                          //   $tempSubtopicname = $subtopicDisplay['sub_name'];
+                                                          //   $tempSubtopicdesc = $subtopicDisplay['sub_desc'];
+                                                          //   $tempTopicFId = $subtopicDisplay['topic_fid'];
+                                                          //   $tempSubtopicId = $subtopicDisplay['sub_id'];
+                                                          //   $tempSubtopicTeacherId = $subtopicDisplay['t_fid'];
+                                                          //   if ($tempTopicId == $tempTopicFId){
+                                                          //       echo <<<GFG
+                                                          //           <div id="subID_{$tempSubtopicId}">
+                                                          //             <button class="btn btn-primary listgroupdropMain SubtopicList teacheridIs_{$tempSubtopicTeacherId}" style="margin-left: 56px; margin-top: -8px; margin-bottom: 6px; background-color:white; color:black;" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$subtopicnum}" href="#collapseSubtopic-{$subtopicnum}" ><i>{$tempSubtopicname}</i></button>
+                                                          //               <div class="collapse" id="collapseSubtopic-{$subtopicnum}">
+                                                          //
+                                                          //
+                                                          //                   </div>
+                                                          //               </div>
+                                                          //       GFG;
+                                                          //   }
+                                                          //   $subtopicnum +=1;
+                                                          // }
+
+                                                          echo <<<GFG
+
+
+                                                                      </div>
+                                                                  </div>
+                                                          GFG;
+
+                                                      $subsnum +=1;
+                                                    }
+
+                                                 echo <<<GFG
+
+                                                          </div>
+                                                      </div>
+
+                                                  GFG;
+                                                  // <div class="singleSubjectRowLine" style="margin: 0px auto 0px 24px; width: 140px; text-align: center !important; align: center;"></div>
+                                                  $num += 1;
+                                                }
+
+                                               ?>
+                                                <!-- <div>
                                                   <a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-1" href="#collapse-1" role="button">Show Content</a>
                                                     <div class="collapse show" id="collapse-1">
                                                         <p>Collapse content.</p>
-                                                        <!-- <form method="post" action="includes/teacheredit.inc.php">
+                                                        <form method="post" action="includes/teacheredit.inc.php">
                                                           <button class="btn btn-primary" type="submit" name="submit" style="border-radius: 7px;background: #1eb53a;">Edit</button>
 
-                                                        </form> -->
-                                                        <div><a class="btn btn-primary" style="border-radius: 7px;background: #1eb53a;" href="includes/teacheredit.inc.php">Cultivate something now!</a></div>
+                                                        </form>
                                                     </div>
-                                                </div>
-                                                <div>
+                                                </div> -->
+                                                <!-- <div>
                                                   <a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-2" href="#collapse-2" role="button">Show Content</a>
                                                     <div class="collapse" id="collapse-2">
                                                         <p>Collapse content.</p>
                                                     </div>
-                                                </div>
+                                                </div> -->
                                                 <div>
-                                                  <a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button">Show Content</a>
-                                                    <div class="collapse" id="collapse-3">
-                                                        <p>Collapse content.</p>
-                                                    </div>
+                                                  <div><a class="btn btn-primary" style="margin-top: 12px; margin-left: 10px;border-radius: 7px;background: #1eb53a;" href="teachercourseedit.php">Tinker a New Course!</a></div>
                                                 </div>
                                             </div>
                                         </div>

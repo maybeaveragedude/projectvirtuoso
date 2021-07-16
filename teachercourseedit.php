@@ -19,7 +19,7 @@
     </section>
     <section class="editor">
         <div class="col">
-            <form style="padding-top: 40px;padding-bottom: 40px;">
+            <form id="courseeditForm"style="padding-top: 40px;padding-bottom: 40px;" method="post" action="includes/coursenew.inc.php">
                 <div class="row" style="padding-right: 80px;padding-left: 80px;">
                     <div class="col-xxl-8" style="height: 311px;padding: 0px;margin: 0px 0px;border-right-width: 1px;border-left-width: 1px;margin-bottom: 14px;padding-right: 0px;">
                       <label class="form-label middlelabel biggerlabel" style="font-size: 36px;">Course Name</label>
@@ -63,8 +63,8 @@
                                 // $tempTID = $_SESSION["teacherid"];
                                 echo <<<GFG
                                     <div class="singleSubjectRow" id="singleSubjectRow{$num}">
-                                      <h5 class="subjectList" style="font-size: 20px; margin-top: 14px; margin-bottom: 8px;"><strong>{$tempname}</strong></h5>
-                                        <div  id="collapseSub-{$num}">
+                                      <a class="btn btn-primary listgroupdropMain subjectList" style="font-size: 20px; margin-left:-12px; margin-top: 10px; margin-bottom: 8px;" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$num}" href="#collapseSub-{$num}" role="button"><strong>{$tempname}</strong></a>
+                                        <div class="collapse" id="collapseSub-{$num}">
 
                                GFG;
                                   //TOPIC PART
@@ -124,14 +124,14 @@
                              ?>
                         </ul>
                     </div>
-                    <div id ="courseSubtopicsList" class="col-xxl-6" style="border-left-width: 1px;border-left-style: solid;padding: 0px 40px;margin: 0px 0px;height: auto;padding-top: 16px;margin-top: 14px;">
+                    <div id ="courseSubtopicsList" class="col-xxl-6 clearStateList" style="border-left-width: 1px;border-left-style: solid;padding: 0px 40px;margin: 0px 0px;height: auto;padding-top: 16px;margin-top: 14px;">
                         <h2>Course Contents</h2>
                         <ul class="list-unstyled sortable newCourseList connectedSortable" style="min-height: 500px;margin-top: 24px;padding-top: 16px;padding-right: 40px;padding-left: 40px;border-width: 1px;border-style: solid;padding-bottom: 16px;">
-                            <!-- <li class="listObjects">Item 1</li>
-                            <li class="listObjects">Item 2</li>
-                            <li class="listObjects">Item 3</li>
-                            <li class="listObjects">Item 4</li> -->
                         </ul>
+                        <button class="btn btn-primary myhover" id="submitcourse" style="margin-top: 24px; float: right; border-radius: 7px;background: #1eb53a;" onclick="showid()">Send In!</button>
+                        <a id="resetLists" class="simpleTextCancel" type="button">Reset</a>
+                        <input id="hiddenIDlist" type="hidden" name="hiddenIDlist" value =0>
+
                     </div>
                 </div>
             </form>
@@ -361,24 +361,81 @@
 
       }
 
+      function showid(){
+        console.log(document.getElementById("hiddenIDlist"));
+
+      }
+
 
 
     </script>
 
     <script type="text/javascript">
-        $(function() {
-          // $('.subtopicRepo').sortable();
-          $('.subtopicRepo, .newCourseList').sortable({
-            placeholder: "listPlaceholder"
-          });
-          // $('.newCourseList').droppable();
-        });
+    var ids = '';
         $( function() {
-        $( ".subtopicRepo, .newCourseList" ).sortable({
-            connectWith: ".connectedSortable"
-            // placeholder: "listPlaceholder"
-          }).disableSelection();
+          $(".subtopicRepo, .newCourseList").sortable({
+              // scroll: true,
+              placeholder: "listPlaceholder",
+              cursor: "grabbing",
+              connectWith: ".connectedSortable"
+
+            }).disableSelection();
+
+            $(".subtopicRepo, .newCourseList").sortable({
+              stop:function(){
+                  ids = '';
+                  $(".newCourseList li").each(function(){
+                    id=$(this).attr("id");
+                    // alert(id);
+                    if(ids==''){
+                      ids = id;
+                    }else{
+                      ids = ids+','+id;
+                    }
+                  })
+                  // alert(ids);
+                  $("#hiddenIDlist").val(ids);
+                }
+            });
+
+
+          $(".newCourseList").droppable({
+              // accept: ".listObjects",
+              classes:{
+                "ui-droppable-active": "ui-state-active",
+                "ui-droppable-hover": "ui-state-hover"
+            }
+          });
+
+
+
+              $('#resetLists').click(function(){
+                location.reload();
+              });
+
+
         } );
+
+        // $(document).ready(function() {
+        //   $("#submitcourse").click(function(e){
+        //     e.preventDefault();
+        //       $.ajax({
+        //       url: "includes/coursenew.inc.php",
+        //       type: "post",
+        //       data: "ids="+ids,
+        //       success: function (data, textStatus) {
+        //         if (data.redirect){
+        //           window.location.href = data.redirect;
+        //         }
+        //           alert("ids="+ids);
+        //         }
+        //       });
+        //       // location.reload();
+        //       e.preventDefault();
+        //
+        //   });
+        //
+        // });
     </script>
 
 

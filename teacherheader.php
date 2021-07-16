@@ -22,7 +22,7 @@
     <link rel="stylesheet" href="assets/css/Sidebar-Menu-1.css">
     <link rel="stylesheet" href="assets/css/Sidebar-Menu.css">
     <link rel="stylesheet" href="assets/css/untitled.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="assets/css/jquery-ui.css">
     <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 </head>
 <body>
