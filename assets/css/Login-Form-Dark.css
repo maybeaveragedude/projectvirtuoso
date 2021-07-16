@@ -306,6 +306,7 @@ textarea.invalid {
   margin-top: 24px;
   background: #FFFFFF;
   border: 0px;
+  color: black;
 }
 
 .blankbutton:hover{
@@ -374,12 +375,35 @@ ul.subtopicRepo li.placeholder:before {
   border-radius: 12px 0px 0px 0px;
   background-color: rgba(240, 200, 0, 25%);
   /* border-bottom: 1px solid; */
+  cursor: grab;
 }
 
 .listPlaceholder {
-  margin-bottom: 12px;
+  /* margin-bottom: 12px; */
   padding: 4px 0px;
+  padding-top: 4px;
+  padding-bottom: 16px;
   height: 40px;
-  background-color: rgba(120, 200, 50, 25%);
+  background-color: rgba(120, 255, 200, 25%);
   border-radius: 15px 50px;
+}
+
+.dropLocation {
+  background-color: rgba(150, 200, 0, 25%);
+}
+
+.droppedAccepted {
+  background-color: rgba(120, 150, 0, 15%);
+}
+
+.clearStateList{
+
+}
+.myhover{
+  /* background-color: yellow; */
+  padding: 6px 16px;
+}
+
+.myhover:hover{
+  background-color: yellow;
 }
