@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2021 at 12:52 PM
+-- Generation Time: Jul 17, 2021 at 05:38 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -62,7 +62,10 @@ CREATE TABLE `course` (
 --
 
 INSERT INTO `course` (`course_id`, `course_name`, `course_desc`, `t_fid`, `approval_admin_fid`) VALUES
-(72, 'Definitely a New Course', 'A legit description', 26, NULL);
+(73, 'asasd', 'qweqwe', 24, NULL),
+(74, 'More Edits', 'yes perfect;', 26, NULL),
+(75, 'New Test Course', 'yes', 26, NULL),
+(76, 'ANOTHER ONE', 'ANOTHER ONE', 26, NULL);
 
 -- --------------------------------------------------------
 
@@ -81,13 +84,25 @@ CREATE TABLE `course_subtopics` (
 --
 
 INSERT INTO `course_subtopics` (`course_fid`, `sub_fid`, `display_order`) VALUES
-(72, 9, 1),
-(72, 6, 2),
-(72, 1, 3),
-(72, 3, 4),
-(72, 5, 5),
-(72, 13, 6),
-(72, 11, 7);
+(73, 1, 1),
+(73, 3, 2),
+(74, 11, 1),
+(74, 1, 2),
+(74, 9, 3),
+(74, 13, 4),
+(74, 4, 5),
+(75, 8, 1),
+(75, 6, 2),
+(75, 6, 3),
+(75, 14, 4),
+(75, 13, 5),
+(75, 15, 6),
+(76, 5, 1),
+(76, 9, 2),
+(76, 10, 3),
+(76, 6, 4),
+(76, 11, 5),
+(76, 15, 6);
 
 -- --------------------------------------------------------
 
@@ -118,7 +133,8 @@ INSERT INTO `learners` (`l_ID`, `l_email`, `l_pwd`, `l_username`, `l_nickname`, 
 (6, 'leysuyan@mail.com', '$2y$10$kQC1WHhQJ45fgKHAOVCEl.YLI6hFTbpBF6q5dKQfj7HzkqHkw6i.a', 'leysuyan', NULL, 'Leysuyan', 0),
 (7, 'mail@mailmail.com', '$2y$10$2nDYA7XmxnUKhtN63HLBbOMJLWCbO1wV4sxu4lcz6HYIvHmJ1a81O', 'yessir', NULL, 'yes', 0),
 (8, 'newtest@test.com', '$2y$10$gXpiQ6L6/BPI4tHZOX5og.1cyYblvG90UzcZIpqo3pyHGRCUB5vSm', 'testlearner', NULL, 'TestUser', 0),
-(9, 'yessir222@mail.com', '$2y$10$mmRo0TX/9adhye7FrfW4x.v/zH/6VCVgyqAx7K6HgsH2NBWh744Je', 'yessir2', NULL, 'yessir two', 0);
+(9, 'yessir222@mail.com', '$2y$10$mmRo0TX/9adhye7FrfW4x.v/zH/6VCVgyqAx7K6HgsH2NBWh744Je', 'yessir2', NULL, 'yessir two', 0),
+(10, 'error@mail.com', '$2y$10$7N6YvCuntKcvGQBEw7jpO.29fPt1unuk70jOxHlhjI9I0OwSW2usm', 'isthereerror', NULL, 'TesterrorStudent', 0);
 
 -- --------------------------------------------------------
 
@@ -129,7 +145,8 @@ INSERT INTO `learners` (`l_ID`, `l_email`, `l_pwd`, `l_username`, `l_nickname`, 
 CREATE TABLE `materials` (
   `mat_id` int(11) NOT NULL,
   `mat_name` varchar(128) NOT NULL,
-  `mat_file` longblob NOT NULL,
+  `mat_file_upload_fid` int(11) DEFAULT NULL,
+  `mat_contents` text DEFAULT NULL,
   `t_fid` int(11) NOT NULL,
   `approval_admin_fid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -181,17 +198,18 @@ CREATE TABLE `subtopic` (
 INSERT INTO `subtopic` (`sub_id`, `sub_name`, `sub_desc`, `t_fid`, `approval_admin_fid`, `topic_fid`) VALUES
 (1, 'Atomic Structure', 'the structure of an atom, theoretically consisting of a positively charged nucleus surrounded and neutralized by negatively charged electrons revolving in orbits at varying distances from the nucleus, the constitution of the nucleus and the arrangement of the electrons differing with various chemical elements.', 25, NULL, 1),
 (3, 'Cells', 'Cells are the basic building blocks of all living things. The human body is composed of trillions of cells. They provide structure for the body, take in nutrients from food, convert those nutrients into energy, and carry out specialized functions. Cells also contain the body’s hereditary material and can make copies of themselves.', 25, NULL, 4),
-(4, 'Units and Standards', 'These are called the base quantities for that system and their units are the system\'s base units. All other physical quantities can then be expressed as algebraic combinations of the base quantities. Each of these physical quantities is then known as a derived quantity and each unit is called a derived unit.', 26, NULL, 5),
+(4, 'Units and Standards I', 'These are called the base quantities for that system and their units are the system\'s base units. All other physical quantities can then be expressed as algebraic combinations of the base quantities. Each of these physical quantities is then known as a derived quantity and each unit is called a derived unit.', 26, NULL, 5),
 (5, 'Descriptive statistics', 'A descriptive statistic is a summary statistic that quantitatively describes or summarizes features from a collection of information, while descriptive statistics is the process of using and analysing those statistics.', 26, NULL, 6),
 (6, 'Looping with C', 'Looping Statements in C execute the sequence of statements many times until the stated condition becomes false. A loop in C consists of two parts, a body of a loop and a control statement. The control statement is a combination of some conditions that direct the body of the loop to execute until the specified condition becomes false. The purpose of the C loop is to repeat the same code a number of times.', 26, NULL, 7),
 (7, 'Variables in C', 'Your C programs can use two types of values: immediate and variable. An immediate value is one that you specify in the source code — a value you type or a defined constant. Variables are also values, but their contents can change. That’s why they’re called variables and not all-the-time-ables.', 26, NULL, 7),
 (8, 'C Arithmetic Operators', 'An arithmetic operator performs mathematical operations such as addition, subtraction, multiplication, division etc on numerical values (constants and variables).', 26, NULL, 7),
 (9, 'A Poison Tree', '\"A Poison Tree\" is a poem written by William Blake, published in 1794 as part of his Songs of Experience collection. It describes the narrator\'s repressed feelings of anger towards an individual, emotions which eventually lead to murder.', 26, NULL, 8),
-(10, 'Probability', 'the quality or state of being probable; the extent to which something is likely to happen or be the case.', 26, NULL, 6),
+(10, 'Probability III', 'the quality or state of being probable; the extent to which something is likely to happen or be the case.', 26, NULL, 6),
 (11, 'The Art of War', 'The Art of War is an ancient Chinese military treatise dating from the Late Spring and Autumn Period. The work, which is attributed to the ancient Chinese military strategist Sun Tzu, is composed of 13 chapters.', 26, NULL, 9),
 (12, 'Pointer in C', 'The Pointer in C, is a variable that stores address of another variable. A pointer can also be used to refer to another pointer function. A pointer can be incremented/decremented, i.e., to point to the next/ previous memory location. The purpose of pointer is to save memory space and achieve faster execution time.', 28, NULL, 7),
 (13, 'Header Files in C', 'In C language, header files contain the set of predefined standard library functions. The “#include” preprocessing directive is used to include the header files with “.h” extension in the program.', 28, NULL, 7),
-(14, 'Object oriented programming with Java', 'The OOPs Concepts in Java are abstraction, encapsulation, inheritance, and polymorphism. These concepts aim to implement real-world entities in programs.', 30, NULL, 10);
+(14, 'Object oriented programming with Java', 'The OOPs Concepts in Java are abstraction, encapsulation, inheritance, and polymorphism. These concepts aim to implement real-world entities in programs.', 30, NULL, 10),
+(15, 'Electrochemistry', 'Electrochemistry is the branch of physical chemistry concerned with the relationship between electrical potential, as a measurable and quantitative phenomenon, and identifiable chemical change, with either electrical potential as an outcome of a particular chemical change, or vice versa.', 26, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -365,7 +383,8 @@ ALTER TABLE `learners`
 ALTER TABLE `materials`
   ADD PRIMARY KEY (`mat_id`),
   ADD KEY `t_fid` (`t_fid`),
-  ADD KEY `approval_admin_fid` (`approval_admin_fid`);
+  ADD KEY `approval_admin_fid` (`approval_admin_fid`),
+  ADD KEY `mat_file_upload_fid` (`mat_file_upload_fid`);
 
 --
 -- Indexes for table `subject`
@@ -435,13 +454,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `learners`
 --
 ALTER TABLE `learners`
-  MODIFY `l_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `l_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `materials`
@@ -459,7 +478,7 @@ ALTER TABLE `subject`
 -- AUTO_INCREMENT for table `subtopic`
 --
 ALTER TABLE `subtopic`
-  MODIFY `sub_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `sub_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `teacher`
@@ -507,6 +526,7 @@ ALTER TABLE `course_subtopics`
 -- Constraints for table `materials`
 --
 ALTER TABLE `materials`
+  ADD CONSTRAINT `mat_upload` FOREIGN KEY (`mat_file_upload_fid`) REFERENCES `uploads` (`up_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `materials_ibfk_1` FOREIGN KEY (`approval_admin_fid`) REFERENCES `admin` (`admin_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
