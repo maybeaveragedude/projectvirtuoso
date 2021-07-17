@@ -207,7 +207,7 @@ function loginAdminUser($conn, $email, $pwd) {
     session_start();
     $_SESSION["adminid"] = $usernameExists["admin_id"];
     $_SESSION["adminname"] = $usernameExists["admin_username"];
-
+    adminRetrieveCourses($conn);
     header("location: ../adminhome.php");
     exit();
   }
@@ -742,4 +742,49 @@ function headlesstailessretrieveTeacherCourse($conn) {
     $_SESSION["singleTeacherCourseSubtopics"] = $tempcheck;
 
     // exit();
+}
+
+function adminRetrieveCourses($conn){
+  $adCheckCourses[] = adminCheckCourse($conn);
+  $i = 0;
+  foreach ($adCheckCourses as $value){
+
+    foreach($value as $coursefid){
+
+      $coursetempid = $coursefid['course_id'];
+      $tempcheck[] = checkCourseSubtopics($conn,$coursetempfid);
+    }
+
+    $i+=1;
+  }
+
+  $_SESSION["course"] = $adCheckCourses;
+  $_SESSION["courseSubtopics"] = $tempcheck;
+}
+
+function adminCheckCourse($conn) {
+    $sql = "SELECT * FROM course";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+      echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+      exit();
+    }
+
+    // mysqli_stmt_bind_param($stmt, "s", $teacherid);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    $rows = [];
+
+    while ($row = mysqli_fetch_assoc($resultData)){ //getting the rows from the query result
+      // return $row;
+      $rows[] = $row;
+    }
+    if ($row != mysqli_fetch_assoc($resultData)){
+      $result = false;
+      return $result;
+    }
+
+    return $rows;
+    mysqli_stmt_close($stmt);
 }

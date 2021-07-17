@@ -88,6 +88,7 @@
     <footer class="page-footer">
         <div class="container">
             <div class="links"><a href="#">Contact us</a></div>
+            <div class="links"><a href="adminlogin.php"></small>Admin Login</small></a></div>
             <div class="social-icons"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-instagram-outline"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a></div>
         </div>
     </footer>
