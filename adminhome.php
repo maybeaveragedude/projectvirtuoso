@@ -59,91 +59,87 @@
                                 <div class="tab-pane" role="tabpanel" id="tab-2">
                                     <h1 class="text-start" style="padding: 16px 16px;border-bottom-width: 1px;border-bottom-style: solid;">Materials</h1>
                                     <div class="accordion" role="tablist" id="accordion-1">
-                                        <?php
-                                        //For admins to view courses  - to move to adminmanagecourse.inc after completion
-                                        if (isset($_SESSION["course"]) && !empty($_SESSION["course"])){
-                                            $num = 0;
-                                            $subnum = 0;
-                                            //course list accordion body
-                                                echo <<<CDH
-                                                    <div class="accordion-item">
-                                                        <h2 class="accordion-header" role='"tab"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-1" aria-expanded="true" aria-controls="accordion-1 .item-1">Course List</button></h2>
-                                                        <div class="accordion-collapse collapse item-1 text-start" role="tabpanel" data-bs-parent="#accordion-1">
-                                                            <div class="accordion-body">
-                                                CDH;
-                                            foreach ($_SESSION["course"][$num] as $display) {
-                                                $tempCourseId = $display['course_id'];
-                                                $tempName = $display['course_name'];
-                                                $tempDesc = $display['course_desc'];
-                                                $tempTID = $display['t_fid'];
+                                        <div class='accordion-item'>
+                                            <h2 class='accordion-header' role='tab'><button class='accordion-button collapsed' data-bs-toggle='collapse' data-bs-target='#accordion-1 .item-1' aria-expanded='true' aria-controls='accordion-1 .item-1'>Course List</button></h2>
+                                            <div class='accordion-collapse collapse item-1 text-start' role='tabpanel' data-bs-parent='#accordion-1'>
+                                                <div class='accordion-body'>
+                                                    <?php
+                                                        $num=0;
 
-                                                // echo <<<CDB
-                                                //     <div><a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-12" href="#course-" role="button" style="font-family: Lato, sans-serif;">Show Content</a>
-                                                //         <div class="collapse" id="collapse-12">
-                                                //             <div class="row">
-                                                //                 <div class="col">
-                                                //                     <div>Content lmao</div>
-                                                //                 </div>
-                                                //                 <div class="col">
-                                                //                     <div>This content</div>
-                                                //                 </div>
-                                                //             </div>
-                                                //         </div>
-                                                //     </div>
-                                                // CDB;
+                                              //COURSE PART
+                                                foreach ($_SESSION["course"][$num] as $display) {
+                                                  echo '<pre>'; print_r($display); echo '</pre>';
 
-                                                //course display body
-                                                echo <<<CDB
-                                                    <div class="coursetitle" id="coursetitle{$tempCourseId}">
-                                                        <a class="btn btn-primary listgroupdropMain subjectList" style="font-size: 20px; margin: 14px 0px;"data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$num}" href="#collapseCourse-{$num}" role="button"><strong>{$tempName}</strong></a>
-                                                        <a class="simpleTextEdit" style="margin: 14px 0px;" href="admincourseedit.php?editcourse={$tempCourseId}">Edit</a>
+                                                  $tempCourseId = $display['course_id'];
+                                                  $tempname = $display['course_name'];
+                                                  $tempdesc = $display['course_desc'];
+                                                  $tempTFID = $display['t_fid'];
+                                                  // $tempTID = $_SESSION["teacherid"];
+                                                  echo <<<GFG
+                                                      <div class="coursetitle" id="coursetitle{$tempCourseId}">
+                                                        <a class="btn btn-primary listgroupdropMain subjectList" style="font-size: 20px; margin: 14px 0px;"data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$num}" href="#collapseCourse-{$num}" role="button"><strong>{$tempname}</strong></a>
+                                                        <a class="simpleTextEdit" style="margin: 14px 0px;" href="teachercourseedit.php?editcourse={$tempCourseId}">Edit</a>
                                                           <div class="collapse" id="collapseCourse-{$num}">
-                                                CDB;
-                                                foreach ($_SESSION["courseSubtopics"][$subnum] as $subdisplay){
-                                                    $tempSubname = $coursesubsDisp['sub_name'];
-                                                    $tempSubdesc = $coursesubsDisp['sub_desc'];
 
-                                                    //course subject display body
-                                                    echo <<<CSDB
-                                                        <div class="singleTopicRow" id="singleTopicRow{$subnum}">
-                                                            <a class="btn btn-primary listgroupdropMain TopicList" style="padding-top: 0px; padding-bottom: 2px;margin-left: 24px; margin-top: 0px; margin-bottom: 12px;" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$subsnum}" href="#collapseTopic-{$subnum}" role="button">{$tempSubname}</a>
-                                                            <div class="collapse" id="collapseTopic-{$subnum}"></div>
-                                                        </div>
-                                                    CSDB;
-                                                    $subnum +=1;
+                                                 GFG;
+                                                    //DISPLAY ORDERED SUBTOPICS
+                                                    $subsnum = 0;
+                                                    foreach ($_SESSION["courseSubtopics"] as $coursesubsDisp){
+                                                      $tempinnercourse = $coursesubsDisp[$subsnum]['course_fid'];
+                                                      $tempTopSubname = $coursesubsDisp[$subsnum];
+                                                      // $tempSubdesc = $coursesubsDisp[$subsnum]['sub_desc'];
+                                                      // $tempSubFId = $coursesubsDisp['sbjt_fid'];
+                                                      // $tempTopicId = $coursesubsDisp['topic_id'];
+                                                      // echo '<pre>'; print_r($coursesubsDisp); echo '</pre>';
+
+                                                      if($tempCourseId == $tempinnercourse){
+                                                        // echo '<pre>'; print_r($coursesubsDisp); echo '</pre>';
+
+                                                        $innercount = 0;
+                                                        foreach ($coursesubsDisp as $count) {
+                                                          $tempSubname = $count['sub_name'];
+                                                          echo <<<GFG
+                                                              <div class="singleTopicRow" id="singleTopicRow{$subsnum}">
+                                                                <a class="btn btn-primary listgroupdropMain TopicList" style="padding-top: 0px; padding-bottom: 2px;margin-left: 24px; margin-top: 0px; margin-bottom: 12px;" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$subsnum}" href="#collapseTopic-{$subsnum}" role="button">{$tempSubname}</a>
+
+                                                          GFG;
+
+
+                                                          echo <<<GFG
+
+
+
+                                                                  </div>
+                                                          GFG;
+                                                          $innercount += 1;
+                                                        }
+                                                        }
+
+                                                      $subsnum +=1;
+                                                    }
+
+                                                 echo <<<GFG
+
+                                                          </div>
+                                                      </div>
+
+                                                  GFG;
+                                                  // <div class="singleSubjectRowLine" style="margin: 0px auto 0px 24px; width: 140px; text-align: center !important; align: center;"></div>
+                                                  $num += 1;
                                                 }
 
-                                                //closing out course display
-                                                echo <<<CDB
-                                                        </div>
-                                                    </div>
-                                                CDB;
-                                                  $num += 1;
-                                            }
-                                            //closing out course list body
-                                            echo <<<CDF
-                                                    </div>
+                                                    // include_once 'includes/adminmanagecourse.inc.php';
+
+                                                    //TO DO
+                                                    // include_once 'includes/adminapprovecourse.inc.php';
+                                                    // include_once 'includes/adminviewsubject.inc.php';
+                                                    ?>
+                                                <div>
+                                                    <button id="courseemptyNotice" class="" style="display: none; padding: 16px 4px; margin-left: 10px; margin-bottom: 12px; cursor: default; background: #FFFFFF; border: 0px;" role="button" >No active courses</button>
                                                 </div>
                                             </div>
-                                            CDF;
-                                        } else {
-                                            //no course in db
-                                            echo <<<EC
-                                                <div>
-                                                  <button id="courseemptyNotice" class="" style="display: none; padding: 16px 4px; margin-left: 10px; margin-bottom: 12px; cursor: default; background: #FFFFFF; border: 0px;" role="button" >It's pretty barren in here...</button>
-                                                </div>
-                                            EC;
-                                        }
-                                        // include_once 'includes/adminmanagecourse.inc.php';
-
-                                        //TO DO
-                                        include_once 'includes/adminapprovecourse.inc.php';
-                                        // include_once 'includes/adminviewsubject.inc.php';
-                                        ?>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="tab-pane" role="tabpanel" id="tab-3">
-                                    <p>Content for tab 3.</p>
                                 </div>
                             </div>
                         </div>
@@ -237,6 +233,141 @@
         </div>
     </div>
     
+    <script type="text/javascript">
+        // var jsTeacherID = '<?php echo $_SESSION["teacherid"]; ?>';
+        window.onload = function(){
+        // amplify.store("initialSubCount",length);
+        onlyTeacherSpecificDisplay(jsTeacherID);
+        }
+        var emptyelement =document.getElementById("collapseCourse-0");
+
+        if (typeof(emptyelement)!= 'undefined' && emptyelement != null){
+            document.getElementById("courseemptyNotice").style.display = "none";
+        }else{
+            document.getElementById("courseemptyNotice").style.display = "block";
+        }
+
+    function styleSubjectRow(){
+      var row = document.getElementsByClassName("singleSubjectRowLine");
+      var togglerow = document.getElementsByClassName("singleSubjectRow");
+      // console.log(row);
+      for (var i=0; i< togglerow.length-1; i++){
+        if (togglerow[i].style.display === "block"){
+          row[i].classList.toggle("botBorder");
+          document.getElementById("emptyNotice").style.display = "none";
+
+
+        }
+        else {
+          document.getElementById("emptyNotice").style.display = "block";
+        }
+
+      }
+    }
+
+    function onlyTeacherSpecificDisplay(jsTeacherID){
+      // var templength = amplify.store("initialSubCount");
+      // console.log(row.length);
+      var row = document.getElementsByClassName("singleSubjectRow");
+      var length = row.length;
+      var glosubtopiccount = 0;
+      for (var i=0; i< length; i++){
+        // console.log(row[i].childNodes);
+        var row1 = row[i].children;
+        var subtopiccount = 0;
+        // console.log(length);
+
+
+        for (var j=0; j< row1.length; j++){
+          var row2 = row1[j].children;
+          // console.log(row2);
+          for (var k=0; k< row2.length; k++){
+            var row3 = row2[k].children;
+            for (var m=0; m< row3.length; m++){
+              var row4 = row3[m].children;
+              // console.log(row4);
+              for (var p=0; p< row4.length; p++){
+                var row5 = row4[p].children;
+
+                if (row5[0].classList.contains(`teacheridIs_${jsTeacherID}`)== true){
+                  // row[i].style.display = "block";
+                  // console.log("row is "+ row4[p].id);
+                  var tempeditID = row4[p].id;
+                  createSubtopicEdit(tempeditID);
+
+                  subtopiccount +=1;
+                  glosubtopiccount +=1;
+
+                }else {
+                  // row[i].style.display = "none";
+                  // console.log("none the i is "+i);
+                }
+
+                if (subtopiccount > 0){
+                  row[i].style.display = "block";
+                }
+                else {
+                  row[i].style.display = "none";
+                }
+                // console.log(subtopiccount);
+
+                // console.log(row5[0].classList.contains(`teacheridIs_${jsTeacherID}`));
+                // console.log(length);
+
+                // for (var q=0; q< row5.length; q++){
+                //   var row6 = row5[q].children;
+                //   console.log(row6);
+                // }
+              }
+            }
+          }
+        }
+
+        // console.log(row1[i].childNode);
+        // if row.children[i].classList.contains(`teacheridIs_${jsTeacherID}`){
+        //   row[i].style.display = "block";
+        // }else {
+        //   row[i].style.display = "none";
+        // }
+      }
+      styleSubjectRow();
+      cultivateButton(glosubtopiccount);
+
+
+    }
+    function createSubtopicEdit(tempeditID){
+      var subtopicID = document.getElementById(tempeditID).id;
+      var edit = document.createElement("input");
+
+      edit.setAttribute("id", `editfor${subtopicID}`);
+
+      edit.setAttribute("type", "button");
+
+      edit.setAttribute("onclick", `redirectEdit("${subtopicID}")`);
+
+      edit.setAttribute("class", "simpleTextEdit");
+
+      edit.setAttribute("name", "Edit");
+
+      edit.setAttribute("value", "Edit");
+
+      //append to form element that you want .
+      document.getElementById(`${tempeditID}`).appendChild(edit);
+
+      // if (document.getElementById("getExistingSubID") !== null){
+      //   document.getElementById("getExistingSubID").value = subjectID;
+      // }
+      // console.log(document.getElementById(`${tempeditID}`).id);
+      console.log(subtopicID);
+
+    }
+    function redirectEdit(subtopicID){ //to enable setting up form in editor
+      window.location.href=`teacheredit.php?editsubtopics=${subtopicID}`;
+    }
+
+
+
+    </script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pikaday/1.6.1/pikaday.min.js"></script>

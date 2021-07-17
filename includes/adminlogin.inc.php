@@ -16,8 +16,9 @@ if (isset($_POST["submit"])){
   }
 
   loginAdminUser($conn, $email, $pwd);
+  header("Refresh:2; url=../adminhome.php");
 }
 else {
-  header("location: ../adminlogin.php");
+  invalidIncludesUserAcess();
   exit();
 }

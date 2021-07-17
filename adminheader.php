@@ -1,5 +1,31 @@
 <?php
   session_start();
+  function invalidUserAcess() {
+    if(!isset($_SESSION['adminname'])){
+      $statusMessage = '\nSTOP RIGHT THERE Criminal Scum!\n\nPlease LOGIN with your account credentials or CREATE AN ACCOUNT before proceeding.';
+      echo <<<GFG
+        <script>
+          alert("$statusMessage");
+          window.location.href='index.php?error=internetpolice';
+        </script>
+      GFG;
+      exit();
+    }
+  }
+  function loggedInInvalidUserAcess() {
+    if(isset($_SESSION['adminname'])){
+      $tempname = $_SESSION['adminname'];
+      $statusMessage = '\nSTOP RIGHT THERE Criminal Scum!\n\nYou are already logged in as '.$tempname.'!';
+
+      echo <<<GFG
+        <script>
+          alert("$statusMessage");
+          window.location.href='index.php';
+        </script>
+      GFG;
+      exit();
+    }
+  }
 ?>
 
 <!DOCTYPE html>

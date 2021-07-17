@@ -769,16 +769,17 @@ function headlesstailessretrieveTeacherCourse($conn) {
 }
 
 function adminRetrieveCourses($conn){
+
   $adCheckCourses[] = adminCheckCourse($conn);
   $i = 0;
   foreach ($adCheckCourses as $value){
 
     foreach($value as $coursefid){
-
-      $coursetempid = $coursefid['course_id'];
+      // echo '<pre>'; print_r($coursefid['course_id']); echo '</pre>';
+      $coursetempfid = $coursefid['course_id'];
       $tempcheck[] = checkCourseSubtopics($conn,$coursetempfid);
     }
-
+    // echo '<pre>'; print_r($tempcheck); echo '</pre>';
     $i+=1;
   }
 
@@ -787,7 +788,7 @@ function adminRetrieveCourses($conn){
 }
 
 function adminCheckCourse($conn) {
-    $sql = "SELECT * FROM course";
+    $sql = "SELECT * FROM course;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)){
       echo "<script>alert('Problem connecting to database, please try again later.');</script>";
