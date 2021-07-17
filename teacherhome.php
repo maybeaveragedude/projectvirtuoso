@@ -212,7 +212,7 @@
                                                             if ($tempTopicId == $tempTopicFId){
                                                                 echo <<<GFG
                                                                     <div id="{$tempSubtopicId}">
-                                                                      <button class="btn btn-primary listgroupdropMain SubtopicList teacheridIs_{$tempSubtopicTeacherId}" style="margin-left: 56px; margin-top: -8px; margin-bottom: 6px; background-color:white; color:black;" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$subtopicnum}" href="#collapseSubtopic-{$subtopicnum}" ><i>{$tempSubtopicname}</i></button>
+                                                                      <button class="btn btn-primary listgroupdropMain SubtopicList teacheridIs_{$tempSubtopicTeacherId}" style="margin-left: 56px; margin-top: -8px; margin-bottom: 6px; background-color:white; color:black;" data-bs-toggle="collapse"><i>{$tempSubtopicname}</i></button>
                                                                         <div class="collapse" id="collapseSubtopic-{$subtopicnum}">
 
 
