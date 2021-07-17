@@ -61,65 +61,82 @@
                                     <div class="accordion" role="tablist" id="accordion-1">
                                         <?php
                                         //For admins to view courses  - to move to adminmanagecourse.inc after completion
-                                        $num = 0;
-                                        $subnum = 0;
-                                            echo <<<CDH
-                                                <div class="accordion-item">
-                                                    <h2 class="accordion-header" role='"tab"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-1" aria-expanded="true" aria-controls="accordion-1 .item-1">Course List</button></h2>
-                                                    <div class="accordion-collapse collapse item-1 text-start" role="tabpanel" data-bs-parent="#accordion-1">
-                                                        <div class="accordion-body">
-                                            CDH;
-                                        foreach ($_SESSION["course"][$num] as $display) {
-                                            $tempCourseId = $display['course_id'];
-                                            $tempName = $display['course_name'];
-                                            $tempDesc = $display['course_desc'];
-                                            $tempTID = $display['t_fid'];
+                                        if (isset($_SESSION["course"]) && !empty($_SESSION["course"])){
+                                            $num = 0;
+                                            $subnum = 0;
+                                            //course list accordion body
+                                                echo <<<CDH
+                                                    <div class="accordion-item">
+                                                        <h2 class="accordion-header" role='"tab"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-1" aria-expanded="true" aria-controls="accordion-1 .item-1">Course List</button></h2>
+                                                        <div class="accordion-collapse collapse item-1 text-start" role="tabpanel" data-bs-parent="#accordion-1">
+                                                            <div class="accordion-body">
+                                                CDH;
+                                            foreach ($_SESSION["course"][$num] as $display) {
+                                                $tempCourseId = $display['course_id'];
+                                                $tempName = $display['course_name'];
+                                                $tempDesc = $display['course_desc'];
+                                                $tempTID = $display['t_fid'];
 
-                                            // echo <<<CDB
-                                            //     <div><a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-12" href="#course-" role="button" style="font-family: Lato, sans-serif;">Show Content</a>
-                                            //         <div class="collapse" id="collapse-12">
-                                            //             <div class="row">
-                                            //                 <div class="col">
-                                            //                     <div>Content lmao</div>
-                                            //                 </div>
-                                            //                 <div class="col">
-                                            //                     <div>This content</div>
-                                            //                 </div>
-                                            //             </div>
-                                            //         </div>
-                                            //     </div>
-                                            // CDB;
-                                            echo <<<CDB
-                                                <div class="coursetitle" id="coursetitle{$tempCourseId}">
-                                                    <a class="btn btn-primary listgroupdropMain subjectList" style="font-size: 20px; margin: 14px 0px;"data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$num}" href="#collapseCourse-{$num}" role="button"><strong>{$tempName}</strong></a>
-                                                    <a class="simpleTextEdit" style="margin: 14px 0px;" href="admincourseedit.php?editcourse={$tempCourseId}">Edit</a>
-                                                      <div class="collapse" id="collapseCourse-{$num}">
-                                            CDB;
-                                            foreach ($_SESSION["courseSubtopics"][$subnum] as $subdisplay){
-                                                $tempSubname = $coursesubsDisp['sub_name'];
-                                                $tempSubdesc = $coursesubsDisp['sub_desc'];
+                                                // echo <<<CDB
+                                                //     <div><a class="btn btn-primary listgroupdropMain" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-12" href="#course-" role="button" style="font-family: Lato, sans-serif;">Show Content</a>
+                                                //         <div class="collapse" id="collapse-12">
+                                                //             <div class="row">
+                                                //                 <div class="col">
+                                                //                     <div>Content lmao</div>
+                                                //                 </div>
+                                                //                 <div class="col">
+                                                //                     <div>This content</div>
+                                                //                 </div>
+                                                //             </div>
+                                                //         </div>
+                                                //     </div>
+                                                // CDB;
 
-                                                echo <<<CSDB
-                                                    <div class="singleTopicRow" id="singleTopicRow{$subnum}">
-                                                        <a class="btn btn-primary listgroupdropMain TopicList" style="padding-top: 0px; padding-bottom: 2px;margin-left: 24px; margin-top: 0px; margin-bottom: 12px;" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$subsnum}" href="#collapseTopic-{$subnum}" role="button">{$tempSubname}</a>
-                                                        <div class="collapse" id="collapseTopic-{$subnum}"></div>
+                                                //course display body
+                                                echo <<<CDB
+                                                    <div class="coursetitle" id="coursetitle{$tempCourseId}">
+                                                        <a class="btn btn-primary listgroupdropMain subjectList" style="font-size: 20px; margin: 14px 0px;"data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$num}" href="#collapseCourse-{$num}" role="button"><strong>{$tempName}</strong></a>
+                                                        <a class="simpleTextEdit" style="margin: 14px 0px;" href="admincourseedit.php?editcourse={$tempCourseId}">Edit</a>
+                                                          <div class="collapse" id="collapseCourse-{$num}">
+                                                CDB;
+                                                foreach ($_SESSION["courseSubtopics"][$subnum] as $subdisplay){
+                                                    $tempSubname = $coursesubsDisp['sub_name'];
+                                                    $tempSubdesc = $coursesubsDisp['sub_desc'];
+
+                                                    //course subject display body
+                                                    echo <<<CSDB
+                                                        <div class="singleTopicRow" id="singleTopicRow{$subnum}">
+                                                            <a class="btn btn-primary listgroupdropMain TopicList" style="padding-top: 0px; padding-bottom: 2px;margin-left: 24px; margin-top: 0px; margin-bottom: 12px;" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$subsnum}" href="#collapseTopic-{$subnum}" role="button">{$tempSubname}</a>
+                                                            <div class="collapse" id="collapseTopic-{$subnum}"></div>
+                                                        </div>
+                                                    CSDB;
+                                                    $subnum +=1;
+                                                }
+
+                                                //closing out course display
+                                                echo <<<CDB
+                                                        </div>
                                                     </div>
-                                                CSDB;
-                                                $subnum +=1;
+                                                CDB;
+                                                  $num += 1;
                                             }
-
-                                            echo <<<CDB
+                                            //closing out course list body
+                                            echo <<<CDF
                                                     </div>
-                                                </div>
-                                            CDB;
-                                              $num += 1;
-                                        }
-                                        echo <<<CDF
                                                 </div>
                                             </div>
-                                        </div>
-                                        CDF;
+                                            CDF;
+                                        } else {
+                                            //no course in db
+                                            echo <<<EC
+                                                <div>
+                                                  <button id="courseemptyNotice" class="" style="display: none; padding: 16px 4px; margin-left: 10px; margin-bottom: 12px; cursor: default; background: #FFFFFF; border: 0px;" role="button" >It's pretty barren in here...</button>
+                                                </div>
+                                            EC;
+                                        }
                                         // include_once 'includes/adminmanagecourse.inc.php';
+
+                                        //TO DO
                                         include_once 'includes/adminapprovecourse.inc.php';
                                         // include_once 'includes/adminviewsubject.inc.php';
                                         ?>
