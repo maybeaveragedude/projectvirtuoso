@@ -13,10 +13,15 @@ if (isset($_POST["submitSub"])){
 
   $subtopicName = $_POST["subtopicname"];
   $subtopicDesc = $_POST["subtopicdesc"];
+  // $subtopicDesc = preg_replace("/(?<!\s);(?!\s)/", "/", $subtopicDesc);
 
   $teacherid = $_SESSION["teacherid"];
 
   $scenarioNo = $_POST["hiddenTotalCount"];
+
+  if(isset($_POST["hiddenExistingSubtopicID"])){
+    $existingSubtopicId = $_POST["hiddenExistingSubtopicID"];
+  }
 
   require_once 'dbh.inc.php';
   require_once 'functions.inc.php';
@@ -43,8 +48,16 @@ if (isset($_POST["submitSub"])){
     case '2':
       insertNewSubtopic_NEWSubj_NEWTopic($conn, $newsubjName, $newsubjDesc, $newtopicName, $newtopicDesc, $subtopicName, $subtopicDesc, $teacherid);
       break;
+
+    case '3':
+      UpdateSubtopic_SubjExist_TopicExist($conn, $topicID, $existingSubtopicId, $subtopicName, $subtopicDesc, $teacherid);
+      break;
+
+    default:
+      header("location: ../teacherhome.php?error=unknown");
+      break;
   }
-  testretrieveSubjects();
+  headlesstaillessretrieveSubjects();
 
 }
 else {

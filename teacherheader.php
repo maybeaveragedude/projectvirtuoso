@@ -1,7 +1,7 @@
 <?php
   session_start();
   function invalidUserAcess() {
-    if(!isset($_SESSION['username'])){
+    if(!isset($_SESSION['teacherid'])){
       $statusMessage = '\nSTOP RIGHT THERE Criminal Scum!\n\nPlease LOGIN with your account credentials or CREATE AN ACCOUNT before proceeding.';
       echo <<<GFG
         <script>
@@ -13,7 +13,7 @@
     }
   }
   function loggedInInvalidUserAcess() {
-    if(isset($_SESSION['username'])){
+    if(isset($_SESSION['teacherid'])){
       $tempname = $_SESSION['username'];
       $statusMessage = '\nSTOP RIGHT THERE Criminal Scum!\n\nYou are already logged in as '.$tempname.'!';
 

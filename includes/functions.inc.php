@@ -433,7 +433,7 @@ function checkSubtopics($conn) {
 
 function retrieveSubjects($conn) {
     session_start();
-    header("Refresh:5; url=../teacheredit.php");
+    header("Refresh:2; url=../teacheredit.php");
 
       $checkSubjects[] = checkSubjects($conn);
       $checkTopics[] = checkTopics($conn);
@@ -621,6 +621,30 @@ function insertNewSubtopic_NEWSubj_NEWTopic($conn, $newsubjName, $newsubjDesc, $
   $conn->autocommit(true);
   headlesstaillessretrieveSubjects($conn);
   header("location: ../teacherhome.php?create=newsubjecttopicsubtopic");
+  exit();
+}
+
+function UpdateSubtopic_SubjExist_TopicExist($conn, $topicID, $existingSubtopicId, $subtopicName, $subtopicDesc, $teacherid) {
+  // $sql = "INSERT INTO subtopic (sub_name, sub_desc, t_fid, topic_fid) VALUES (?, ?, ?, ?);";
+
+  $conn->autocommit(FALSE);
+  // $sql1 = $conn->prepare("DELETE FROM subtopic WHERE sub_id = ?");
+  $sql1 = $conn->prepare("UPDATE subtopic SET sub_name = ?, sub_desc = ? WHERE sub_id = ? ");
+
+  // $sql2 = $conn->prepare("INSERT INTO subtopic (sub_id, sub_name, sub_desc, t_fid, topic_fid) VALUES (?, ?, ?, ?, ?)");
+
+
+  // $sql1->bind_param("s", $existingSuptopicId);
+  $sql1->bind_param("sss", $subtopicName, $subtopicDesc, $existingSubtopicId);
+
+  $sql1->execute();
+
+  // $sql2->bind_param("sssss", $existingSubtopicId, $subtopicName, $subtopicDesc, $teacherid, $topicID);
+  // $sql2->execute();
+
+  $conn->autocommit(true);
+  headlesstaillessretrieveSubjects($conn);
+  header("location: ../teacherhome.php?subtopicedit=successful");
   exit();
 }
 
