@@ -1,5 +1,10 @@
 <?php
   include_once 'teacherheader.php';
+
+  require_once 'includes/dbh.inc.php';
+  require_once 'includes/functions.inc.php';
+
+  // headlesstaillessretrieveSubjects($conn);
   invalidUserAcess();
 
 ?>
@@ -73,7 +78,7 @@
                                                   echo <<<GFG
                                                       <div class="coursetitle" id="coursetitle{$tempCourseId}">
                                                         <a class="btn btn-primary listgroupdropMain subjectList" style="font-size: 20px; margin: 14px 0px;"data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$num}" href="#collapseCourse-{$num}" role="button"><strong>{$tempname}</strong></a>
-                                                        <a class="simpleTextEdit" style="margin: 14px 0px;" href="teachercourseedit.php?edit=course_{$tempCourseId}">Edit</a>
+                                                        <a class="simpleTextEdit" style="margin: 14px 0px;" href="teachercourseedit.php?editcourse={$tempCourseId}">Edit</a>
                                                           <div class="collapse" id="collapseCourse-{$num}">
 
                                                  GFG;
@@ -202,7 +207,7 @@
                                                             $tempSubtopicTeacherId = $subtopicDisplay['t_fid'];
                                                             if ($tempTopicId == $tempTopicFId){
                                                                 echo <<<GFG
-                                                                    <div id="subID_{$tempSubtopicId}">
+                                                                    <div id="{$tempSubtopicId}">
                                                                       <button class="btn btn-primary listgroupdropMain SubtopicList teacheridIs_{$tempSubtopicTeacherId}" style="margin-left: 56px; margin-top: -8px; margin-bottom: 6px; background-color:white; color:black;" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$subtopicnum}" href="#collapseSubtopic-{$subtopicnum}" ><i>{$tempSubtopicname}</i></button>
                                                                         <div class="collapse" id="collapseSubtopic-{$subtopicnum}">
 
@@ -443,7 +448,7 @@
 
     }
     function redirectEdit(subtopicID){ //to enable setting up form in editor
-      window.location.href=`teacheredit.php?edit=${subtopicID}`;
+      window.location.href=`teacheredit.php?editsubtopics=${subtopicID}`;
     }
 
     </script>

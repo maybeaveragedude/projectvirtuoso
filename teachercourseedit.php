@@ -1,6 +1,10 @@
 <?php
   include_once 'teacherheader.php';
   invalidUserAcess();
+  require_once 'includes/dbh.inc.php';
+  require_once 'includes/functions.inc.php';
+
+  headlesstaillessretrieveSubjects($conn);
 
 ?>
 <script src="assets/js/external/jquery/jquery.js"></script>
@@ -24,9 +28,83 @@
                 <div class="row" style="padding-right: 80px;padding-left: 80px;">
                     <div class="col-xxl-8" style="height: 311px;padding: 0px;margin: 0px 0px;border-right-width: 1px;border-left-width: 1px;margin-bottom: 14px;padding-right: 0px;">
                       <label class="form-label middlelabel biggerlabel" style="font-size: 36px;" >Course Name</label>
-                      <input name="coursename" class="form-control" type="text" required=""style="width: 560px;">
+                      <input id="hiddenEditBoolean" type="hidden" name="hiddenEditBoolean" value =0>
+
+                      <?php
+                      //placing existing course name
+
+                      if(isset($_GET['editcourse'])){
+                        $tempExistingCourseID = $_GET['editcourse'];
+                         //if its new course mode
+
+
+                        //TO BE CARRIED IN TO INC.PHP
+                        echo <<<GFG
+                          <input id="hiddenExistingCourseID" type="hidden" name="hiddenExistingCourseID" value ={$tempExistingCourseID}>
+                          <script>
+                              document.getElementById("hiddenEditBoolean").value = 1;
+                              console.log(document.getElementById("hiddenEditBoolean").value);
+                          </script>
+
+                        GFG;
+
+                              $counthere=0;
+                              foreach ($_SESSION["singleTeacherCourse"][$counthere] as $display) {
+                                $tempCourseId = $display['course_id'];
+                                $tempname = $display['course_name'];
+                                $tempdesc = $display['course_desc'];
+                                $tempTFID = $display['t_fid'];
+
+                                if($tempCourseId == $tempExistingCourseID){
+                                  echo <<<GFG
+                                    <input name="coursename" class="form-control" value="{$tempname}" type="text" required=""style="width: 560px;">
+
+                                  GFG;
+                                }
+                                $counthere +=1;
+                              }
+                      } else {
+                        echo <<<GFG
+                          <input name="coursename" class="form-control" type="text" required=""style="width: 560px;">
+
+                        GFG;
+
+                      }
+                        ?>
+                      <!-- <input name="coursename" class="form-control" type="text" required=""style="width: 560px;"> -->
                       <label class="form-label middlelabel biggerlabel">Description</label>
-                      <textarea name="coursedesc" class="form-control"required="" style="height: 140px;width: 716px;"></textarea>
+
+                      <?php
+                      //placing existing course description
+                      if(isset($_GET['editcourse'])){ //if its new course mode
+                        $tempExistingCourseID = $_GET['editcourse'];
+
+                              $counthere=0;
+                              foreach ($_SESSION["singleTeacherCourse"][$counthere] as $display) {
+                                $tempCourseId = $display['course_id'];
+                                $tempname = $display['course_name'];
+                                $tempdesc = $display['course_desc'];
+                                $tempTFID = $display['t_fid'];
+
+                                if($tempCourseId == $tempExistingCourseID){
+                                  echo <<<GFG
+                                    <textarea name="coursedesc" class="form-control" required="" style="height: 140px;width: 716px;">{$tempdesc}</textarea>
+
+                                  GFG;
+                                }
+                                $counthere +=1;
+                              }
+                      } else {
+                        echo <<<GFG
+                          <textarea name="coursedesc" class="form-control"required="" style="height: 140px;width: 716px;"></textarea>
+
+                        GFG;
+
+                      }
+
+                       ?>
+
+                      <!-- <textarea name="coursedesc" class="form-control"required="" style="height: 140px;width: 716px;"></textarea> -->
                     </div>
                     <div class="col-xxl-4" style="margin-bottom: 14px;padding: 16px;padding-top: 16px;background: #effff2;padding-right: 24px;padding-left: 24px;border-top-right-radius: 100px;border-bottom-left-radius: 100px;border-top-left-radius: 16px;border-bottom-right-radius: 16px;">
                         <h3>Basic Guidelines</h3>
@@ -51,10 +129,6 @@
                             <li class="listObjects">Item 4</li> -->
                             <?php
 
-                            require_once 'includes/dbh.inc.php';
-                            require_once 'includes/functions.inc.php';
-
-                            headlesstaillessretrieveSubjects($conn);
                             $num=0;
 
                             //SUBJECT PART
@@ -82,11 +156,12 @@
                                             <div class="singleTopicRow" id="singleTopicRow{$topicnum}">
                                               <h6 class="TopicList" style="padding-top: 0px; padding-bottom: 2px;margin-left: 14px; margin-top: 0px; margin-bottom: 6px;">{$tempTopicname}</h6>
                                                 <div class="" id="collapseTopic-{$topicnum}">
-                                                <ul class="list-unstyled subtopicRepo connectedSortable" style="min-height: 30px">
+                                                <ul class="list-unstyled subtopicRepo connectedSortable" style="min-height: 30px ;background-color: rgba(60,255,0,4%) ;">
 
                                         GFG;
 
-                                        //SUBTOPIC PART
+
+                                        // SUBTOPIC PART
                                         $subtopicnum = 0; //for id
                                         foreach ($_SESSION["teachersubtopicsCombined"][$subtopicnum] as $subtopicDisplay){
                                           $tempSubtopicname = $subtopicDisplay['sub_name'];
@@ -102,7 +177,34 @@
                                               GFG;
                                           }
                                           $subtopicnum +=1;
+
                                         }
+                                        if(isset($_GET['editcourse'])){
+                                        $inner = 0; //for id
+                                        foreach ($_SESSION["singleTeacherCourseSubtopics"][$inner] as $subtopicDisplay){
+                                          $tempSubtopicname = $subtopicDisplay['sub_name'];
+                                          $tempSubtopicdesc = $subtopicDisplay['sub_desc'];
+                                          $tempTopicFId = $subtopicDisplay['topic_fid'];
+                                          $tempSubtopicId = $subtopicDisplay['sub_id'];
+                                          $tempSubtopicTeacherId = $subtopicDisplay['t_fid'];
+
+                                          if ($tempTopicId == $tempTopicFId){
+                                            // echo '<pre>'; print_r($subtopicDisplay); echo '</pre>';
+
+                                              echo <<<GFG
+                                                      <div id="subID_{$tempSubtopicId}">
+
+                                                        <script>
+                                                              document.getElementById('{$tempSubtopicId}').style.display = "none";
+                                                        </script>
+
+                                                      </div>
+                                              GFG;
+                                          }
+                                          $inner +=1;
+                                        }
+                                      }
+
 
                                         echo <<<GFG
 
@@ -123,6 +225,7 @@
                                 GFG;
                                 $num += 1;
                               }
+                            // }
 
                              ?>
                         </ul>
@@ -130,10 +233,67 @@
                     <div id ="courseSubtopicsList" class="col-xxl-6 clearStateList" style="border-left-width: 1px;border-left-style: solid;padding: 0px 40px;margin: 0px 0px;height: auto;padding-top: 16px;margin-top: 14px;">
                         <h2>Course Contents</h2>
                         <ul class="list-unstyled sortable newCourseList connectedSortable" style="min-height: 500px;margin-top: 24px;padding-top: 16px;padding-right: 40px;padding-left: 40px;border-width: 1px;border-style: solid;padding-bottom: 16px;">
+                          <?php
+
+
+                          $tempExistCourseListCount=0;
+
+                          //COURSE DISPLAY SUBTOPIC PART
+                          if(isset($_GET['editcourse'])){
+                              foreach ($_SESSION["singleTeacherCourse"][$tempExistCourseListCount] as $display) {
+                                $tempCourseId = $display['course_id'];
+                                $tempname = $display['course_name'];
+                                $tempdesc = $display['course_desc'];
+                                $tempTFID = $display['t_fid'];
+                                if ($tempCourseId == $tempExistingCourseID){
+
+                                  //DISPLAY ORDERED SUBTOPICS
+                                  $subsnum = 0;
+                                  foreach ($_SESSION["singleTeacherCourseSubtopics"][$subsnum] as $coursesubsDisp){
+                                    $tempExistSubtopicID = $coursesubsDisp['sub_id'];
+                                    $tempSubname = $coursesubsDisp['sub_name'];
+                                    $tempSubdesc = $coursesubsDisp['sub_desc'];
+                                    // $tempSubFId = $coursesubsDisp['sbjt_fid'];
+                                    // $tempTopicId = $coursesubsDisp['topic_id'];
+
+                                        echo <<<GFG
+
+                                            <li id="{$tempExistSubtopicID}" class="teacheridIs_{$tempSubtopicTeacherId} listObjects " style="margin-left: 26px; width: 300px;" ><i>{$tempSubname}</i></li>
+
+                                        GFG;
+
+
+                                    $subsnum +=1;
+                                  }
+                                $num += 1;
+                              }
+                            }
+                          }
+
+                           ?>
+
                         </ul>
                         <button class="btn btn-primary myhover" id="submitcourse" style="margin-top: 24px; float: right; border-radius: 7px;background: #1eb53a;" onclick="showid()">Send In!</button>
-                        <a id="resetLists" class="simpleTextCancel" type="button">Reset</a>
+
+                        <?php
+                        if(isset($_GET['editcourse'])){
+                          echo <<<GFG
+
+                            <a id="courseEditCancel" class="simpleTextCancel" type="button" href="teacherhome.php">Cancel</a>
+
+                          GFG;
+                        } else {
+                          echo <<<GFG
+
+                            <a id="resetLists" class="simpleTextCancel" type="button">Reset</a>
+
+                          GFG;
+                        }
+                         ?>
+                        <!-- <a id="resetLists" class="simpleTextCancel" type="button">Reset</a> -->
                         <input id="hiddenIDlist" type="hidden" name="hiddenIDlist" value =0>
+
+
 
                     </div>
                 </div>
@@ -154,6 +314,15 @@
     var subcount = 0;
     var topiccount = 0;
     var totalcount = subcount + topiccount;
+
+    window.onload = function(){
+      console.log(document.getElementById("hiddenEditBoolean").value);
+
+
+    }
+
+
+
     function setSubjectDisplay(displaySubject, displayDesc, subjectID){
         // console.log(displaySubject);
         document.getElementById("subjectname").value = displaySubject;
@@ -385,20 +554,20 @@
             }).disableSelection();
 
             $(".subtopicRepo, .newCourseList").sortable({
-              stop:function(){
-                  ids = '';
-                  $(".newCourseList li").each(function(){
-                    id=$(this).attr("id");
-                    // alert(id);
-                    if(ids==''){
-                      ids = id;
-                    }else{
-                      ids = ids+','+id;
-                    }
-                  })
-                  // alert(ids);
-                  $("#hiddenIDlist").val(ids);
-                }
+              // stop:function(){
+              //     ids = '';
+              //     $(".newCourseList li").each(function(){
+              //       id=$(this).attr("id");
+              //       // alert(id);
+              //       if(ids==''){
+              //         ids = id;
+              //       }else{
+              //         ids = ids+','+id;
+              //       }
+              //     })
+              //     // alert(ids);
+              //     $("#hiddenIDlist").val(ids);
+              //   }
             });
 
 
@@ -414,6 +583,19 @@
 
               $('#resetLists').click(function(){
                 location.reload();
+              });
+
+              $('#submitcourse').click(function(){
+                $(".newCourseList li").each(function(){
+                  id=$(this).attr("id");
+                  // alert(id);
+                  if(ids==''){
+                    ids = id;
+                  }else{
+                    ids = ids+','+id;
+                  }
+                })
+                $("#hiddenIDlist").val(ids);
               });
 
 
