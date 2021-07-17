@@ -44,7 +44,7 @@
                                  elseif ($_GET["subtopicedit"] == "error") {
                                    echo "<script>alert('Something went wrong! Please try again later.');</script>";
                                  }
-                               } 
+                               }
                                // elseif ($_GET["error"]) {
                                //   if ($_GET["error"] == "unknown") {
                                //     echo "<script>alert('Something went wrong! Please try again later.');</script>";
@@ -82,6 +82,8 @@
 
                                               //COURSE PART
                                                 foreach ($_SESSION["singleTeacherCourse"][$num] as $display) {
+                                                  // echo '<pre>'; print_r($display); echo '</pre>';
+
                                                   $tempCourseId = $display['course_id'];
                                                   $tempname = $display['course_name'];
                                                   $tempdesc = $display['course_desc'];
@@ -96,46 +98,36 @@
                                                  GFG;
                                                     //DISPLAY ORDERED SUBTOPICS
                                                     $subsnum = 0;
-                                                    foreach ($_SESSION["singleTeacherCourseSubtopics"][$subsnum] as $coursesubsDisp){
-                                                      $tempSubname = $coursesubsDisp['sub_name'];
-                                                      $tempSubdesc = $coursesubsDisp['sub_desc'];
+                                                    foreach ($_SESSION["singleTeacherCourseSubtopics"] as $coursesubsDisp){
+                                                      $tempinnercourse = $coursesubsDisp[$subsnum]['course_fid'];
+                                                      $tempTopSubname = $coursesubsDisp[$subsnum];
+                                                      // $tempSubdesc = $coursesubsDisp[$subsnum]['sub_desc'];
                                                       // $tempSubFId = $coursesubsDisp['sbjt_fid'];
                                                       // $tempTopicId = $coursesubsDisp['topic_id'];
+                                                      // echo '<pre>'; print_r($coursesubsDisp); echo '</pre>';
 
+                                                      if($tempCourseId == $tempinnercourse){
+                                                        // echo '<pre>'; print_r($coursesubsDisp); echo '</pre>';
+
+                                                        $innercount = 0;
+                                                        foreach ($coursesubsDisp as $count) {
+                                                          $tempSubname = $count['sub_name'];
                                                           echo <<<GFG
                                                               <div class="singleTopicRow" id="singleTopicRow{$subsnum}">
                                                                 <a class="btn btn-primary listgroupdropMain TopicList" style="padding-top: 0px; padding-bottom: 2px;margin-left: 24px; margin-top: 0px; margin-bottom: 12px;" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$subsnum}" href="#collapseTopic-{$subsnum}" role="button">{$tempSubname}</a>
-                                                                  <div class="collapse" id="collapseTopic-{$subsnum}">
+
                                                           GFG;
 
-                                                          //SUBTOPIC PART
-                                                          // $subtopicnum = 0; //for id
-                                                          // foreach ($_SESSION["teachersubtopicsCombined"][$subtopicnum] as $subtopicDisplay){
-                                                          //   $tempSubtopicname = $subtopicDisplay['sub_name'];
-                                                          //   $tempSubtopicdesc = $subtopicDisplay['sub_desc'];
-                                                          //   $tempTopicFId = $subtopicDisplay['topic_fid'];
-                                                          //   $tempSubtopicId = $subtopicDisplay['sub_id'];
-                                                          //   $tempSubtopicTeacherId = $subtopicDisplay['t_fid'];
-                                                          //   if ($tempTopicId == $tempTopicFId){
-                                                          //       echo <<<GFG
-                                                          //           <div id="subID_{$tempSubtopicId}">
-                                                          //             <button class="btn btn-primary listgroupdropMain SubtopicList teacheridIs_{$tempSubtopicTeacherId}" style="margin-left: 56px; margin-top: -8px; margin-bottom: 6px; background-color:white; color:black;" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$subtopicnum}" href="#collapseSubtopic-{$subtopicnum}" ><i>{$tempSubtopicname}</i></button>
-                                                          //               <div class="collapse" id="collapseSubtopic-{$subtopicnum}">
-                                                          //
-                                                          //
-                                                          //                   </div>
-                                                          //               </div>
-                                                          //       GFG;
-                                                          //   }
-                                                          //   $subtopicnum +=1;
-                                                          // }
 
                                                           echo <<<GFG
 
 
-                                                                      </div>
+
                                                                   </div>
                                                           GFG;
+                                                          $innercount += 1;
+                                                        }
+                                                        }
 
                                                       $subsnum +=1;
                                                     }

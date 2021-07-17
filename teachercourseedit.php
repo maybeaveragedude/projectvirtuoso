@@ -249,18 +249,35 @@
 
                                   //DISPLAY ORDERED SUBTOPICS
                                   $subsnum = 0;
-                                  foreach ($_SESSION["singleTeacherCourseSubtopics"][$subsnum] as $coursesubsDisp){
-                                    $tempExistSubtopicID = $coursesubsDisp['sub_id'];
-                                    $tempSubname = $coursesubsDisp['sub_name'];
-                                    $tempSubdesc = $coursesubsDisp['sub_desc'];
+                                  foreach ($_SESSION["singleTeacherCourseSubtopics"] as $coursesubsDisp){
+                                    $tempinnercourse = $coursesubsDisp[$subsnum]['course_fid'];
+                                    $tempSubname = $coursesubsDisp[$subsnum];
+                                    // $tempSubdesc = $coursesubsDisp['sub_desc'];
                                     // $tempSubFId = $coursesubsDisp['sbjt_fid'];
                                     // $tempTopicId = $coursesubsDisp['topic_id'];
 
-                                        echo <<<GFG
+                                    $innercount = 0;
+                                    foreach ($coursesubsDisp as $count) {
 
-                                            <li id="{$tempExistSubtopicID}" class="teacheridIs_{$tempSubtopicTeacherId} listObjects " style="margin-left: 26px; width: 300px;" ><i>{$tempSubname}</i></li>
+                                      $tempSubname = $count['sub_name'];
+                                      $tempExistSubtopicID = $count['sub_id'];
 
-                                        GFG;
+                                      if($tempCourseId == $tempinnercourse){
+                                      echo <<<GFG
+
+                                          <li id="{$tempExistSubtopicID}" class="teacheridIs_{$tempSubtopicTeacherId} listObjects " style="margin-left: 26px; width: 300px;" ><i>{$tempSubname}</i></li>
+
+                                      GFG;
+
+                                      $innercount += 1;
+                                    }
+                                  }
+
+                                        // echo <<<GFG
+                                        //
+                                        //     <li id="{$tempExistSubtopicID}" class="teacheridIs_{$tempSubtopicTeacherId} listObjects " style="margin-left: 26px; width: 300px;" ><i>{$tempSubname}</i></li>
+                                        //
+                                        // GFG;
 
 
                                     $subsnum +=1;
