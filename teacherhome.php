@@ -37,7 +37,19 @@
                                  elseif ($_GET["create"] == "newcourse"){
                                    echo "<script>alert('New course created successfully!');</script>";
                                  }
-                               }
+                               } elseif (isset($_GET["subtopicedit"])){
+                                 if ($_GET["subtopicedit"] == "successful") {
+                                   echo "<script>alert('Subtopic edited successfully!');</script>";
+                                 }
+                                 elseif ($_GET["subtopicedit"] == "error") {
+                                   echo "<script>alert('Something went wrong! Please try again later.');</script>";
+                                 }
+                               } 
+                               // elseif ($_GET["error"]) {
+                               //   if ($_GET["error"] == "unknown") {
+                               //     echo "<script>alert('Something went wrong! Please try again later.');</script>";
+                               //   }
+                               // }
 
                             ?>
                           </div>

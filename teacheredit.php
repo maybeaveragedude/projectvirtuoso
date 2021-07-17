@@ -21,9 +21,38 @@
                         <div class="col-xxl-4" style="padding: 0px 56px;padding-top: 16px;">
                             <div class="row">
                                 <div class="col" style="padding: 0px;border-top-width: 1px;border-top-style: solid;border-bottom-width: 1px;border-bottom-style: solid;">
-                                    <div class="dropdown"><button class="btn btn-primary dropdown-toggle listgroupdropMain sidetitlesMain" id="dropmenuSubj" aria-expanded="false" data-bs-toggle="dropdown" type="button">Subjects</button>
-                                        <div class="dropdown-menu" id="dropmenuboxSubj" >
+
                                           <?php
+                                          if(isset($_GET['editsubtopics'])){
+                                            $tempExistingSubtopicID = $_GET['editsubtopics'];
+                                            //replacing buttons with perma title
+                                            //
+                                            //
+                                            // foreach ($_SESSION["teachersubjectsCombined"][$num] as $display) {
+                                            //   $tempname = $display['sbjt_name'];
+                                            //   $tempdesc = $display['sbjt_desc'];
+                                            //   $tempSubId = $display['sbjt_id'];
+                                            //
+                                            //   $num += 1;
+                                            //
+                                            // }
+
+                                            echo <<<GFG
+
+                                              <div class="dropdown">
+                                              <h4 class="" style="margin: 8px 0px; padding: 6px 16px;">Subject</h4>
+                                                  <div class="dropdown-menu" id="dropmenuboxSubj" >
+
+                                            GFG;
+
+                                          } else {
+
+                                            echo <<<GFG
+                                              <div class="dropdown"><button class="btn btn-primary dropdown-toggle listgroupdropMain sidetitlesMain" id="dropmenuSubj" aria-expanded="false" data-bs-toggle="dropdown" type="button">Subjects</button>
+                                                  <div class="dropdown-menu" id="dropmenuboxSubj" >
+
+                                            GFG;
+
                                           $num = 0;
                                           foreach ($_SESSION["teachersubjectsCombined"][$num] as $display) {
                                             $tempname = $display['sbjt_name'];
@@ -35,8 +64,8 @@
                                             GFG;
                                             $num += 1;
 
-
                                           }
+                                        }
                                           echo "<input type='button' class='dropdown-item' id='menuNewsubject' onclick=\"newSubj()\" value = ' ➕ New Subject'>";
 
                                            ?>
@@ -46,15 +75,71 @@
                                         </div>
 
                                     </div>
-                                    <input class="form-control sidetitles" type="text" id="subjectname" name="subjectname" placeholder="Subject Title" required="" readonly="">
-                                    <textarea class="form-control sidetitles" id="subjectdesc" name="subjectdesc" placeholder="Description" required="" readonly=""></textarea>
+                                    <?php
+                                    if(isset($_GET['editsubtopics'])){
+                                      $tempExistingSubtopicID = $_GET['editsubtopics'];
+
+                                      echo <<<GFG
+
+                                        <input class="form-control sidetitles" type="text" id="subjectname" name="subjectname" placeholder="Subject Title" required="" readonly="">
+                                        <textarea class="form-control sidetitles" id="subjectdesc" name="subjectdesc" placeholder="Description" required="" readonly=""></textarea>
+
+                                      GFG;
+
+                                    }else{
+                                      echo <<<GFG
+
+                                        <input class="form-control sidetitles" type="text" id="subjectname" name="subjectname" placeholder="Subject Title" required="" readonly="">
+                                        <textarea class="form-control sidetitles" id="subjectdesc" name="subjectdesc" placeholder="Description" required="" readonly=""></textarea>
+
+                                      GFG;
+
+                                    }
+
+
+                                     ?>
+                                    <!-- <input class="form-control sidetitles" type="text" id="subjectname" name="subjectname" placeholder="Subject Title" required="" readonly="">
+                                    <textarea class="form-control sidetitles" id="subjectdesc" name="subjectdesc" placeholder="Description" required="" readonly=""></textarea> -->
                             </div>
                           </div>
                             <div class="row">
                                 <div class="col" style="padding: 0px;border-top-width: 0.5px;border-bottom-width: 1px;border-bottom-style: solid;">
-                                    <div class="dropdown" style="border-top-width: 0px;"><button class="btn btn-primary dropdown-toggle listgroupdropMain sidetitlesMain" id="dropmenuTopic" aria-expanded="false" data-bs-toggle="dropdown" type="button">Topics</button>
-                                        <div class="dropdown-menu" id="dropmenuboxTopics">
+
                                           <?php
+                                          if(isset($_GET['editsubtopics'])){
+                                            $tempExistingSubtopicID = $_GET['editsubtopics'];
+
+                                            echo <<<GFG
+                                                <input id="hiddenExistingSubtopicID" type="hidden" name="hiddenExistingSubtopicID" value ={$tempExistingSubtopicID}>
+                                            GFG;
+                                            //
+                                            // $num = 0;
+                                            // foreach ($_SESSION["teachertopicsCombined"][$num] as $display) {
+                                            //   $tempname = $display['topic_name'];
+                                            //   $tempdesc = $display['topic_desc'];
+                                            //   $tempSubFId = $display['sbjt_fid'];
+                                            //   $tempTopicId = $display['topic_id'];
+                                            //
+                                            //   $num += 1;
+                                            // }
+
+                                            echo <<<GFG
+                                              <div class="dropdown">
+                                              <h4 class="" style="margin: 8px 0px; padding: 6px 16px;">Topic</h4>
+                                                  <div class="dropdown-menu" id="dropmenuboxSubj" >
+
+                                            GFG;
+
+                                          } else {
+
+                                            echo <<<GFG
+                                              <div class="dropdown" style="border-top-width: 0px;"><button class="btn btn-primary dropdown-toggle listgroupdropMain sidetitlesMain" id="dropmenuTopic" aria-expanded="false" data-bs-toggle="dropdown" type="button">Topics</button>
+                                                <div class="dropdown-menu" id="dropmenuboxTopics">
+
+                                            GFG;
+
+
+
                                           $num = 0;
                                           foreach ($_SESSION["teachertopicsCombined"][$num] as $display) {
                                             $tempname = $display['topic_name'];
@@ -66,9 +151,8 @@
                                             GFG;
 
                                             $num += 1;
-
-
                                           }
+                                        }
                                           echo "<input type='button' class='dropdown-item dropdownNewTopic' id='menuNewtopic' style='display:none;' onclick=\"newTopic()\" value = ' ➕ New Topic'>";
 
                                            ?>
@@ -85,6 +169,8 @@
                                       <div id = "rowForExistingSubtopics">
 
                                               <?php
+
+
                                               $num = 0;
                                               foreach ($_SESSION["teachersubtopicsCombined"][$num] as $display) {
                                                 $tempname = $display['sub_name'];
@@ -92,13 +178,14 @@
                                                 $tempSubtopicId = $display['sub_id'];
                                                 $tempTopicFId = $display['topic_fid'];
                                                 echo <<<GFG
-                                                  <input type='button' class='blankbutton dropdown-item dropdownSubtopics topicFIDis{$tempTopicFId}' id='subtopic{$num}' style='display:none;'  value = '{$tempname}'>
+                                                  <input type='button' class='blankbutton dropdown-item dropdownSubtopics topicFIDis{$tempTopicFId}' id='subtopic{$tempSubtopicId}' style='display:none;'  value = '{$tempname}'>
                                                 GFG;
 
                                                 $num += 1;
 
 
                                               }
+
 
                                                ?>
                                              </div>
@@ -107,9 +194,9 @@
                         </div>
                         <div class="col" style="height: 900px;padding: 0px 40px;border-left-width: 1px;border-left-style: solid;margin: 14px 0px;">
                           <label class="form-label middlelabel biggerlabel">Subtopic Title</label>
-                          <input class="form-control" type="text" name="subtopicname" required="">
+                          <input id="subtopicname" class="form-control" type="text" name="subtopicname" required="">
                           <label class="form-label middlelabel biggerlabel">Description</label>
-                          <textarea class="form-control" name="subtopicdesc" style="height: 200px;" required=""></textarea>
+                          <textarea id="subtopicdesc" class="form-control" name="subtopicdesc" style="height: 200px;" required=""></textarea>
                           <div>
                             <button class="btn btn-primary" type="submit" name="submitSub" style="margin-top: 24px; float: right; border-radius: 7px;background: #1eb53a;">Send In!</button>
                             <input class="simpleTextCancel" type="reset" onclick="destroySubtopics()" value="Cancel Changes" style="padding: 6px 16px; float: right; margin-top: 24px; background: #FFFFFF; border: 0px;">
@@ -175,10 +262,24 @@
 
           }
         }
-
-
-
       }
+
+      function systemSetSubjectDisplay(displaySubject, displayDesc, subjectID){
+          // console.log(displaySubject);
+          document.getElementById("subjectname").value = displaySubject;
+          document.getElementById("subjectdesc").value = displayDesc;
+          document.getElementById("subjectname").readOnly = true;
+          document.getElementById("subjectdesc").readOnly = true;
+          document.getElementById("menuNewtopic").style.display = "block";
+
+          subcount = 0;
+          topiccount = 1;
+          document.getElementById("hiddenTotalCount").value = subcount+topiccount;
+          console.log("count is " + document.getElementById("hiddenTotalCount").value);
+          getExistingSubID(subjectID);
+
+        }
+
       function getExistingSubID (subjectID){
         var input = document.createElement("input");
 
@@ -288,6 +389,55 @@
         }
       }
 
+      function systemSetTopicDisplay(displayTopic, displayDesc, topicID, subtopicId){
+        // console.log(displayTopic);
+        // console.log(displayDesc);
+        document.getElementById("topicname").value = displayTopic;
+        document.getElementById("topicdesc").value = displayDesc;
+        document.getElementById("topicname").readOnly = true;
+        document.getElementById("topicdesc").readOnly = true;
+
+        subcount = 0;
+        topiccount = 0;
+        document.getElementById("hiddenTotalCount").value = 3; //for CASE SELECTION IN PHP
+        console.log("count is " + document.getElementById("hiddenTotalCount").value);
+
+        getExistingTopicID(topicID);
+        console.log(document.getElementById("getExistingSubID").value);
+        // var element = document.getElementById("dropmenuTopic");
+        // element.setAttribute('aria-expanded', 'false');
+        // element.classList.toggle("show");
+        // var element2 = document.getElementById("dropmenuboxTopics");
+        // element2.classList.toggle("show");
+
+        document.getElementById("rowForExistingSubtopics").style.display = "block";
+        document.getElementById("miniSelect").style.display = "none";
+        //
+        //
+        var elementfid = document.getElementsByClassName("dropdownSubtopics"); //making the subtopics to be dependant on the parent topics
+        // console.log(elementfid[0].className);
+        for (var i = 0; i <= elementfid.length; i++) {
+          // console.log(elementfid[i].className);
+          if (elementfid[i].classList.contains(`topicFIDis${topicID}`) == true){
+            // console.log(elementfid[i].classList.contains(`subjectFIDis${subjectID}`));
+            elementfid[i].style.display = "block";
+            if (elementfid[i].id == subtopicId){
+              elementfid[i].classList.add("highlightThis");
+            }
+
+          }
+          else{
+            elementfid[i].style.display = "none";
+            // console.log(elementfid[i].display);
+            // document.getElementById("topicname").value = "";
+            // document.getElementById("topicdesc").value = "";
+            // document.getElementById("topicname").readOnly = true;
+            // document.getElementById("topicdesc").readOnly = true;
+
+          }
+        }
+      }
+
       function getExistingTopicID (topicID){
         var input = document.createElement("input");
 
@@ -357,3 +507,55 @@
 </body>
 
 </html>
+<?php
+if(isset($_GET['editsubtopics'])){
+  $tempExistingSubtopicID = $_GET['editsubtopics'];
+
+  $num = 0;
+  foreach ($_SESSION["teachersubjectsCombined"][$num] as $subdisplay) {
+    $tempSubname = $subdisplay['sbjt_name'];
+    $tempSubdesc = $subdisplay['sbjt_desc'];
+    $tempSubId = $subdisplay['sbjt_id'];
+
+    $num += 1;
+
+    $topicnum = 0;
+    foreach ($_SESSION["teachertopicsCombined"][$topicnum] as $topicdisplay) {
+      $tempTopicname = $topicdisplay['topic_name'];
+      $tempTopicdesc = $topicdisplay['topic_desc'];
+      $tempSubFId = $topicdisplay['sbjt_fid'];
+      $tempTopicId = $topicdisplay['topic_id'];
+
+      $topicnum += 1;
+
+      $subtnum = 0;
+      foreach ($_SESSION["teachersubtopicsCombined"][$subtnum] as $subtopicdisplay) {
+        $tempSubtopicname = $subtopicdisplay['sub_name'];
+        $tempSubtopicdesc = $subtopicdisplay['sub_desc'];
+        $tempSubtopicId = $subtopicdisplay['sub_id'];
+        $tempTopicFId = $subtopicdisplay['topic_fid'];
+
+        if (($tempExistingSubtopicID == $tempSubtopicId) && ($tempTopicId == $tempTopicFId) && ($tempSubFId == $tempSubId)){
+          echo <<<GFG
+              <script>
+                  systemSetSubjectDisplay("{$tempSubname}","{$tempSubdesc}","{$tempSubId}");
+
+                  document.getElementById("subtopicname").value = "{$tempSubtopicname}";
+                  document.getElementById("subtopicdesc").value = `{$tempSubtopicdesc}`;
+                  systemSetTopicDisplay("{$tempTopicname}","{$tempTopicdesc}","{$tempTopicId}","subtopic{$tempSubtopicId}");
+
+              </script>
+
+
+          GFG;
+        }
+
+        $subtnum += 1;
+
+      }
+    }
+  }
+
+
+}
+ ?>

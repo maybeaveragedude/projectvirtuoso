@@ -1,4 +1,5 @@
 <?php
+
 $_SESSION["teachersubjectsName"] = "";
 $_SESSION["teachersubjectsDesc"] = "";
 
@@ -14,10 +15,11 @@ $_SESSION["teachersubjectsDesc"] = "";
 
   require_once 'dbh.inc.php';
   require_once 'functions.inc.php';
-  invalidIncludesUserAcess();
+
 
   // checkSubjects($conn);
   retrieveSubjects($conn);
+  invalidIncludesUserAcess();
   // $testtitle = $_SESSION["teachersubjectsName"];
   echo "<script>alert('$testtitle');</script>";
 // }
