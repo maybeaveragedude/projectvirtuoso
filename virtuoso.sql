@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 17, 2021 at 05:38 PM
+-- Generation Time: Jul 22, 2021 at 11:33 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -65,7 +65,9 @@ INSERT INTO `course` (`course_id`, `course_name`, `course_desc`, `t_fid`, `appro
 (73, 'asasd', 'qweqwe', 24, NULL),
 (74, 'More Edits', 'yes perfect;', 26, NULL),
 (75, 'New Test Course', 'yes', 26, NULL),
-(76, 'ANOTHER ONE', 'ANOTHER ONE', 26, NULL);
+(76, 'ANOTHER ONE', 'ANOTHER ONE', 26, NULL),
+(77, 'This file test course', 'Yes desc; yes', 31, NULL),
+(78, 'Sunday Test', 'YASALSKDJKA*&*&', 26, NULL);
 
 -- --------------------------------------------------------
 
@@ -102,7 +104,16 @@ INSERT INTO `course_subtopics` (`course_fid`, `sub_fid`, `display_order`) VALUES
 (76, 10, 3),
 (76, 6, 4),
 (76, 11, 5),
-(76, 15, 6);
+(76, 15, 6),
+(77, 8, 1),
+(77, 5, 2),
+(77, 6, 3),
+(77, 9, 4),
+(77, 10, 5),
+(78, 16, 1),
+(78, 4, 2),
+(78, 11, 3),
+(78, 15, 4);
 
 -- --------------------------------------------------------
 
@@ -134,7 +145,9 @@ INSERT INTO `learners` (`l_ID`, `l_email`, `l_pwd`, `l_username`, `l_nickname`, 
 (7, 'mail@mailmail.com', '$2y$10$2nDYA7XmxnUKhtN63HLBbOMJLWCbO1wV4sxu4lcz6HYIvHmJ1a81O', 'yessir', NULL, 'yes', 0),
 (8, 'newtest@test.com', '$2y$10$gXpiQ6L6/BPI4tHZOX5og.1cyYblvG90UzcZIpqo3pyHGRCUB5vSm', 'testlearner', NULL, 'TestUser', 0),
 (9, 'yessir222@mail.com', '$2y$10$mmRo0TX/9adhye7FrfW4x.v/zH/6VCVgyqAx7K6HgsH2NBWh744Je', 'yessir2', NULL, 'yessir two', 0),
-(10, 'error@mail.com', '$2y$10$7N6YvCuntKcvGQBEw7jpO.29fPt1unuk70jOxHlhjI9I0OwSW2usm', 'isthereerror', NULL, 'TesterrorStudent', 0);
+(10, 'error@mail.com', '$2y$10$7N6YvCuntKcvGQBEw7jpO.29fPt1unuk70jOxHlhjI9I0OwSW2usm', 'isthereerror', NULL, 'TesterrorStudent', 0),
+(11, 'asd', '$2y$10$HsDM0cCVBndeqnAEMDUVquj.DGjHlUTlzhL2LRO1oW4tD1AHbODDK', 'asd', NULL, 'asd', 0),
+(12, 'test@mail.com', '$2y$10$Jx/0n8OKs16c1MqXIsO0/.fGo2LjnePr3hBHp26SjcWW3.jFf2pPC', 'testforemail', NULL, 'Test For Email', 0);
 
 -- --------------------------------------------------------
 
@@ -146,10 +159,126 @@ CREATE TABLE `materials` (
   `mat_id` int(11) NOT NULL,
   `mat_name` varchar(128) NOT NULL,
   `mat_file_upload_fid` int(11) DEFAULT NULL,
-  `mat_contents` text DEFAULT NULL,
+  `mat_contents` mediumtext DEFAULT NULL,
   `t_fid` int(11) NOT NULL,
-  `approval_admin_fid` int(11) NOT NULL
+  `approval_admin_fid` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `materials`
+--
+
+INSERT INTO `materials` (`mat_id`, `mat_name`, `mat_file_upload_fid`, `mat_contents`, `t_fid`, `approval_admin_fid`) VALUES
+(77, 'Stable Octet', 54, 'The term “stable octet” describes the fact that many atoms in molecules are most stable when the valence shell contains effectively eight electrons. This counts both non-bonding electrons and electrons in chemical bonds between atoms. Molecules tend to be', 26, NULL),
+(78, 'for Loop', 55, 'How for loop works?\r\nThe initialization statement is executed only once.\r\nThen, the test expression is evaluated. If the test expression is evaluated to false, the for loop is terminated.\r\nHowever, if the test expression is evaluated to true, statements i', 26, NULL),
+(93, 'Descriptive Statistics', 66, 'Descriptive statistics are used to describe the basic features of the data in a study. They provide simple summaries about the sample and the measures. Together with simple graphics analysis, they form the basis of virtually every quantitative analysis of', 21, NULL),
+(94, 'List of OOP Concepts in Java', 67, 'There are four main OOP concepts in Java. These are:\r\n\r\nAbstraction. Abstraction means using simple things to represent complexity. We all know how to turn the TV on, but we don’t need to know how it works in order to enjoy it. In Java, abstraction means ', 24, NULL),
+(96, 'Atomic Mass', 69, 'Protons and neutrons have approximately the same mass, about 1.67 × 10-24 grams. Scientists define this amount of mass as one atomic mass unit (amu) or one Dalton. Although similar in mass, protons are positively charged, while neutrons have no charge. Therefore, the number of neutrons in an atom contributes significantly to its mass, but not to its charge.\r\n\r\nElectrons are much smaller in mass than protons, weighing only 9.11 × 10-28 grams, or about 1/1800 of an atomic mass unit. Therefore, they do not contribute much to an element’s overall atomic mass. When considering atomic mass, it is customary to ignore the mass of any electrons and calculate the atom’s mass based on the number of protons and neutrons alone.\r\n\r\nElectrons contribute greatly to the atom’s charge, as each electron has a negative charge equal to the positive charge of a proton. Scientists define these charges as “+1” and “-1. ” In an uncharged, neutral atom, the number of electrons orbiting the nucleus is equal to the number of protons inside the nucleus. In these atoms, the positive and negative charges cancel each other out, leading to an atom with no net charge.', 26, NULL),
+(97, 'Normal Statistics', 70, 'The most common basic statistics terms you\'ll come across are the mean, mode and median. These are all what are known as “Measures of Central Tendency.” Also important in this early chapter of statistics is the shape of a distribution. This tells us something about how data is spread out around the mean or median.', 26, NULL),
+(102, 'While Loop', 75, 'A while loop is the most straightforward looping structure. While loop syntax in C programming language is as follows:\r\n\r\nIt is an entry-controlled loop. In while loop, a condition is evaluated before processing a body of the loop. If a condition is true then and only then the body of a loop is executed. After the body of a loop is executed then control again goes back at the beginning, and the condition is checked if it is true, the same process is executed until the condition becomes false. Once the condition becomes false, the control goes out of the loop.\r\n\r\nAfter exiting the loop, the control goes to the statements which are immediately after the loop. The body of a loop can contain more than one statement. If it contains only one statement, then the curly braces are not compulsory. It is a good practice though to use the curly braces even we have a single statement in the body.\r\n\r\nIn while loop, if the condition is not true, then the body of a loop will not be executed, not even once. It is different in do while loop which we will see shortly.', 26, NULL),
+(103, 'Isotopes', 76, 'Isotopes are various forms of an element that have the same number of protons but a different number of neutrons. Some elements, such as carbon, potassium, and uranium, have multiple naturally-occurring isotopes. Isotopes are defined first by their element and then by the sum of the protons and neutrons present.\r\n\r\nCarbon-12 (or 12C) contains six protons, six neutrons, and six electrons; therefore, it has a mass number of 12 amu (six protons and six neutrons).\r\nCarbon-14 (or 14C) contains six protons, eight neutrons, and six electrons; its atomic mass is 14 amu (six protons and eight neutrons).\r\nWhile the mass of individual isotopes is different, their physical and chemical properties remain mostly unchanged.\r\n\r\nIsotopes do differ in their stability. Carbon-12 (12C) is the most abundant of the carbon isotopes, accounting for 98.89% of carbon on Earth. Carbon-14 (14C) is unstable and only occurs in trace amounts. Unstable isotopes most commonly emit alpha particles (He2+) and electrons. Neutrons, protons, and positrons can also be emitted and electrons can be captured to attain a more stable atomic configuration (lower level of potential energy ) through a process called radioactive decay. The new atoms created may be in a high energy state and emit gamma rays which lowers the energy but alone does not change the atom into another isotope. These atoms are called radioactive isotopes or radioisotopes.', 26, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quiz`
+--
+
+CREATE TABLE `quiz` (
+  `quiz_id` int(11) NOT NULL,
+  `quiz_question` text NOT NULL,
+  `display_order` int(3) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `quiz`
+--
+
+INSERT INTO `quiz` (`quiz_id`, `quiz_question`, `display_order`) VALUES
+(93, 'Select the correct statement.', 1),
+(105, 'How for loop works?\nThe initialization statement is executed only once.\nThen, the test expression is evaluated. If the test expression is evaluated to false, the for loop is terminated.\nHowever, if the test expression is evaluated to true, statements inside the body of the for loop are executed, and the update expression is updated.\nAgain the test expression is evaluated.\nThis process goes on until the test expression is false. When the test expression is false, the loop terminates.', 1),
+(106, '// Print numbers from 1 to 10\n#include <stdio.h>\n\nint main() {\n  int i;\n\n  for (i = 1; i < 11; ++i)\n  {\n    printf(\"%d \", i);\n  }\n  return 0;\n}', 2),
+(107, 'From the given five-number summary found after a class has taken an exam, which statement below is true?\n\n7, 13, 17, 21, 43', 1),
+(108, 'What is a class?', 1),
+(109, 'are you delete able', 1),
+(110, 'The Atomic Mass is the number of protons in an element, while the mass number is the number of protons plus the number of neutrons.', 1),
+(111, 'Protons and neutrons have approximately the mass of', 2),
+(112, 'n', 1),
+(113, ' The body of a loop can contain ____________ statement.', 1),
+(114, 'The body of a loop can contain _______________ statement.', 1),
+(115, 'The body of a loop can contain ___________ statement.', 1),
+(116, 'The body of a loop can contain ____________ statement.', 1),
+(117, 'The body of a loop can contain more than one statement.', 1),
+(118, 'Unstable isotopes most commonly emit ', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `quizz_choices`
+--
+
+CREATE TABLE `quizz_choices` (
+  `choice_id` int(11) NOT NULL,
+  `choice` text DEFAULT NULL,
+  `true_false` tinyint(1) NOT NULL DEFAULT 0,
+  `quiz_fid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `quizz_choices`
+--
+
+INSERT INTO `quizz_choices` (`choice_id`, `choice`, `true_false`, `quiz_fid`) VALUES
+(7, 'Na+ is more stable than Na', 1, 93),
+(8, 'Na+ is less stable than Na', 0, 93),
+(9, 'Na+ and Na are equally stable', 0, 93),
+(10, 'I do not know', 0, 93),
+(17, 'Fine', 1, 105),
+(18, 'Very fine', 0, 105),
+(19, 'unlucky', 0, 105),
+(20, 'dead', 0, 105),
+(21, 'Yes', 0, 106),
+(22, 'Nope', 1, 106),
+(23, 'The mean of the lowest 25% is 7.', 1, 107),
+(24, '25% of students earned 17 or fewer.', 0, 107),
+(25, '50% of students earned 17 or more.', 0, 107),
+(26, 'The highest score in the class was more than 43.', 0, 107),
+(27, 'A logical entity', 1, 108),
+(28, ' A physical entity', 0, 108),
+(29, 'TRUE', 1, 109),
+(30, 'FALSE', 0, 109),
+(31, 'TRUE', 0, 110),
+(32, 'FALSE', 1, 110),
+(33, '1.67 × 10-26 grams', 0, 111),
+(34, '11.11 × 10-28 grams', 0, 111),
+(35, '9.11 × 10-28 grams', 0, 111),
+(36, '1.67 × 10-24 grams', 1, 111),
+(37, 'number of events', 1, 112),
+(38, 'smallest value seen', 0, 112),
+(39, 'One', 0, 113),
+(40, 'Three', 0, 113),
+(41, 'Two', 0, 113),
+(42, 'More than one', 1, 113),
+(43, 'one', 0, 114),
+(44, 'more than one', 1, 114),
+(45, 'three', 0, 114),
+(46, 'two', 0, 114),
+(47, 'one', 0, 115),
+(48, 'one or more', 1, 115),
+(49, 'two', 0, 115),
+(50, 'three', 0, 115),
+(51, 'one', 0, 116),
+(52, 'more than one', 1, 116),
+(53, 'two', 0, 116),
+(54, 'three', 0, 116),
+(55, 'one', 0, 117),
+(56, 'more than one', 1, 117),
+(57, 'two', 0, 117),
+(58, 'three', 0, 117),
+(59, 'protons.', 0, 118),
+(60, 'atoms.', 0, 118),
+(61, 'electrons.', 1, 118),
+(62, 'neutrons.', 0, 118);
 
 -- --------------------------------------------------------
 
@@ -209,7 +338,8 @@ INSERT INTO `subtopic` (`sub_id`, `sub_name`, `sub_desc`, `t_fid`, `approval_adm
 (12, 'Pointer in C', 'The Pointer in C, is a variable that stores address of another variable. A pointer can also be used to refer to another pointer function. A pointer can be incremented/decremented, i.e., to point to the next/ previous memory location. The purpose of pointer is to save memory space and achieve faster execution time.', 28, NULL, 7),
 (13, 'Header Files in C', 'In C language, header files contain the set of predefined standard library functions. The “#include” preprocessing directive is used to include the header files with “.h” extension in the program.', 28, NULL, 7),
 (14, 'Object oriented programming with Java', 'The OOPs Concepts in Java are abstraction, encapsulation, inheritance, and polymorphism. These concepts aim to implement real-world entities in programs.', 30, NULL, 10),
-(15, 'Electrochemistry', 'Electrochemistry is the branch of physical chemistry concerned with the relationship between electrical potential, as a measurable and quantitative phenomenon, and identifiable chemical change, with either electrical potential as an outcome of a particular chemical change, or vice versa.', 26, NULL, 1);
+(15, 'Electrochemistry', 'Electrochemistry is the branch of physical chemistry concerned with the relationship between electrical potential, as a measurable and quantitative phenomenon, and identifiable chemical change, with either electrical potential as an outcome of a particular chemical change, or vice versa.', 26, NULL, 1),
+(16, 'Units and Standards II', 'this is the description for Units and Standards II', 31, NULL, 5);
 
 -- --------------------------------------------------------
 
@@ -218,9 +348,24 @@ INSERT INTO `subtopic` (`sub_id`, `sub_name`, `sub_desc`, `t_fid`, `approval_adm
 --
 
 CREATE TABLE `subtopic_materials` (
+  `quiz_fid` int(11) DEFAULT NULL,
   `sub_fid` int(11) NOT NULL,
   `mat_fid` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `subtopic_materials`
+--
+
+INSERT INTO `subtopic_materials` (`quiz_fid`, `sub_fid`, `mat_fid`) VALUES
+(95, 1, 77),
+(97, 6, 78),
+(107, 5, 93),
+(108, 14, 94),
+(111, 1, 96),
+(112, 5, 97),
+(117, 6, 102),
+(118, 1, 103);
 
 -- --------------------------------------------------------
 
@@ -252,7 +397,8 @@ INSERT INTO `teacher` (`t_ID`, `t_username`, `t_name`, `t_email`, `t_pwd`, `t_st
 (27, 'emptyteacher', 'Empty New Teacher', 'empty@mail.com', '$2y$10$MF8Rybph61xRbCMCf6LF9.SXak7qETo81ez8GcQflptymSLNykZmm', 0, NULL),
 (28, 'yanteaches', 'Leysu Yan', 'yan@mail.com', '$2y$10$H4YJakfIZ6tOyPiX33G2X.1GeJEQBDS..jfo5UDSFqSG2PG.dWV8i', 0, NULL),
 (29, 'clementteaches', 'Clement Ho', 'clement@mail.com', '$2y$10$BMTNRdp8HN7Sj8VcHzA6Pumahpu755bJbl3zDaNNqs9IaV/FlclNO', 0, NULL),
-(30, 'helloworld', 'another yes sir', 'another@mail.com', '$2y$10$fxU1iUiK5O7QiAvHu41s4uOM52gZ/Ek0ZF.ktqMqgxgU0.PIisKWC', 0, NULL);
+(30, 'helloworld', 'another yes sir', 'another@mail.com', '$2y$10$fxU1iUiK5O7QiAvHu41s4uOM52gZ/Ek0ZF.ktqMqgxgU0.PIisKWC', 0, NULL),
+(31, 'testfile', 'TestFile', 'testfile@mail.com', '$2y$10$ONbb/7I/d/js3Udh4M0NVOFBEpK4WCDym02KlRYw2nFiY72Qe3A2y', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -309,7 +455,8 @@ INSERT INTO `t_proposal` (`t_proposal_id`, `t_sub`, `t_years`, `t_brief`, `t_up_
 (13, 'Technology', '1', 'asdasd', 24, '', 26),
 (14, 'Technology', '1', 'empty yes', 25, '', 27),
 (15, 'Technology', '2', 'yan yes cooks', 26, '', 28),
-(16, 'Science, adasdasd', '1', 'dsfdgdvbvbdfgwr', 27, '', 29);
+(16, 'Science, adasdasd', '1', 'dsfdgdvbvbdfgwr', 27, '', 29),
+(18, 'Technology, Engineering', '1', 'qweqweqweasd', 28, '', 31);
 
 -- --------------------------------------------------------
 
@@ -344,7 +491,48 @@ INSERT INTO `uploads` (`up_id`, `file_name`, `uploaded_on`, `status`) VALUES
 (24, 'vibe.gif', '2021-07-09 18:52:35', '1'),
 (25, 'dead.jpg', '2021-07-13 20:49:35', '1'),
 (26, 'image_2021-07-13_234124.png', '2021-07-13 23:41:29', '1'),
-(27, 'dead.jpg', '2021-07-14 15:37:12', '1');
+(27, 'dead.jpg', '2021-07-14 15:37:12', '1'),
+(28, 'vibe.gif', '2021-07-18 01:07:34', '1'),
+(37, 'vibe.gif', '2021-07-20 19:02:39', '1'),
+(38, 'vibe.gif', '2021-07-20 19:03:02', '1'),
+(39, 'vibe.gif', '2021-07-20 19:05:37', '1'),
+(40, 'vibe.gif', '2021-07-20 19:09:21', '1'),
+(41, 'vibe.gif', '2021-07-20 19:10:24', '1'),
+(42, 'vibe.gif', '2021-07-20 19:11:16', '1'),
+(43, 'vibe.gif', '2021-07-20 19:11:23', '1'),
+(44, 'vibe.gif', '2021-07-20 19:11:34', '1'),
+(45, 'vibe.gif', '2021-07-20 19:11:39', '1'),
+(46, 'vibe.gif', '2021-07-20 19:16:31', '1'),
+(47, 'vibe.gif', '2021-07-20 20:04:56', '1'),
+(48, 'vibe.gif', '2021-07-20 20:14:33', '1'),
+(49, 'vibe.gif', '2021-07-20 20:17:10', '1'),
+(50, 'vibe.gif', '2021-07-20 20:34:57', '1'),
+(51, 'vibe.gif', '2021-07-20 20:50:01', '1'),
+(52, 'vibe.gif', '2021-07-20 20:51:58', '1'),
+(53, 'vibe.gif', '2021-07-20 20:52:22', '1'),
+(54, 'Ionic_bonding_animation.gif', '2021-07-20 21:48:22', '1'),
+(55, 'image_2021-07-20_215235.png', '2021-07-20 21:53:26', '1'),
+(56, 'image_2021-07-20_215235.png', '2021-07-20 21:58:08', '1'),
+(57, 'image_2021-07-20_220250.png', '2021-07-20 22:03:57', '1'),
+(58, 'image_2021-07-20_220250.png', '2021-07-20 22:04:58', '1'),
+(59, 'image_2021-07-20_220250.png', '2021-07-20 22:06:28', '1'),
+(60, 'vibe.gif', '2021-07-21 11:26:10', '1'),
+(61, 'album_1fb2eateq.gif', '2021-07-21 11:30:58', '1'),
+(62, 'vibe.gif', '2021-07-21 11:35:49', '1'),
+(63, 'album_1fb2eb9lc.gif', '2021-07-21 11:36:34', '1'),
+(64, 'album_1fb2eateq.gif', '2021-07-21 11:40:27', '1'),
+(65, 'vibe.gif', '2021-07-21 11:41:26', '1'),
+(66, 'image_2021-07-21_130101.png', '2021-07-21 13:03:05', '1'),
+(67, 'image_2021-07-21_154722.png', '2021-07-21 15:48:57', '1'),
+(68, 'album_1fb2e0sel.gif', '2021-07-21 19:07:49', '1'),
+(69, 'image_2021-07-21_205639.png', '2021-07-21 20:58:34', '1'),
+(70, 'image_2021-07-22_144147.png', '2021-07-22 14:42:36', '1'),
+(71, 'image_2021-07-22_152052.png', '2021-07-22 15:22:30', '1'),
+(72, 'image_2021-07-22_152945.png', '2021-07-22 15:30:26', '1'),
+(73, 'image_2021-07-22_153310.png', '2021-07-22 15:35:52', '1'),
+(74, 'image_2021-07-22_154015.png', '2021-07-22 15:40:42', '1'),
+(75, 'image_2021-07-22_154538.png', '2021-07-22 15:46:12', '1'),
+(76, 'image_2021-07-22_172023.png', '2021-07-22 17:21:46', '1');
 
 --
 -- Indexes for dumped tables
@@ -387,6 +575,19 @@ ALTER TABLE `materials`
   ADD KEY `mat_file_upload_fid` (`mat_file_upload_fid`);
 
 --
+-- Indexes for table `quiz`
+--
+ALTER TABLE `quiz`
+  ADD PRIMARY KEY (`quiz_id`);
+
+--
+-- Indexes for table `quizz_choices`
+--
+ALTER TABLE `quizz_choices`
+  ADD PRIMARY KEY (`choice_id`),
+  ADD KEY `quiz_fid` (`quiz_fid`);
+
+--
 -- Indexes for table `subject`
 --
 ALTER TABLE `subject`
@@ -408,7 +609,8 @@ ALTER TABLE `subtopic`
 --
 ALTER TABLE `subtopic_materials`
   ADD KEY `sub_fid` (`sub_fid`,`mat_fid`),
-  ADD KEY `mat_fid` (`mat_fid`);
+  ADD KEY `mat_fid` (`mat_fid`),
+  ADD KEY `quiz_fid` (`quiz_fid`);
 
 --
 -- Indexes for table `teacher`
@@ -454,19 +656,31 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- AUTO_INCREMENT for table `learners`
 --
 ALTER TABLE `learners`
-  MODIFY `l_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `l_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `materials`
 --
 ALTER TABLE `materials`
-  MODIFY `mat_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `mat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+
+--
+-- AUTO_INCREMENT for table `quiz`
+--
+ALTER TABLE `quiz`
+  MODIFY `quiz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+
+--
+-- AUTO_INCREMENT for table `quizz_choices`
+--
+ALTER TABLE `quizz_choices`
+  MODIFY `choice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `subject`
@@ -478,13 +692,13 @@ ALTER TABLE `subject`
 -- AUTO_INCREMENT for table `subtopic`
 --
 ALTER TABLE `subtopic`
-  MODIFY `sub_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `sub_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `teacher`
 --
 ALTER TABLE `teacher`
-  MODIFY `t_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `t_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `topic`
@@ -496,13 +710,13 @@ ALTER TABLE `topic`
 -- AUTO_INCREMENT for table `t_proposal`
 --
 ALTER TABLE `t_proposal`
-  MODIFY `t_proposal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `t_proposal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `uploads`
 --
 ALTER TABLE `uploads`
-  MODIFY `up_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `up_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- Constraints for dumped tables
@@ -528,6 +742,12 @@ ALTER TABLE `course_subtopics`
 ALTER TABLE `materials`
   ADD CONSTRAINT `mat_upload` FOREIGN KEY (`mat_file_upload_fid`) REFERENCES `uploads` (`up_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `materials_ibfk_1` FOREIGN KEY (`approval_admin_fid`) REFERENCES `admin` (`admin_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `quizz_choices`
+--
+ALTER TABLE `quizz_choices`
+  ADD CONSTRAINT `connectquiz` FOREIGN KEY (`quiz_fid`) REFERENCES `quiz` (`quiz_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `subject`

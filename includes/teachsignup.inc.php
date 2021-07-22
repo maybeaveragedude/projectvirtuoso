@@ -84,20 +84,38 @@ if (isset($_POST["completeform"])){
                   echo "<script>alert('$statusMsg');</script>";
               }else{
                   $statusMsg = "File upload failed, please try again.";
-                  echo "<script>alert('$statusMsg');</script>";
-                  header("location: ../teachsignupbuffer.php?error");
+                  echo <<<GFG
+                    <script>
+                        alert('$statusMsg');
+                        window.location.href='../teachsignupbuffer.php?error';
+                    </script>
+                  GFG;
+                  // echo "<script>alert('$statusMsg');</script>";
+                  // header("location: ../teachsignupbuffer.php?error");
                   exit();
               }
           }else{
               $statusMsg = "Sorry, there was an error uploading your file.";
-              echo "<script>alert('$statusMsg');</script>";
-              header("location: ../teachsignupbuffer.php?error");
+              echo <<<GFG
+                <script>
+                    alert('$statusMsg');
+                    window.location.href='../teachsignupbuffer.php?error';
+                </script>
+              GFG;
+              // echo "<script>alert('$statusMsg');</script>";
+              // header("location: ../teachsignupbuffer.php?error");
               exit();
           }
       }else{
           $statusMsg = 'Sorry, only JPG, JPEG, PNG, GIF, & PDF files are allowed to upload.';
-          echo "<script>alert('$statusMsg');</script>";
-          header("location: ../teachsignupbuffer.php?error");
+          echo <<<GFG
+            <script>
+                alert('$statusMsg');
+                window.location.href='../teachsignupbuffer.php?error';
+            </script>
+          GFG;
+          // echo "<script>alert('$statusMsg');</script>";
+          // header("location: ../teachsignupbuffer.php?error");
           exit();
       }
   }

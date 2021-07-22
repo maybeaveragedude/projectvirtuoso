@@ -10,9 +10,9 @@
                     <div class="align-self-center image-holder" style="max-height: 506px;"></div>
                     <form method="post" action="includes/signup.inc.php">
                         <h2 class="text-center"><strong>Create</strong> an account.</h2>
-                        <div style="margin-bottom: 16px;"><input class="form-control" type="text" placeholder="Full Name" name="name"></div>
+                        <div style="margin-bottom: 16px;"><input class="form-control" type="text" placeholder="Full Name" name="name" pattern="[A-Za-z\s]+"></div>
                         <div style="margin-bottom: 16px;"><input class="form-control" type="text" placeholder="Username" name="username"></div>
-                        <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email"></div>
+                        <div class="mb-3"><input class="form-control" type="email" name="email" placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"></div>
                         <div class="mb-3"><input class="form-control" type="password" name="password" placeholder="Password"></div>
                         <div class="mb-3"><input class="form-control" type="password" name="password-repeat" placeholder="Password (repeat)"></div>
                         <div class="mb-3" style="margin-bottom: 0px;"></div>

@@ -80,13 +80,12 @@
   right: 0;
   bottom: 0;
   background-color: rgba(0,0,0,0.5);
-  z-index: 2;
+  z-index: 5000;
   cursor: pointer;
   justify-content: center;
   align-items: center;
-  padding-top: 150px;
+  padding-top: 20px;
   backdrop-filter: blur(4px);
-  pointer-events: none;
   white-space: pre-wrap;
 }
 
@@ -105,7 +104,7 @@
 .stopscrolling {
   height: 100%;
   overflow: hidden;
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 
 .gridavatar {
@@ -310,7 +309,12 @@ textarea.invalid {
 }
 
 .blankbutton:hover{
-  background-color: white;
+  background-color: rgba(100, 150, 0, 25%);
+  cursor: default;
+}
+
+.blankbutton:focus{
+  background-color: rgba(200, 0, 0, 25%);
   cursor: default;
 }
 
@@ -345,6 +349,7 @@ textarea.invalid {
   background: #FFFFFF;
   border: 0px;
   vertical-align: middle;
+  cursor: pointer;
 }
 
 body.dragging, body.dragging * {
@@ -382,6 +387,23 @@ ul.subtopicRepo li.placeholder:before {
   cursor: grab;
 }
 
+.matlistObjects {
+  margin-bottom: 12px;
+  padding: 4px 0px;
+  /* border-color: rgba(0,0,0, 50%);
+  border-bottom: 1px solid; */
+  width: 366px !important;
+}
+
+.matlistObjects:hover {
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 12px 0px 0px 0px;
+  background-color: rgba(240, 200, 0, 25%);
+  /* border-bottom: 1px solid; */
+  cursor: grab;
+}
+
 .listPlaceholder {
   /* margin-bottom: 12px; */
   padding: 4px 0px;
@@ -395,11 +417,27 @@ ul.subtopicRepo li.placeholder:before {
 .highlightThis {
   background-color: rgba(200, 0, 0, 25%);
   border-radius: 12px 4px 12px 4px;
+  margin-left: 20px !important;
+
+
+}
+
+.highlightThis:hover {
+  background-color: rgba(200, 0, 0, 25%);
+  border-radius: 12px 4px 12px 4px;
 
 }
 
 .droppedAccepted {
   background-color: rgba(120, 150, 0, 15%);
+}
+
+.trashcanDrop {
+  background-color: rgba(255, 0, 0, 15%);
+}
+
+.trashcanDropStrong {
+  background-color: rgba(255, 0, 0, 55%);
 }
 
 .clearStateList{
@@ -412,4 +450,159 @@ ul.subtopicRepo li.placeholder:before {
 
 .myhover:hover{
   background-color: yellow;
+}
+
+.mateditor {
+  max-height: 3000px;
+}
+
+.mateditor form {
+  max-width: 1600px;
+  max-height: 3000px;
+  padding: 20px;
+  margin: auto;
+  box-shadow: 0px 2px 10px rgba(0,0,0,.1);
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.mateditor {
+  padding: 50px 75px;
+  padding-bottom: 50px;
+}
+
+.guidelinebox {
+  /* margin-bottom: 14px; */
+  /* padding: 16px; */
+  padding-top: 16px;
+  background: #c5c3ff;
+  padding-right: 24px;
+  padding-left: 24px;
+  border-top-right-radius: 100px;
+  border-bottom-left-radius: 100px;
+  border-top-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  max-width: 800px;
+  /* max-height: 600px; */
+  margin: auto;
+}
+
+.guidelinebox li{
+  margin-bottom: 4px;
+  height:14px;
+}
+
+.newquizlist li{
+  width:inherit !important;
+}
+.newquizlist li:hover{
+  padding: 4px 0px !important;
+}
+
+.helloRadio{
+  padding-bottom: 8px;
+  padding-top:4px;
+  padding-right: 40px;
+  margin-top:-4px;
+  cursor: pointer;
+}
+
+.biggerlistPlaceholder {
+  /* margin-bottom: 12px; */
+  padding: 4px 0px;
+  padding-top: 4px;
+  padding-bottom: 16px;
+  height: 100px;
+  background-color: rgba(120, 255, 200, 25%);
+  border-radius: 15px 50px;
+}
+
+#materialUpload{
+  cursor: pointer;
+}
+#materialUpload:hover{
+  background-color: rgba(150, 0, 180, 15%);
+}
+
+.maindisplay{
+  max-width:900px;
+  margin: auto;
+  padding: 24px 48px;
+  box-shadow: 0px 2px 26px rgba(0,0,0,.1);
+  border-radius: 16px;
+  /* box-shadow: 4px 0px  rgba(0,0,0,0.2); */
+}
+
+#sidebar {
+  position:fixed;
+  height:100%;
+  width: 300px;
+  background-color: #ccc;
+  overflow-y: auto;
+  box-shadow: 0px 2px 26px rgba(0,0,0,.1);
+
+}
+
+#sidebar a:link{
+  color: black !important;
+  text-decoration: none;
+  /* padding: 14px 10px; */
+}
+
+#sidebar a{
+  color: black;
+  /* padding: 14px 10px; */
+}
+
+#sidebar .matsections:hover{
+  background-color: rgba(127,255,212,75%);
+  transition: 0.3s;
+
+  padding-left: 30px !important;
+}
+
+.atThisSection {
+  background-color: rgba(127,255,212,75%) !important;
+  transition: 0.3s;
+
+  padding-left: 30px !important;
+
+}
+
+.NotatThisSection {
+  background-color: white;
+  transition: 0.3s;
+
+  padding: 20px 20px ;
+
+}
+
+#sidebar .matsections {
+  /* height: 56px; */
+  padding: 20px 20px ;
+  margin: 0px !important;
+  margin-bottom: 1px !important;
+  background-color: white;
+  border: solid 0px;
+  border-top: 1px;
+  border-bottom: 1px;
+  transition: 0.1s;
+
+
+}
+
+.mainWithSidebar{
+  box-sizing:border-box;
+  /* background-color:#eee; */
+  position:absolute;
+  left:300px;
+  width:calc(100% - 300px);
+  min-height: 100%;
+}
+
+.quizSection{
+  background-color: rgba(105, 105, 105, 15%);
+  box-shadow: 0px 4px 26px rgba(127,177,0,.2);
+
+
 }

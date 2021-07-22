@@ -320,6 +320,7 @@ function loginTeacherUser($conn, $email, $pwd) {
       // retrieveTeacherSubjects($conn);
       headlesstaillessretrieveSubjects($conn);
       headlesstailessretrieveTeacherCourse($conn);
+      retrieveTeacherMaterials($conn);
       header("location: ../teacherhome.php");
       exit();
     }
@@ -812,4 +813,274 @@ function adminCheckCourse($conn) {
 
     return $rows;
     mysqli_stmt_close($stmt);
+}
+
+function createNewMat($conn, $mat_name, $mat_file_upload, $mat_contents, $teacherid) {
+
+  $conn->autocommit(FALSE);
+  $sql1 = $conn->prepare("INSERT INTO materials (mat_name, mat_file_upload_fid,	mat_contents, t_fid) VALUES (?, ?, ?, ?)");
+  // $sql2 = $conn->prepare("INSERT INTO t_proposal (t_sub, t_years, t_brief, t_up_fid, t_url, t_fid) VALUES (?, ?, ?, ?, ?,?)");
+
+
+  $sql1->bind_param("ssss", $mat_name, $mat_file_upload, $mat_contents, $teacherid);
+  $sql1->execute();
+  $recent_matID = $conn->insert_id;
+
+  $conn->autocommit(true);
+
+  return $recent_matID;
+  // headlesstaillessretrieveSubjects($conn);
+  // header("location: ../teacherhome.php?create=newsubtopic");
+  // exit();
+}
+
+function deleteNewMat($conn, $mat_id) {
+
+  $conn->autocommit(FALSE);
+  $sql1 = $conn->prepare("DELETE FROM materials WHERE mat_id = ?");
+  // $sql2 = $conn->prepare("INSERT INTO t_proposal (t_sub, t_years, t_brief, t_up_fid, t_url, t_fid) VALUES (?, ?, ?, ?, ?,?)");
+
+
+  $sql1->bind_param("s", $mat_id);
+  $sql1->execute();
+  // $recent_matID = $conn->insert_id;
+
+  $conn->autocommit(true);
+
+  // return $recent_matID;
+  // headlesstaillessretrieveSubjects($conn);
+  // header("location: ../teacherhome.php?create=newsubtopic");
+  // exit();
+}
+
+function createNewQuiz($conn, $question, $display_order) {
+
+  $conn->autocommit(FALSE);
+  $sql1 = $conn->prepare("INSERT INTO quiz (quiz_question, display_order) VALUES (?, ?)");
+  // $sql2 = $conn->prepare("INSERT INTO t_proposal (t_sub, t_years, t_brief, t_up_fid, t_url, t_fid) VALUES (?, ?, ?, ?, ?,?)");
+
+  $sql1->bind_param("ss", $question, $display_order);
+  $sql1->execute();
+  $quiz_fid = $conn->insert_id;
+
+  return $quiz_fid;
+
+
+  // $conn->autocommit(true);
+  // headlesstaillessretrieveSubjects($conn);
+  // header("location: ../teacherhome.php?create=newsubtopic");
+  // exit();
+}
+
+function createQuizChoices($conn, $choice, $true_false, $quiz_fid) {
+
+  // $conn->autocommit(FALSE);
+  $sql2 = $conn->prepare("INSERT INTO quizz_choices (choice, true_false, quiz_fid) VALUES (?, ?, ?)");
+  // $sql2 = $conn->prepare("INSERT INTO t_proposal (t_sub, t_years, t_brief, t_up_fid, t_url, t_fid) VALUES (?, ?, ?, ?, ?,?)");
+
+  $sql2->bind_param("sss", $choice, $true_false, $quiz_fid);
+  $sql2->execute();
+
+  $conn->autocommit(true);
+  // headlesstaillessretrieveSubjects($conn);
+  // header("location: ../teacherhome.php?create=newsubtopic");
+  // exit();
+}
+
+function groupInSubtopics_Materials($conn, $quiz_fid, $sub_fid, $mat_fid) {
+
+  // $conn->autocommit(FALSE);
+  $sql3 = $conn->prepare("INSERT INTO subtopic_materials (quiz_fid, sub_fid, mat_fid) VALUES (?, ?, ?)");
+  // $sql2 = $conn->prepare("INSERT INTO t_proposal (t_sub, t_years, t_brief, t_up_fid, t_url, t_fid) VALUES (?, ?, ?, ?, ?,?)");
+
+  $sql3->bind_param("sss", $quiz_fid, $sub_fid, $mat_fid);
+  $sql3->execute();
+
+  $conn->autocommit(true);
+  // headlesstaillessretrieveSubjects($conn);
+  // header("location: ../teacherhome.php?create=newsubtopic");
+  // exit();
+}
+
+function checkMaterials($conn, $teacherid) {
+    $sql = "SELECT * FROM materials WHERE t_fid = ?;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+      echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+      exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "s", $teacherid);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    $rows = [];
+
+    while ($row = mysqli_fetch_assoc($resultData)){ //getting the rows from the query result
+      // return $row;
+      $rows[] = $row;
+    }
+    if ($row != mysqli_fetch_assoc($resultData)){
+      $result = false;
+      return $result;
+    }
+
+    return $rows;
+    mysqli_stmt_close($stmt);
+}
+
+function checkMaterialsQuiz($conn) {
+    $sql = "SELECT * FROM subtopic_materials;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+      echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+      exit();
+    }
+
+    // mysqli_stmt_bind_param($stmt, "s", $matid);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    $rows = [];
+
+    while ($row = mysqli_fetch_assoc($resultData)){ //getting the rows from the query result
+      // return $row;
+      $rows[] = $row;
+    }
+    if ($row != mysqli_fetch_assoc($resultData)){
+      $result = false;
+      return $result;
+    }
+
+    return $rows;
+    mysqli_stmt_close($stmt);
+}
+
+function checkQuiz($conn) {
+    $sql = "SELECT * FROM quiz;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+      echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+      exit();
+    }
+
+    // mysqli_stmt_bind_param($stmt, "s", $quiz_id);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    $rows = [];
+
+    while ($row = mysqli_fetch_assoc($resultData)){ //getting the rows from the query result
+      // return $row;
+      $rows[] = $row;
+    }
+    if ($row != mysqli_fetch_assoc($resultData)){
+      $result = false;
+      return $result;
+    }
+
+    return $rows;
+    mysqli_stmt_close($stmt);
+}
+
+function checkQuizQuestionChoices($conn) {
+    $sql = "SELECT * FROM quizz_choices;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+      echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+      exit();
+    }
+
+    // mysqli_stmt_bind_param($stmt, "s", $quiz_id);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    $rows = [];
+
+    while ($row = mysqli_fetch_assoc($resultData)){ //getting the rows from the query result
+      // return $row;
+      $rows[] = $row;
+    }
+    if ($row != mysqli_fetch_assoc($resultData)){
+      $result = false;
+      return $result;
+    }
+
+    return $rows;
+    mysqli_stmt_close($stmt);
+}
+
+function retrieveTeacherMaterials($conn) {
+
+
+      $teacherid = $_SESSION["teacherid"];
+      $checkMaterials[] = checkMaterials($conn, $teacherid);
+      $tempquiz[] = checkMaterialsQuiz($conn);
+      $quizrepo[] = checkQuiz($conn);
+      $quizQuestionChoices[] = checkQuizQuestionChoices($conn);
+
+
+      // $coursefid = $checkCourse[]
+      // echo "<script>alert('Retrieving teacher course');</script>";
+
+
+    // $i =0;
+    foreach ($checkMaterials as $value){
+      // $tempmatid= $matid['mat_id'];
+      // $tempquiz[] = checkMaterialsQuiz($conn, $tempmatid);
+      // echo '<pre>'; print_r($matid); echo '</pre>';
+      // foreach ($value as $matid){
+      //   // echo '<pre>'; print_r($coursefid['course_id']); echo '</pre>';
+      //   $tempmatid= $matid['mat_id'];
+      //   $tempquiz[] = checkMaterialsQuiz($conn, $tempmatid);
+      //   // array_push($checkCourseSubtopics, $tempcheck);
+      //
+      // }
+      // echo '<pre>'; print_r($tempcheck); echo '</pre>';
+
+      // $i += 1;
+
+    }
+
+    $_SESSION["teacherMaterial"] = $checkMaterials;
+    $_SESSION["teacherQuiz"] = $tempquiz;
+    $_SESSION["quizRepo"] = $quizrepo;
+    $_SESSION["quizQuestionChoices"] = $quizQuestionChoices;
+    // header("Refresh:2; url=../teacherhome.php");
+    // exit();
+}
+
+function getImage($conn, $uploadID) {
+  $imageURL="";
+
+  // $conn->autocommit(FALSE);
+  $sql1 = $conn->prepare("SELECT * FROM uploads WHERE up_id = ? ");
+
+  $sql1->bind_param("s", $uploadID);
+  $sql1->execute();
+
+  // mysqli_stmt_bind_param($stmt, "ss", $username, $email);
+  // mysqli_stmt_execute($stmt);
+
+  $resultData = mysqli_stmt_get_result($sql1);
+
+  while ($row = mysqli_fetch_assoc($resultData)){
+    $imageURL = 'uploads/'.$row["file_name"];
+    // echo "<script>alert('{$imageURL}');</script>";
+    return $imageURL;
+  }
+  // $conn->autocommit(TRUE);
+
+  // $quiz_fid = $conn->insert_id;
+
+      // while($row = $sql1->fetch_assoc()){
+      //     $imageURL = 'uploads/'.$row["file_name"];
+      //     echo "<script>alert('{$imageURL}');</script>";
+      //
+      //   }
+
+
+  // return $imageURL;
+
+
 }

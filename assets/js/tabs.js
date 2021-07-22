@@ -57,7 +57,7 @@ function nextPrev(n) {
   if (currentTab >= x.length) {
     // ... the form gets submitted:
     //document.getElementById("stepform").submit();
-      document.getElementById("completeform").click(); 
+      document.getElementById("completeform").click();
    return false;
   }
   // Otherwise, display the correct tab:
@@ -84,7 +84,7 @@ function validateForm() {
     }
       console.log("value ; " + y[i].value);
   }*/
-    
+
    switch(j) {
        case "Step1":
            y = x[0].getElementsByTagName("input");
@@ -116,7 +116,7 @@ function validateForm() {
                    }
                }
            }
-               
+
             break;
        case "Step2":
            y = x[1].getElementsByTagName("input");
@@ -148,7 +148,7 @@ function validateForm() {
                    }
                }
            }
-               
+
             break;
        case "Step3":
            y = x[2].getElementsByTagName("input");
@@ -161,7 +161,7 @@ function validateForm() {
                    }
                    else {
                        continue;
-                   } 
+                   }
                }
                 else if (temp.type == "text") {
                        if (temp.value == "") {
@@ -170,11 +170,11 @@ function validateForm() {
                            break;
                        } else {
                            valid = true;
-                           
+
                        }
                    }
-               }  
-           
+               }
+
             break;
         case "Step4":
            y = x[3].getElementsByTagName("input");
@@ -213,6 +213,8 @@ function validateForm() {
                    else {
                        y[i].className += " invalid";
                        valid = false;
+                       alert ("Please provide at least ONE credible reference.");
+                       
                    }
                } else if (temp.type == "url") {
                    if (temp.value != "") {
@@ -227,7 +229,7 @@ function validateForm() {
                    }
                }
            }
-            break;  
+            break;
    }
   // If the valid status is true, mark the step as finished and valid:
   if (valid) {

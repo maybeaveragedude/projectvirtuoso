@@ -92,7 +92,8 @@
                                                   echo <<<GFG
                                                       <div class="coursetitle" id="coursetitle{$tempCourseId}">
                                                         <a class="btn btn-primary listgroupdropMain subjectList" style="font-size: 20px; margin: 14px 0px;"data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$num}" href="#collapseCourse-{$num}" role="button"><strong>{$tempname}</strong></a>
-                                                        <a class="simpleTextEdit" style="margin: 14px 0px;" href="teachercourseedit.php?editcourse={$tempCourseId}">Edit</a>
+                                                        <input class="simpleTextEdit" type="button" style="margin: 14px 0px;" value="Edit" onclick="redirectEditCourse({$tempCourseId})"></input>
+
                                                           <div class="collapse" id="collapseCourse-{$num}">
 
                                                  GFG;
@@ -168,7 +169,7 @@
                                         </div>
                                     </div>
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-2" aria-expanded="false" aria-controls="accordion-1 .item-2">My Materials</button></h2>
+                                        <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-2" aria-expanded="false" aria-controls="accordion-1 .item-2">My Subtopics</button></h2>
                                         <div class="accordion-collapse collapse item-2 text-start" role="tabpanel" data-bs-parent="#accordion-1">
                                             <div class="accordion-body" id="mymaterialAccordian">
                                               <?php
@@ -254,12 +255,117 @@
                                     </div>
                                   </div>
                                     <div class="accordion-item">
-                                        <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-3" aria-expanded="false" aria-controls="accordion-1 .item-3">Accordion Item</button></h2>
-                                        <div class="accordion-collapse collapse item-3" role="tabpanel" data-bs-parent="#accordion-1">
+                                        <h2 class="accordion-header" role="tab"><button class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordion-1 .item-3" aria-expanded="false" aria-controls="accordion-1 .item-3">My Materials</button></h2>
+                                        <div class="accordion-collapse collapse item-3 text-start" role="tabpanel" data-bs-parent="#accordion-1">
                                             <div class="accordion-body">
-                                                <p class="mb-0">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
+                                                <!-- <p class="mb-0">Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p> -->
+                                                <?php
+                                                $matExist = 0;
+
+                                                            $subtopicnum = 0; //for id
+                                                            foreach ($_SESSION["teachersubtopicsCombined"][$subtopicnum] as $subtopicDisplay){
+                                                              $tempSubtopicname = $subtopicDisplay['sub_name'];
+                                                              $tempSubtopicdesc = $subtopicDisplay['sub_desc'];
+                                                              $tempTopicFId = $subtopicDisplay['topic_fid'];
+                                                              $tempSubtopicId = $subtopicDisplay['sub_id'];
+                                                              $tempSubtopicTeacherId = $subtopicDisplay['t_fid'];
+                                                              // if ($tempTopicId == $tempTopicFId){
+                                                                  echo <<<GFG
+                                                                      <div id="mat{$tempSubtopicId}" style="display: none;">
+                                                                        <a class="btn btn-primary listgroupdropMain MatSubtopicList teacheridIs_{$tempSubtopicTeacherId}" style="margin-left: 0px; margin-top: 6px; margin-bottom: 6px; background-color:white; color:black;" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$subtopicnum}" href="#collapseMatSubtopic-{$subtopicnum}" role ="button">{$tempSubtopicname}</a>
+                                                                        <input type="button" class="simpleTextEdit" onclick="redirectView({$tempSubtopicId})"name="View" value="View" style="margin: 4px 0px; color:green;"></input>
+                                                                        <input type="button" class="simpleTextEdit" onclick="redirectAddNewMatIn({$tempSubtopicId})"name="Add Materials" value="Add" style="margin: 4px 0px; color:blue;"></input>
+
+
+
+                                                                          <div class="collapse" id="collapseMatSubtopic-{$subtopicnum}">
+
+                                                                  GFG;
+
+                                                                  $matidnum = 0; //for id
+                                                                  foreach ($_SESSION["teacherQuiz"][$matidnum] as $matIDDisplay){
+                                                                    $tempMatSubId = $matIDDisplay['sub_fid'];
+                                                                    $tempMatFId = $matIDDisplay['mat_fid'];
+
+                                                                    if ($tempSubtopicId == $tempMatSubId) {
+                                                                          $matnum = 0; //for id
+                                                                          foreach ($_SESSION["teacherMaterial"][$matnum] as $matDisplay){
+                                                                              $tempMatTitle = $matDisplay['mat_name'];
+                                                                              $tempMatID = $matDisplay['mat_id'];
+
+                                                                              if ($tempMatFId == $tempMatID){
+                                                                                $matExist += 1;
+
+                                                                                echo <<<GFG
+                                                                                      <script>
+                                                                                          document.getElementById("mat{$tempSubtopicId}").style.display = "block";
+                                                                                      </script>
+                                                                                GFG;
+
+
+                                                                                // echo $tempMatTitle;
+                                                                                  echo <<<GFG
+                                                                                      <div id="innermat{$tempMatID}" style="vertical-align:middle;">
+
+
+                                                                                        <a class="btn btn-primary listgroupdropMain MatList" style="margin-left: 32px; margin-top: 0px; margin-bottom: 0px; background-color:white; color:black;" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$matnum}" href="#collapseMat-{$matnum}" role ="button"><i>{$tempMatTitle}</i></a>
+                                                                                        <input type="button" class="simpleTextEdit" onclick="redirectDelete({$tempMatID})"name="Delete" value="Delete" style="margin: 4px 0px; color:red;"></input>
+
+                                                                                          <div class="collapse" id="collapseMat-{$matnum}">
+                                                                                          </div>
+
+                                                                                      </div>
+
+
+
+
+
+
+
+                                                                                  GFG;
+
+                                                                                }
+                                                                                $matnum +=1;
+
+                                                                        }
+                                                                      }
+                                                                      $matidnum +=1;
+
+                                                                  }
+
+
+                                                                  echo <<<GFG
+
+                                                                              </div>
+                                                                          </div>
+                                                                  GFG;
+
+                                                              $subtopicnum +=1;
+                                                            }
+
+                                                 ?>
+                                                 <div>
+                                                 <button id="emptyMat" class="" style="display: block; padding: 16px 4px; margin-bottom: 12px; margin-left: 10px; cursor: default; background: #FFFFFF; border: 0px;" role="button" >It's pretty barren in here...</button>
+                                                  <?php
+                                                  if ($matExist > 0) {
+                                                    echo <<<GFG
+                                                          <script>
+                                                              document.getElementById("emptyMat").style.display = "none";
+                                                          </script>
+
+                                                    GFG;
+                                                  }
+
+                                                  ?>
+                                               </div>
+                                                 <a class="btn btn-primary" style="margin-top: 12px; margin-left: 10px;border-radius: 7px;background: #1eb53a;" href="matedit.php">Materialize More!</a>
+                                               </div>
                                             </div>
+
+                                            <div>
+
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -453,6 +559,19 @@
     }
     function redirectEdit(subtopicID){ //to enable setting up form in editor
       window.location.href=`teacheredit.php?editsubtopics=${subtopicID}`;
+    }
+
+    function redirectDelete(matID){ //delete the Material Entry
+      window.location.href=`includes/newmat.inc.php?deletemat=${matID}`;
+    }
+    function redirectEditCourse(tempCourseId){ //to enable editing of the selected course
+      window.location.href=`teachercourseedit.php?editcourse=${tempCourseId}`;
+    }
+    function redirectView(subtopicID){ //to display the preview of the material
+      window.location.href=`display.php?subtopic=${subtopicID}`;
+    }
+    function redirectAddNewMatIn(subtopicID){ //to redirect to adding materials in the selected subtopic
+      window.location.href=`matedit.php?subtopic=${subtopicID}`;
     }
 
     </script>

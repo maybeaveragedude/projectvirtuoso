@@ -112,16 +112,7 @@
                                             echo <<<GFG
                                                 <input id="hiddenExistingSubtopicID" type="hidden" name="hiddenExistingSubtopicID" value ={$tempExistingSubtopicID}>
                                             GFG;
-                                            //
-                                            // $num = 0;
-                                            // foreach ($_SESSION["teachertopicsCombined"][$num] as $display) {
-                                            //   $tempname = $display['topic_name'];
-                                            //   $tempdesc = $display['topic_desc'];
-                                            //   $tempSubFId = $display['sbjt_fid'];
-                                            //   $tempTopicId = $display['topic_id'];
-                                            //
-                                            //   $num += 1;
-                                            // }
+                                            
 
                                             echo <<<GFG
                                               <div class="dropdown">
