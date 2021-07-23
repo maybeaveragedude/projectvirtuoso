@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 22, 2021 at 11:33 AM
+-- Generation Time: Jul 23, 2021 at 03:12 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -63,11 +63,12 @@ CREATE TABLE `course` (
 
 INSERT INTO `course` (`course_id`, `course_name`, `course_desc`, `t_fid`, `approval_admin_fid`) VALUES
 (73, 'asasd', 'qweqwe', 24, NULL),
-(74, 'More Edits', 'yes perfect;', 26, NULL),
 (75, 'New Test Course', 'yes', 26, NULL),
 (76, 'ANOTHER ONE', 'ANOTHER ONE', 26, NULL),
 (77, 'This file test course', 'Yes desc; yes', 31, NULL),
-(78, 'Sunday Test', 'YASALSKDJKA*&*&', 26, NULL);
+(78, 'Sunday Test', 'YASALSKDJKA*&*&', 26, NULL),
+(81, 'Crash Test', 'Testing', 26, NULL),
+(82, 'NEW', 'qweqweqwe', 26, NULL);
 
 -- --------------------------------------------------------
 
@@ -88,17 +89,6 @@ CREATE TABLE `course_subtopics` (
 INSERT INTO `course_subtopics` (`course_fid`, `sub_fid`, `display_order`) VALUES
 (73, 1, 1),
 (73, 3, 2),
-(74, 11, 1),
-(74, 1, 2),
-(74, 9, 3),
-(74, 13, 4),
-(74, 4, 5),
-(75, 8, 1),
-(75, 6, 2),
-(75, 6, 3),
-(75, 14, 4),
-(75, 13, 5),
-(75, 15, 6),
 (76, 5, 1),
 (76, 9, 2),
 (76, 10, 3),
@@ -110,10 +100,20 @@ INSERT INTO `course_subtopics` (`course_fid`, `sub_fid`, `display_order`) VALUES
 (77, 6, 3),
 (77, 9, 4),
 (77, 10, 5),
-(78, 16, 1),
-(78, 4, 2),
-(78, 11, 3),
-(78, 15, 4);
+(78, 5, 1),
+(78, 16, 2),
+(78, 4, 3),
+(78, 11, 4),
+(78, 15, 5),
+(75, 8, 1),
+(75, 14, 2),
+(75, 6, 3),
+(75, 13, 4),
+(75, 15, 5),
+(81, 5, 1),
+(81, 1, 2),
+(82, 1, 1),
+(82, 5, 2);
 
 -- --------------------------------------------------------
 
@@ -176,7 +176,8 @@ INSERT INTO `materials` (`mat_id`, `mat_name`, `mat_file_upload_fid`, `mat_conte
 (96, 'Atomic Mass', 69, 'Protons and neutrons have approximately the same mass, about 1.67 × 10-24 grams. Scientists define this amount of mass as one atomic mass unit (amu) or one Dalton. Although similar in mass, protons are positively charged, while neutrons have no charge. Therefore, the number of neutrons in an atom contributes significantly to its mass, but not to its charge.\r\n\r\nElectrons are much smaller in mass than protons, weighing only 9.11 × 10-28 grams, or about 1/1800 of an atomic mass unit. Therefore, they do not contribute much to an element’s overall atomic mass. When considering atomic mass, it is customary to ignore the mass of any electrons and calculate the atom’s mass based on the number of protons and neutrons alone.\r\n\r\nElectrons contribute greatly to the atom’s charge, as each electron has a negative charge equal to the positive charge of a proton. Scientists define these charges as “+1” and “-1. ” In an uncharged, neutral atom, the number of electrons orbiting the nucleus is equal to the number of protons inside the nucleus. In these atoms, the positive and negative charges cancel each other out, leading to an atom with no net charge.', 26, NULL),
 (97, 'Normal Statistics', 70, 'The most common basic statistics terms you\'ll come across are the mean, mode and median. These are all what are known as “Measures of Central Tendency.” Also important in this early chapter of statistics is the shape of a distribution. This tells us something about how data is spread out around the mean or median.', 26, NULL),
 (102, 'While Loop', 75, 'A while loop is the most straightforward looping structure. While loop syntax in C programming language is as follows:\r\n\r\nIt is an entry-controlled loop. In while loop, a condition is evaluated before processing a body of the loop. If a condition is true then and only then the body of a loop is executed. After the body of a loop is executed then control again goes back at the beginning, and the condition is checked if it is true, the same process is executed until the condition becomes false. Once the condition becomes false, the control goes out of the loop.\r\n\r\nAfter exiting the loop, the control goes to the statements which are immediately after the loop. The body of a loop can contain more than one statement. If it contains only one statement, then the curly braces are not compulsory. It is a good practice though to use the curly braces even we have a single statement in the body.\r\n\r\nIn while loop, if the condition is not true, then the body of a loop will not be executed, not even once. It is different in do while loop which we will see shortly.', 26, NULL),
-(103, 'Isotopes', 76, 'Isotopes are various forms of an element that have the same number of protons but a different number of neutrons. Some elements, such as carbon, potassium, and uranium, have multiple naturally-occurring isotopes. Isotopes are defined first by their element and then by the sum of the protons and neutrons present.\r\n\r\nCarbon-12 (or 12C) contains six protons, six neutrons, and six electrons; therefore, it has a mass number of 12 amu (six protons and six neutrons).\r\nCarbon-14 (or 14C) contains six protons, eight neutrons, and six electrons; its atomic mass is 14 amu (six protons and eight neutrons).\r\nWhile the mass of individual isotopes is different, their physical and chemical properties remain mostly unchanged.\r\n\r\nIsotopes do differ in their stability. Carbon-12 (12C) is the most abundant of the carbon isotopes, accounting for 98.89% of carbon on Earth. Carbon-14 (14C) is unstable and only occurs in trace amounts. Unstable isotopes most commonly emit alpha particles (He2+) and electrons. Neutrons, protons, and positrons can also be emitted and electrons can be captured to attain a more stable atomic configuration (lower level of potential energy ) through a process called radioactive decay. The new atoms created may be in a high energy state and emit gamma rays which lowers the energy but alone does not change the atom into another isotope. These atoms are called radioactive isotopes or radioisotopes.', 26, NULL);
+(103, 'Isotopes', 76, 'Isotopes are various forms of an element that have the same number of protons but a different number of neutrons. Some elements, such as carbon, potassium, and uranium, have multiple naturally-occurring isotopes. Isotopes are defined first by their element and then by the sum of the protons and neutrons present.\r\n\r\nCarbon-12 (or 12C) contains six protons, six neutrons, and six electrons; therefore, it has a mass number of 12 amu (six protons and six neutrons).\r\nCarbon-14 (or 14C) contains six protons, eight neutrons, and six electrons; its atomic mass is 14 amu (six protons and eight neutrons).\r\nWhile the mass of individual isotopes is different, their physical and chemical properties remain mostly unchanged.\r\n\r\nIsotopes do differ in their stability. Carbon-12 (12C) is the most abundant of the carbon isotopes, accounting for 98.89% of carbon on Earth. Carbon-14 (14C) is unstable and only occurs in trace amounts. Unstable isotopes most commonly emit alpha particles (He2+) and electrons. Neutrons, protons, and positrons can also be emitted and electrons can be captured to attain a more stable atomic configuration (lower level of potential energy ) through a process called radioactive decay. The new atoms created may be in a high energy state and emit gamma rays which lowers the energy but alone does not change the atom into another isotope. These atoms are called radioactive isotopes or radioisotopes.', 26, NULL),
+(104, 'Electrochemistry Basics', 77, 'Electrochemistry is the study of chemical processes that cause electrons to move. This movement of electrons is called electricity, which can be generated by movements of electrons from one element to another in a reaction known as an oxidation-reduction (\"redox\") reaction. A redox reaction is a reaction that involves a change in oxidation state of one or more elements. When a substance loses an electron, its oxidation state increases; thus, it is oxidized. When a substance gains an electron, its oxidation state decreases, thus being reduced. For example, for the redox reaction', 24, NULL);
 
 -- --------------------------------------------------------
 
@@ -209,7 +210,8 @@ INSERT INTO `quiz` (`quiz_id`, `quiz_question`, `display_order`) VALUES
 (115, 'The body of a loop can contain ___________ statement.', 1),
 (116, 'The body of a loop can contain ____________ statement.', 1),
 (117, 'The body of a loop can contain more than one statement.', 1),
-(118, 'Unstable isotopes most commonly emit ', 1);
+(118, 'Unstable isotopes most commonly emit ', 1),
+(119, 'What is the oxidation state of magnesium in  MgF2 ?', 1);
 
 -- --------------------------------------------------------
 
@@ -278,7 +280,9 @@ INSERT INTO `quizz_choices` (`choice_id`, `choice`, `true_false`, `quiz_fid`) VA
 (59, 'protons.', 0, 118),
 (60, 'atoms.', 0, 118),
 (61, 'electrons.', 1, 118),
-(62, 'neutrons.', 0, 118);
+(62, 'neutrons.', 0, 118),
+(63, 'MgF2  total charge=0 Total Charge=(-2)+(+1*2)=0', 0, 119),
+(64, 'MgF2  total charge=0 Total Charge=(+2)+(-1*2)=0', 1, 119);
 
 -- --------------------------------------------------------
 
@@ -365,7 +369,8 @@ INSERT INTO `subtopic_materials` (`quiz_fid`, `sub_fid`, `mat_fid`) VALUES
 (111, 1, 96),
 (112, 5, 97),
 (117, 6, 102),
-(118, 1, 103);
+(118, 1, 103),
+(119, 15, 104);
 
 -- --------------------------------------------------------
 
@@ -532,7 +537,8 @@ INSERT INTO `uploads` (`up_id`, `file_name`, `uploaded_on`, `status`) VALUES
 (73, 'image_2021-07-22_153310.png', '2021-07-22 15:35:52', '1'),
 (74, 'image_2021-07-22_154015.png', '2021-07-22 15:40:42', '1'),
 (75, 'image_2021-07-22_154538.png', '2021-07-22 15:46:12', '1'),
-(76, 'image_2021-07-22_172023.png', '2021-07-22 17:21:46', '1');
+(76, 'image_2021-07-22_172023.png', '2021-07-22 17:21:46', '1'),
+(77, 'image_2021-07-23_205152.png', '2021-07-23 20:53:37', '1');
 
 --
 -- Indexes for dumped tables
@@ -656,7 +662,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `learners`
@@ -668,19 +674,19 @@ ALTER TABLE `learners`
 -- AUTO_INCREMENT for table `materials`
 --
 ALTER TABLE `materials`
-  MODIFY `mat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
+  MODIFY `mat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT for table `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `quiz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=119;
+  MODIFY `quiz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
 
 --
 -- AUTO_INCREMENT for table `quizz_choices`
 --
 ALTER TABLE `quizz_choices`
-  MODIFY `choice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `choice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `subject`
@@ -716,7 +722,7 @@ ALTER TABLE `t_proposal`
 -- AUTO_INCREMENT for table `uploads`
 --
 ALTER TABLE `uploads`
-  MODIFY `up_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `up_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
 
 --
 -- Constraints for dumped tables

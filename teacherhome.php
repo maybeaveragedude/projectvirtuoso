@@ -5,6 +5,7 @@
   require_once 'includes/functions.inc.php';
 
   // headlesstaillessretrieveSubjects($conn);
+  headlesstailessretrieveTeacherCourse($conn);
   invalidUserAcess();
 
 ?>
@@ -92,7 +93,10 @@
                                                   echo <<<GFG
                                                       <div class="coursetitle" id="coursetitle{$tempCourseId}">
                                                         <a class="btn btn-primary listgroupdropMain subjectList" style="font-size: 20px; margin: 14px 0px;"data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$num}" href="#collapseCourse-{$num}" role="button"><strong>{$tempname}</strong></a>
+                                                        <input class="simpleTextEdit" type="button" style="margin: 14px 0px; color:blue;" value="View" onclick="redirectViewCourse({$tempCourseId})"></input>
                                                         <input class="simpleTextEdit" type="button" style="margin: 14px 0px;" value="Edit" onclick="redirectEditCourse({$tempCourseId})"></input>
+                                                        <input class="simpleTextEdit" type="button" style="margin: 14px 0px; color:red;" value="Delete" onclick="redirectDeleteCourse({$tempCourseId})"></input>
+
 
                                                           <div class="collapse" id="collapseCourse-{$num}">
 
@@ -101,7 +105,7 @@
                                                     $subsnum = 0;
                                                     foreach ($_SESSION["singleTeacherCourseSubtopics"] as $coursesubsDisp){
                                                       $tempinnercourse = $coursesubsDisp[$subsnum]['course_fid'];
-                                                      $tempTopSubname = $coursesubsDisp[$subsnum];
+                                                      // $tempTopSubname = $coursesubsDisp[$subsnum];
                                                       // $tempSubdesc = $coursesubsDisp[$subsnum]['sub_desc'];
                                                       // $tempSubFId = $coursesubsDisp['sbjt_fid'];
                                                       // $tempTopicId = $coursesubsDisp['topic_id'];
@@ -128,9 +132,10 @@
                                                           GFG;
                                                           $innercount += 1;
                                                         }
+                                                        $subsnum +=1;
+
                                                         }
 
-                                                      $subsnum +=1;
                                                     }
 
                                                  echo <<<GFG
@@ -560,12 +565,17 @@
     function redirectEdit(subtopicID){ //to enable setting up form in editor
       window.location.href=`teacheredit.php?editsubtopics=${subtopicID}`;
     }
-
     function redirectDelete(matID){ //delete the Material Entry
       window.location.href=`includes/newmat.inc.php?deletemat=${matID}`;
     }
     function redirectEditCourse(tempCourseId){ //to enable editing of the selected course
       window.location.href=`teachercourseedit.php?editcourse=${tempCourseId}`;
+    }
+    function redirectViewCourse(tempCourseId){ //to enable editing of the selected course
+      window.location.href=`display.php?course=${tempCourseId}`;
+    }
+    function redirectDeleteCourse(tempCourseId){ //to enable editing of the selected course
+      window.location.href=`includes/coursenew.inc.php?delete=${tempCourseId}`;
     }
     function redirectView(subtopicID){ //to display the preview of the material
       window.location.href=`display.php?subtopic=${subtopicID}`;

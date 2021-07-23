@@ -676,6 +676,33 @@ function checkCourse($conn, $teacherid) {
     mysqli_stmt_close($stmt);
 }
 
+function checkGlobalCourse($conn) {
+    $sql = "SELECT * FROM course";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+      echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+      exit();
+    }
+
+    // mysqli_stmt_bind_param($stmt, "s", $teacherid);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    $rows = [];
+
+    while ($row = mysqli_fetch_assoc($resultData)){ //getting the rows from the query result
+      // return $row;
+      $rows[] = $row;
+    }
+    if ($row != mysqli_fetch_assoc($resultData)){
+      $result = false;
+      return $result;
+    }
+
+    return $rows;
+    mysqli_stmt_close($stmt);
+}
+
 function retrieveTeacherCourse($conn) {
 
 
@@ -706,7 +733,7 @@ function retrieveTeacherCourse($conn) {
     $_SESSION["singleTeacherCourse"] = $checkCourse;
     $_SESSION["singleTeacherCourseSubtopics"] = $tempcheck;
 
-    header("Refresh:2; url=../teacherhome.php");
+    // header("Refresh:2; url=../teacherhome.php");
     // exit();
 }
 
@@ -741,6 +768,7 @@ function headlesstailessretrieveTeacherCourse($conn) {
 
       $teacherid = $_SESSION["teacherid"];
       $checkCourse[] = checkCourse($conn, $teacherid);
+      $tempcheck;
       // $coursefid = $checkCourse[]
       // echo "<script>alert('Retrieving teacher course');</script>";
 
@@ -764,7 +792,43 @@ function headlesstailessretrieveTeacherCourse($conn) {
     }
 
     $_SESSION["singleTeacherCourse"] = $checkCourse;
-    $_SESSION["singleTeacherCourseSubtopics"] = $tempcheck;
+    if ($tempcheck== ""){
+      $_SESSION["singleTeacherCourseSubtopics"] = "";
+    } else {
+      $_SESSION["singleTeacherCourseSubtopics"] = $tempcheck;
+    }
+
+    // exit();
+}
+
+function retrieveGlobalCourse($conn) {
+
+
+      // $teacherid = $_SESSION["teacherid"];
+      $checkGlobalCourse[] = checkGlobalCourse($conn);
+      // $coursefid = $checkCourse[]
+      // echo "<script>alert('Retrieving teacher course');</script>";
+
+
+    $i =0;
+    foreach ($checkGlobalCourse as $value){
+      // echo '<pre>'; print_r($value); echo '</pre>';
+
+      foreach ($value as $coursefid){
+        // echo '<pre>'; print_r($coursefid['course_id']); echo '</pre>';
+        $coursetempfid= $coursefid['course_id'];
+        $tempcheck[] = checkCourseSubtopics($conn, $coursetempfid);
+        // array_push($checkCourseSubtopics, $tempcheck);
+
+      }
+      // echo '<pre>'; print_r($tempcheck); echo '</pre>';
+
+      $i += 1;
+
+    }
+
+    $_SESSION["GlobalCourse"] = $checkGlobalCourse;
+    $_SESSION["GlobalCourseSubtopics"] = $tempcheck;
 
     // exit();
 }
@@ -902,7 +966,7 @@ function groupInSubtopics_Materials($conn, $quiz_fid, $sub_fid, $mat_fid) {
   // exit();
 }
 
-function checkMaterials($conn, $teacherid) {
+function checkTeacherMaterials($conn, $teacherid) {
     $sql = "SELECT * FROM materials WHERE t_fid = ?;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)){
@@ -929,8 +993,36 @@ function checkMaterials($conn, $teacherid) {
     mysqli_stmt_close($stmt);
 }
 
+function checkGlobalMaterials($conn) {
+    $sql = "SELECT * FROM materials ;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+      echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+      exit();
+    }
+
+    // mysqli_stmt_bind_param($stmt, "s", $teacherid);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    $rows = [];
+
+    while ($row = mysqli_fetch_assoc($resultData)){ //getting the rows from the query result
+      // return $row;
+      $rows[] = $row;
+    }
+    if ($row != mysqli_fetch_assoc($resultData)){
+      $result = false;
+      return $result;
+    }
+
+    return $rows;
+    mysqli_stmt_close($stmt);
+}
+
+
 function checkMaterialsQuiz($conn) {
-    $sql = "SELECT * FROM subtopic_materials;";
+    $sql = "SELECT * FROM subtopic_materials ORDER BY sub_fid;";
     $stmt = mysqli_stmt_init($conn);
     if (!mysqli_stmt_prepare($stmt, $sql)){
       echo "<script>alert('Problem connecting to database, please try again later.');</script>";
@@ -1014,35 +1106,31 @@ function retrieveTeacherMaterials($conn) {
 
 
       $teacherid = $_SESSION["teacherid"];
-      $checkMaterials[] = checkMaterials($conn, $teacherid);
+      $checkTeacherMaterials[] = checkTeacherMaterials($conn, $teacherid);
       $tempquiz[] = checkMaterialsQuiz($conn);
       $quizrepo[] = checkQuiz($conn);
       $quizQuestionChoices[] = checkQuizQuestionChoices($conn);
 
 
-      // $coursefid = $checkCourse[]
-      // echo "<script>alert('Retrieving teacher course');</script>";
+    $_SESSION["teacherMaterial"] = $checkTeacherMaterials;
+    $_SESSION["teacherQuiz"] = $tempquiz;
+    $_SESSION["quizRepo"] = $quizrepo;
+    $_SESSION["quizQuestionChoices"] = $quizQuestionChoices;
+    // header("Refresh:2; url=../teacherhome.php");
+    // exit();
+}
+
+function retrieveGlobalMaterials($conn) {
 
 
-    // $i =0;
-    foreach ($checkMaterials as $value){
-      // $tempmatid= $matid['mat_id'];
-      // $tempquiz[] = checkMaterialsQuiz($conn, $tempmatid);
-      // echo '<pre>'; print_r($matid); echo '</pre>';
-      // foreach ($value as $matid){
-      //   // echo '<pre>'; print_r($coursefid['course_id']); echo '</pre>';
-      //   $tempmatid= $matid['mat_id'];
-      //   $tempquiz[] = checkMaterialsQuiz($conn, $tempmatid);
-      //   // array_push($checkCourseSubtopics, $tempcheck);
-      //
-      // }
-      // echo '<pre>'; print_r($tempcheck); echo '</pre>';
+      // $teacherid = $_SESSION["teacherid"];
+      $checkTeacherMaterials[] = checkGlobalMaterials($conn);
+      $tempquiz[] = checkMaterialsQuiz($conn);
+      $quizrepo[] = checkQuiz($conn);
+      $quizQuestionChoices[] = checkQuizQuestionChoices($conn);
 
-      // $i += 1;
 
-    }
-
-    $_SESSION["teacherMaterial"] = $checkMaterials;
+    $_SESSION["GlobalMaterial"] = $checkTeacherMaterials;
     $_SESSION["teacherQuiz"] = $tempquiz;
     $_SESSION["quizRepo"] = $quizrepo;
     $_SESSION["quizQuestionChoices"] = $quizQuestionChoices;
@@ -1083,4 +1171,185 @@ function getImage($conn, $uploadID) {
   // return $imageURL;
 
 
+}
+
+function getMaterial($conn, $viewSubtopicID, $tempMatSubId, $tempMatFId, $matExist, $tempQuizFId){
+  // echo '<pre>'; print_r($tempMatSubId); echo '</pre>';
+
+if ($viewSubtopicID == $tempMatSubId) {
+  // echo '<pre>'; print_r($viewSubtopicID); echo '</pre>';
+
+
+
+
+     $matnum = 0; //for id
+     foreach ($_SESSION["GlobalMaterial"][$matnum] as $matDisplay){
+         $tempMatTitle = $matDisplay['mat_name'];
+         $tempMatContents = $matDisplay['mat_contents'];
+         $tempMatVisualFile = $matDisplay['mat_file_upload_fid'];
+         $imageSrc = getImage($conn, $tempMatVisualFile);
+
+         $tempMatID = $matDisplay['mat_id'];
+
+
+         if ($tempMatFId == $tempMatID){
+
+             echo <<<GFG
+
+             <section class="editor" id="section{$tempMatTitle}" style="padding-bottom: 0px; padding-top: 75px">
+
+                 <div class="col maindisplay" >
+                   <h2 style="padding: 16px 0px">{$tempMatTitle}</h2>
+                   <pre id="innersection{$tempMatTitle}" style="white-space: pre-wrap; font-family: var(--bs-font-sans-serif); font-size: 16px;">{$tempMatContents}</pre>
+                   <div  class=" justify-content-xxl-center align-items-xxl-center" style="padding: 56px 0px; margin: auto; justify-contents:middle; text-align: center; min-height: 200px;">
+                     <img id="anothersection{$tempMatTitle}" src="{$imageSrc}" style="width: 400; height: auto; object-fit:cover;" alt=""/>
+                   </div>
+                 </div>
+             </section>
+
+             <script>
+
+             var maindocElement{$matnum} = document.getElementById('innersection{$tempMatTitle}');
+             var taggedSubID{$matnum} = $tempMatSubId;
+             var anotherdocElement{$matnum} = document.getElementById('anothersection{$tempMatTitle}');
+
+             // var scrollSubtopics{$matnum} = document.getElementById('hrefSUBIDFor{$tempMatSubId}');
+             var scrollSubtopicsName{$matnum} = document.getElementById('subname{$tempMatSubId}');
+             var descContainer = document.getElementById('descContainer');
+             var subnameContainer = document.getElementById('subnameContainer');
+
+
+
+             var repeat{$matnum} = document.getElementById('side{$tempMatTitle}');
+
+
+             // console.log(maindocElement{$matnum});
+
+             document.addEventListener('scroll', function () {
+
+                 if (isInViewport(maindocElement{$matnum}) || isInViewport(anotherdocElement{$matnum})){
+                   // console.log(maindocElement{$matnum}.id);
+                   // console.log(anotherdocElement{$matnum}.id);
+                   // console.log(taggedSubID{$matnum});
+
+                   repeat{$matnum}.classList.add("atThisSection");
+                   // console.log(descContainer);
+
+                   descContainer.innerHTML = tempDesc{$tempMatSubId};
+                   subnameContainer.innerHTML = tempSubNameDisplay{$tempMatSubId};
+
+                   // console.log(tempDesc{$tempMatSubId});
+
+                    // scrollSubtopics{$matnum}.click();
+
+
+                 } else {
+                   repeat{$matnum}.classList.remove("atThisSection");
+                   // scrollSubtopics{$matnum}.style.display = "none";
+
+                 }
+
+             }
+
+             , {
+                 passive: true
+             });
+
+             </script>
+
+             GFG;
+             $matExist += 1;
+
+
+             $quizI = 0;
+             $quizCount = 0;
+             foreach ($_SESSION["quizRepo"][$quizI] as $quizDisplay){
+                 $tempQuizQuestion = $quizDisplay['quiz_question'];
+                 $tempQuizID = $quizDisplay['quiz_id'];
+                 $tempQuizDisplayOrder = $quizDisplay['display_order'];
+
+                 if ($tempQuizFId == $tempQuizID){
+                   $quizCount += 1;
+
+
+                   echo <<<GFG
+
+                         <section class="editor" style="padding-bottom: 0px; padding-top: 75px">
+
+                             <div class="col maindisplay quizSection">
+                             <h4 style="padding: 16px 0px">{$tempMatTitle}: Question {$quizCount}</h4>
+
+                             <pre id="innerinnersection{$tempQuizID}" style="white-space: pre-wrap; font-family: var(--bs-font-sans-serif); font-size: 16px;">{$tempQuizQuestion}</pre>
+
+
+                           <script>
+                                 var secondocElement{$tempQuizID} = document.getElementById('innerinnersection{$tempQuizID}');
+
+                                 var sideBarMatSections{$tempQuizID} = document.getElementById('side{$tempMatTitle}');
+
+                                 document.addEventListener('scroll', function () {
+
+
+
+                                   if (isInViewport(secondocElement{$tempQuizID})){
+                                           sideBarMatSections{$tempQuizID}.classList.add("atThisSection");
+                                           // scrollSubtopics{$matnum}.click();
+
+
+                                   } else {
+                                           // sideBarMatSections{$tempQuizID}.classList.remove("atThisSection");
+                                   }
+
+                                 }
+
+                                   , {
+                                     passive: true
+                                 });
+
+
+                               </script>
+
+                   GFG;
+
+                   $questionI = 0;
+                   $quizQuestionCount = 0;
+                   foreach ($_SESSION["quizQuestionChoices"][$questionI] as $quizQuestionDisplay){
+                       $tempQuestionLabel = $quizQuestionDisplay['choice'];
+                       $tempQuestionBool = $quizQuestionDisplay['true_false'];
+                       $tempQuestionQuizFID = $quizQuestionDisplay['quiz_fid'];
+
+                       if ($tempQuizID == $tempQuestionQuizFID){
+                         $quizQuestionCount += 1;
+
+
+                         echo <<<GFG
+
+                             <div class="col" style="padding: 12px;">
+                                 <div  class="form-check">
+                                   <input class="form-check-input" type="radio" name="quiz{$tempQuizID}" id = "quiz{$tempQuizID}choice{$quizQuestionCount}">
+                                   <label class="form-check-label helloRadio" for="quiz{$tempQuizID}choice{$quizQuestionCount}">$tempQuestionLabel</label>
+                                 </div>
+                             </div>
+
+
+                         GFG;
+
+                       }
+                       $questionI += 1;
+                     }
+
+                     echo <<<GFG
+                               </div>
+                           </section>
+
+                     GFG;
+                 }
+                 $quizI += 1;
+               }
+
+           }
+           $matnum +=1;
+
+   }
+ }
 }

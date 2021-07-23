@@ -4,13 +4,21 @@
   require_once 'includes/dbh.inc.php';
   require_once 'includes/functions.inc.php';
 
-  // headlesstaillessretrieveSubjects($conn);
-  retrieveTeacherMaterials($conn);
+  retrieveGlobalCourse($conn);
+  // retrieveTeacherMaterials($conn);
+  retrieveGlobalMaterials($conn);
   invalidUserAcess();
 
   if (isset($_GET['subtopic'])){
     $viewSubtopicID = $_GET['subtopic'];
-  } else {
+    // $temparr[] ="";
+
+  }
+   else if (isset($_GET['course'])){
+    $viewCourseID = $_GET['course'];
+    // $temparr[] ="";
+  }
+  else {
     echo <<<GFG
         <script>
           alert("The rat rigged the server! Please try again later.");
@@ -25,13 +33,79 @@
 ?>
 
 <main class="page" >
+  <?php
+  if (isset($_GET['course'])){
+
+
+          echo <<<GFG
+          <div id="sidebarRightFloat">
+
+          GFG;
+
+
+            $num=0;
+
+            //COURSE PART
+            foreach ($_SESSION["GlobalCourse"][$num] as $display) {
+              // echo '<pre>'; print_r($display); echo '</pre>';
+
+              $tempCourseId = $display['course_id'];
+              $tempname = $display['course_name'];
+              $tempdesc = $display['course_desc'];
+              $tempTFID = $display['t_fid'];
+              // $tempTID = $_SESSION["teacherid"];
+
+                      if ($viewCourseID == $tempCourseId){
+                      echo <<<GFG
+
+                          <h3 style="margin: auto; padding-top: 16px;padding-bottom: 12px;">Course:</h3>
+
+                          <h1 style="padding-right: 12px; margin: auto;"><strong>{$tempname}</strong></h1>
+                          <div style="padding-bottom: 12px; padding-top: 12px" class="row">
+                              <div class="col">
+
+                                <small>{$tempdesc}</small>
+
+                              </div>
+                          </div>
+
+                     GFG;
+                     }
+
+            $num += 1;
+           }
+
+         echo <<<GFG
+
+         </div>
+
+         GFG;
+
+
+
+
+
+       }
+
+
+
+
+   ?>
+
   <div id="sidebar">
-    <section class="editor" style="background: rgba(212,255,162,0.31);  padding: 16px 4px;">
+    <!-- <section class="editor" style="background: rgba(212,255,162,0.31);  padding: 16px 4px;">
         <div class="row" style="margin: auto;">
-            <div class="col" style="margin: auto; ">
+            <div class="col" style="margin: auto; "> -->
 
               <?php
               echo <<<GFG
+              <section class="editor" style="background: rgba(212,255,162,0.31);  padding: 0px 10px;overflow: hidden;">
+                  <div class="row" style="margin: auto;">
+                      <div class="col" style="margin: auto; ">
+
+
+
+
               <script>
 
               function isInViewport(thiselement) {
@@ -45,9 +119,90 @@
                   );
               }
 
-
               </script>
+
+
               GFG;
+
+              if (isset($_GET['course'])){
+
+                echo <<<GFG
+
+                <div class="gotTransition" >
+                <a style="display: none;"></a>
+
+                      <h3  style="margin: auto; padding-top: 14px;padding-bottom: 12px; ">Subtopic:</h3>
+                      <h1 id="subnameContainer" style="padding-right: 12px; margin: auto;"><strong></strong></h1>
+                      <div style="padding-bottom: 12px; padding-top: 12px" class="row">
+                          <div class="col">
+                            <p id="descContainer"></p>
+                          </div>
+                      </div>
+
+                </div>
+
+
+                GFG;
+
+                $num=0;
+
+                foreach ($_SESSION["GlobalCourseSubtopics"] as $coursesubsDisp) {
+                  // echo '<pre>'; print_r($display); echo '</pre>';
+
+                  $tempinnercourse = $coursesubsDisp[$num]['course_fid'];
+                  // echo '<pre>'; print_r($display); echo '</pre>';
+
+                  if($viewCourseID == $tempinnercourse){
+                    // echo '<pre>'; print_r($coursesubsDisp); echo '</pre>';
+
+                    $innercount = 0;
+                    foreach ($coursesubsDisp as $count) {
+                      $temparr[] = $count['sub_fid'];
+                      $tempSubname = $count['sub_name'];
+                      $tempDesc = $count['sub_desc'];
+
+                      // <div class="gotTransition" id="wrapperdiv{$count['sub_fid']}">
+                      // <a id="hrefSUBIDFor{$count['sub_fid']}" href="#wrapperdiv{$count['sub_fid']}" style="display: none;"></a>
+                      //
+                      //       <h3  style="margin: auto; padding-top: 14px;padding-bottom: 12px; ">Subtopic:</h3>
+                      //       <h1 id="subname{$count['sub_fid']}" style="padding-right: 12px; margin: auto;"><strong>{$tempSubname}</strong></h1>
+                      //       <div style="padding-bottom: 12px; padding-top: 12px" class="row">
+                      //           <div class="col">
+                      //             <small id="descContainer">{$tempDesc}</small>
+                      //           </div>
+                      //       </div>
+                      //
+                      //
+                      //
+                      // </div>
+
+
+                      echo <<<GFG
+
+                      <script>
+                        var tempDesc{$count['sub_fid']} = "{$tempDesc}";
+                        var tempSubNameDisplay{$count['sub_fid']} = "<strong>{$tempSubname}</strong>";
+
+                        console.log(tempDesc{$count['sub_fid']});
+                      </script>
+
+                      GFG;
+
+
+
+
+                      $innercount += 1;
+                    }
+                    $num +=1;
+
+                    }
+
+
+                }
+
+              }
+
+              else {
 
               $subtopicnum = 0; //for id
               foreach ($_SESSION["teachersubtopicsCombined"][$subtopicnum] as $subtopicDisplay){
@@ -57,23 +212,23 @@
                 $tempSubtopicId = $subtopicDisplay['sub_id'];
                 $tempSubtopicTeacherId = $subtopicDisplay['t_fid'];
 
-                if ($tempSubtopicId == $viewSubtopicID) {
+                          if ($tempSubtopicId == $viewSubtopicID) {
 
-                  echo <<<GFG
-                  <h3 style="margin: auto; padding-top: 16px;padding-bottom: 12px;">Subtopic:</h3>
+                            echo <<<GFG
+                            <h3 style="margin: auto; padding-top: 16px;padding-bottom: 12px;">Subtopic:</h3>
 
-                  <h1 style="margin: auto;"><strong>{$tempSubtopicname}</strong></h1>
-                  <div style="padding-bottom: 12px; padding-top: 12px" class="row">
-                      <div class="col">
-                        <small>{$tempSubtopicdesc}</small>
+                            <h1 style="padding-right: 12px; margin: auto;"><strong>{$tempSubtopicname}</strong></h1>
+                            <div style="padding-bottom: 12px; padding-top: 12px" class="row">
+                                <div class="col">
+                                  <small>{$tempSubtopicdesc}</small>
 
+                            GFG;
 
-                  GFG;
+                          }
 
-                }
-
-                $subtopicnum +=1;
+                  $subtopicnum +=1;
               }
+          }
               ?>
 
 
@@ -83,6 +238,83 @@
 
               <?php
 
+              if (isset($_GET['course'])){
+
+
+                $subsnum=0;
+
+
+
+                foreach ($_SESSION["GlobalCourseSubtopics"] as $coursesubsDisp) {
+
+                  $tempinnercourse = $coursesubsDisp[$subsnum]['course_fid'];
+
+                  // $tempTopSubname = $coursesubsDisp[$subsnum];
+                  // echo '<pre>'; print_r($coursesubsDisp); echo '</pre>';
+
+                  // $tempinnerarr[] = $tempinnerSub;
+                  foreach ($coursesubsDisp as $value){
+                    $tempinnerSub= $value['sub_fid'];
+
+
+
+
+                  if($viewCourseID == $tempinnercourse){
+                    // echo '<pre>'; print_r($tempinnerSub); echo '</pre>';
+
+
+                    // echo '<pre>'; print_r($coursesubsDisp); echo '</pre>';
+
+
+                    $matidnum = 0; //for id
+                    foreach ($_SESSION["teacherQuiz"][$matidnum] as $matIDDisplay){
+                      $tempMatSubId = $matIDDisplay['sub_fid'];
+                      $tempMatFId = $matIDDisplay['mat_fid'];
+                      $tempQuizFId = $matIDDisplay['quiz_fid'];
+                      // echo '<pre>'; print_r($matIDDisplay); echo '</pre>';
+
+
+
+                      if ($tempinnerSub == $tempMatSubId) {
+                            $matnum = 0; //for id
+                            foreach ($_SESSION["GlobalMaterial"][$matnum] as $matDisplay){
+                              // echo '<pre>'; print_r($matDisplay); echo '</pre>';
+
+                                $tempMatTitle = $matDisplay['mat_name'];
+                                $tempMatContents = $matDisplay['mat_contents'];
+                                // $tempMatVisualFile = $matDisplay['mat_file_upload_fid'];
+                                // $imageSrc = getImage($conn, $tempMatVisualFile);
+
+                                $tempMatID = $matDisplay['mat_id'];
+
+
+                                if ($tempMatFId == $tempMatID ){
+                                  $matnum +=1;
+                                    echo <<<GFG
+                                        <a  href="#section{$tempMatTitle}">
+                                            <span>
+                                              <h4 id="side{$tempMatTitle}" class="matsections">{$tempMatTitle}</h4>
+                                            </span>
+                                        </a>
+
+
+                                    GFG;
+
+                                }
+                            }
+                            $matidnum += 1;
+                        }
+                      }
+
+                  }
+                }
+                  // $subsnum += 1;
+
+
+
+                }
+              } else {
+
               $matidnum = 0; //for id
               foreach ($_SESSION["teacherQuiz"][$matidnum] as $matIDDisplay){
                 $tempMatSubId = $matIDDisplay['sub_fid'];
@@ -91,8 +323,9 @@
 
 
                 if ($viewSubtopicID == $tempMatSubId) {
+
                       $matnum = 0; //for id
-                      foreach ($_SESSION["teacherMaterial"][$matnum] as $matDisplay){
+                      foreach ($_SESSION["GlobalMaterial"][$matnum] as $matDisplay){
                           $tempMatTitle = $matDisplay['mat_name'];
                           $tempMatContents = $matDisplay['mat_contents'];
                           // $tempMatVisualFile = $matDisplay['mat_file_upload_fid'];
@@ -102,6 +335,8 @@
 
 
                           if ($tempMatFId == $tempMatID){
+
+
                             $matnum +=1;
                               echo <<<GFG
                                   <a  href="#section{$tempMatTitle}">
@@ -115,205 +350,85 @@
 
                           }
                       }
+                      // echo '<pre>'; print_r($temparr); echo '</pre>';
+
                   }
                 }
+              }
 
                ?>
-                <!-- <h1 style="margin: auto;">Study Cultivation</h1> -->
-                <!-- <div class="row">
-                    <div class="col">
-                      <small><strong>Create </strong>&amp;&nbsp;<strong>Edit</strong> Subjects, Topics and Subtopics!&nbsp;</small> -->
-
-
-
 
   </div>
   <div class ="mainWithSidebar">
 
-    <!-- <section class="editor">
-        <div class="col">
-
-        </div>
-    </section> -->
 
     <?php
 
                     $matExist = 0;
+                    if (isset($_GET['course'])){
+                    foreach ($_SESSION["GlobalCourseSubtopics"] as $coursesubsDisp) {
 
-                  // if ($tempTopicId == $tempTopicFId){
-                      // echo <<<GFG
-                      //     <div id="mat{$tempSubtopicId}" style="display: none;">
-                      //       <a class="btn btn-primary listgroupdropMain MatSubtopicList teacheridIs_{$tempSubtopicTeacherId}" style="margin-left: 0px; margin-top: 6px; margin-bottom: 6px; background-color:white; color:black;" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$subtopicnum}" href="#collapseMatSubtopic-{$subtopicnum}" role ="button">{$tempSubtopicname}</a>
-                      //       <input type="button" class="simpleTextEdit" onclick="redirectView({$tempSubtopicId})"name="View" value="View" style="margin: 4px 0px; color:green;"></input>
-                      //
-                      //
-                      //         <div class="collapse" id="collapseMatSubtopic-{$subtopicnum}">
-                      //
-                      // GFG;
+                          $tempinnercourse = $coursesubsDisp[$subsnum]['course_fid'];
 
-                      $matidnum = 0; //for id
-                      foreach ($_SESSION["teacherQuiz"][$matidnum] as $matIDDisplay){
-                        $tempMatSubId = $matIDDisplay['sub_fid'];
-                        $tempMatFId = $matIDDisplay['mat_fid'];
-                        $tempQuizFId = $matIDDisplay['quiz_fid'];
+                          // $tempTopSubname = $coursesubsDisp[$subsnum];
+                          // echo '<pre>'; print_r($coursesubsDisp); echo '</pre>';
 
-
-                        if ($viewSubtopicID == $tempMatSubId) {
-                              $matnum = 0; //for id
-                              foreach ($_SESSION["teacherMaterial"][$matnum] as $matDisplay){
-                                  $tempMatTitle = $matDisplay['mat_name'];
-                                  $tempMatContents = $matDisplay['mat_contents'];
-                                  $tempMatVisualFile = $matDisplay['mat_file_upload_fid'];
-                                  $imageSrc = getImage($conn, $tempMatVisualFile);
-
-                                  $tempMatID = $matDisplay['mat_id'];
-
-
-                                  if ($tempMatFId == $tempMatID){
-                                    $matExist += 1;
-
-                                      echo <<<GFG
-
-                                      <section class="editor" id="section{$tempMatTitle}" style="padding-bottom: 0px; padding-top: 75px">
-
-                                          <div class="col maindisplay" >
-                                            <h2 style="padding: 16px 0px">{$tempMatTitle}</h2>
-                                            <pre id="innersection{$tempMatTitle}" style="white-space: pre-wrap; font-family: var(--bs-font-sans-serif); font-size: 16px;">{$tempMatContents}</pre>
-                                            <div  class=" justify-content-xxl-center align-items-xxl-center" style="padding: 56px 0px; margin: auto; justify-contents:middle; text-align: center; min-height: 200px;">
-                                              <img id="anothersection{$tempMatTitle}" src="{$imageSrc}" style="width: 400; height: auto; object-fit:cover;" alt=""/>
-                                            </div>
-                                          </div>
-                                      </section>
-
-                                      <script>
-
-                                      var maindocElement{$matExist} = document.getElementById('innersection{$tempMatTitle}');
-                                      var anotherdocElement{$matExist} = document.getElementById('anothersection{$tempMatTitle}');
-
-                                      var repeat{$matExist} = document.getElementById('side{$tempMatTitle}');
-
-
-                                      // console.log(maindocElement{$matExist});
-
-                                      document.addEventListener('scroll', function () {
+                          // $tempinnerarr[] = $tempinnerSub;
+                          foreach ($coursesubsDisp as $value){
+                            $tempinnerSub= $value['sub_fid'];
 
 
 
-                                          if (isInViewport(maindocElement{$matExist}) || isInViewport(anotherdocElement{$matExist})){
-                                            console.log(maindocElement{$matExist}.id);
-                                            repeat{$matExist}.classList.add("atThisSection");
-                                          } else {
-                                            repeat{$matExist}.classList.remove("atThisSection");
-                                          }
 
-                                      }, {
-                                          passive: true
-                                      });
-
-                                      </script>
-
-                                      GFG;
-
-                                      $quizI = 0;
-                                      $quizCount = 0;
-                                      foreach ($_SESSION["quizRepo"][$quizI] as $quizDisplay){
-                                          $tempQuizQuestion = $quizDisplay['quiz_question'];
-                                          $tempQuizID = $quizDisplay['quiz_id'];
-                                          $tempQuizDisplayOrder = $quizDisplay['display_order'];
-
-                                          if ($tempQuizFId == $tempQuizID){
-                                            $quizCount += 1;
-
-
-                                            echo <<<GFG
-
-                                                  <section class="editor" style="padding-bottom: 0px; padding-top: 75px">
-
-                                                      <div class="col maindisplay quizSection">
-                                                      <h4 style="padding: 16px 0px">{$tempMatTitle}: Question {$quizCount}</h4>
-
-                                                      <pre id="innerinnersection{$tempQuizID}" style="white-space: pre-wrap; font-family: var(--bs-font-sans-serif); font-size: 16px;">{$tempQuizQuestion}</pre>
-
-
-                                                    <script>
-                                                          var secondocElement{$tempQuizID} = document.getElementById('innerinnersection{$tempQuizID}');
-
-                                                          var sideBarMatSections{$tempQuizID} = document.getElementById('side{$tempMatTitle}');
-
-                                                          document.addEventListener('scroll', function () {
-
-
-
-                                                            if (isInViewport(secondocElement{$tempQuizID})){
-                                                                    sideBarMatSections{$tempQuizID}.classList.add("atThisSection");
-                                                            } else {
-                                                                    // sideBarMatSections{$tempQuizID}.classList.remove("atThisSection");
-                                                            }
-
-                                                            }, {
-                                                                  passive: true
-                                                          });
-
-
-                                                        </script>
-
-                                            GFG;
-
-                                            $questionI = 0;
-                                            $quizQuestionCount = 0;
-                                            foreach ($_SESSION["quizQuestionChoices"][$questionI] as $quizQuestionDisplay){
-                                                $tempQuestionLabel = $quizQuestionDisplay['choice'];
-                                                $tempQuestionBool = $quizQuestionDisplay['true_false'];
-                                                $tempQuestionQuizFID = $quizQuestionDisplay['quiz_fid'];
-
-                                                if ($tempQuizID == $tempQuestionQuizFID){
-                                                  $quizQuestionCount += 1;
-
-
-                                                  echo <<<GFG
-
-                                                      <div class="col" style="padding: 12px;">
-                                                          <div  class="form-check">
-                                                            <input class="form-check-input" type="radio" name="quiz{$tempQuizID}" id = "quiz{$tempQuizID}choice{$quizQuestionCount}">
-                                                            <label class="form-check-label helloRadio" for="quiz{$tempQuizID}choice{$quizQuestionCount}">$tempQuestionLabel</label>
-                                                          </div>
-                                                      </div>
-
-
-                                                  GFG;
-
-                                                }
-                                                $questionI += 1;
-                                              }
-
-                                              echo <<<GFG
-                                                        </div>
-                                                    </section>
-
-                                              GFG;
-                                          }
-                                          $quizI += 1;
-                                        }
-
-                                    }
-                                    $matnum +=1;
-
-                            }
+                          if($viewCourseID == $tempinnercourse){
+                            $innerOrderedSubArr[] = $tempinnerSub;
+                            // echo '<pre>'; print_r($innerOrderedSubArr); echo '</pre>';
                           }
-                          $matidnum +=1;
-
+                        }
                       }
+                    }
+
+                      // $matidnum = 0; //for id
+                      // foreach ($_SESSION["teacherQuiz"][$matidnum] as $matIDDisplay){
+                      //   $tempMatSubId = $matIDDisplay['sub_fid'];
+                      //   $tempMatFId = $matIDDisplay['mat_fid'];
+                      //   $tempQuizFId = $matIDDisplay['quiz_fid'];
+
+                        if (isset($_GET['course'])){
+                          $subsnum=0;
+
+                          foreach ($innerOrderedSubArr as $tempCourseSubID)  {
+
+                            $viewSubtopicID = $tempCourseSubID;
+
+                                  $matidnum = 0; //for id
+                                  foreach ($_SESSION["teacherQuiz"][$matidnum] as $matIDDisplay){
+                                    $tempMatSubId = $matIDDisplay['sub_fid'];
+                                    $tempMatFId = $matIDDisplay['mat_fid'];
+                                    $tempQuizFId = $matIDDisplay['quiz_fid'];
+                                  getMaterial($conn, $viewSubtopicID, $tempMatSubId, $tempMatFId, $matExist, $tempQuizFId);
+                                  }
+                          }
+
+                        } else {
+                                  foreach ($_SESSION["teacherQuiz"][$matidnum] as $matIDDisplay){
+                                    $tempMatSubId = $matIDDisplay['sub_fid'];
+                                    $tempMatFId = $matIDDisplay['mat_fid'];
+                                    $tempQuizFId = $matIDDisplay['quiz_fid'];
+                                  getMaterial($conn, $viewSubtopicID, $tempMatSubId, $tempMatFId, $matExist, $tempQuizFId);
+                                  }
+
+                          $matidnum +=1;
+                        }
+                      // }
+
+
 
      ?>
 
     <section class="portfolio-block skills" style="padding: 50px 75px;padding-top: 75px;"></section>
     <section class="portfolio-block block-intro" style="padding: 50px 75px;padding-top: 0px;"></section>
-    <!-- <footer class="page-footer">
-        <div class="container">
-            <div class="links"><a href="#">Contact us</a></div>
-            <div class="social-icons"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-instagram-outline"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a></div>
-        </div>
-    </footer> -->
+
     </div>
 
 

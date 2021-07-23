@@ -4,6 +4,34 @@ require_once 'dbh.inc.php';
 require_once 'functions.inc.php';
 invalidIncludesUserAcess();
 
+
+if (isset($_GET['delete'])){
+
+  $courseExistingID = $_GET['delete'];
+  $conn->autocommit(FALSE);
+
+  $sql = $conn->prepare("DELETE FROM course WHERE course_id = ?");
+
+  $sql->bind_param("s", $courseExistingID);
+  $sql->execute();
+
+  // $sql1 = $conn->prepare("DELETE FROM course_subtopics WHERE course_fid = ?");
+  //
+  // $sql1->bind_param("s", $courseExistingID);
+  // $sql1->execute();
+  $conn->autocommit(true);
+
+  echo <<<GFG
+      <script>
+        alert("Course successfully deleted!");
+        window.location.href='../teacherhome.php';
+      </script>
+
+  GFG;
+
+}
+
+
 $courseName = $_POST['coursename'];
 $courseDesc = $_POST['coursedesc'];
 $courseEditBoolean = $_POST['hiddenEditBoolean'];
@@ -14,6 +42,9 @@ $teacherID = $_SESSION['teacherid'];
 
 $courseSubtID = $_POST['hiddenIDlist'];
 $arr = explode(',', $courseSubtID);
+
+
+
 
 if ($courseEditBoolean == 0){
   $conn->autocommit(FALSE);
@@ -39,6 +70,15 @@ if ($courseEditBoolean == 0){
     $conn->autocommit(true);
 
   }
+
+  retrieveTeacherCourse($conn, $teacherID);
+  echo <<<GFG
+      <script>
+        alert("{$courseName} successfully added!");
+        window.location.href='../teacherhome.php';
+      </script>
+
+  GFG;
 
 } else {
   $courseExistingID = $_POST['hiddenExistingCourseID'];
@@ -71,8 +111,24 @@ if ($courseEditBoolean == 0){
 
   }
 
+  retrieveTeacherCourse($conn, $teacherID);
+  echo <<<GFG
+      <script>
+        alert("{$courseName} successfully updated!");
+        window.location.href='../teacherhome.php';
+      </script>
+
+  GFG;
+
 }
 
 
-retrieveTeacherCourse($conn, $teacherID);
+// retrieveTeacherCourse($conn, $teacherID);
+echo <<<GFG
+    <script>
+      alert("The rat rigged the server! Please try again later.");
+      window.location.href='../teacherhome.php';
+    </script>
+
+GFG;
 // header("location: ../teacherhome.php?create=newcourse");

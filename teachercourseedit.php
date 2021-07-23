@@ -262,16 +262,18 @@
                                       $tempSubname = $count['sub_name'];
                                       $tempExistSubtopicID = $count['sub_id'];
 
-                                      if($tempCourseId == $tempinnercourse){
-                                      echo <<<GFG
+                                            if($tempCourseId == $tempinnercourse){
+                                            echo <<<GFG
 
-                                          <li id="{$tempExistSubtopicID}" class="teacheridIs_{$tempSubtopicTeacherId} listObjects " style="margin-left: 26px; width: 300px;" ><i>{$tempSubname}</i></li>
+                                                <li id="{$tempExistSubtopicID}" class="teacheridIs_{$tempSubtopicTeacherId} listObjects " style="margin-left: 26px; width: 300px;" ><i>{$tempSubname}</i></li>
 
-                                      GFG;
+                                            GFG;
 
-                                      $innercount += 1;
+                                            $innercount += 1;
+                                            $subsnum +=1;
+
+                                            }
                                     }
-                                  }
 
                                         // echo <<<GFG
                                         //
@@ -280,7 +282,6 @@
                                         // GFG;
 
 
-                                    $subsnum +=1;
                                   }
                                 $num += 1;
                               }
@@ -613,6 +614,7 @@
                   }
                 })
                 $("#hiddenIDlist").val(ids);
+                // alert($("#hiddenIDlist").val());
               });
 
 
