@@ -68,7 +68,7 @@
 
                                               //COURSE PART
                                                 foreach ($_SESSION["course"][$num] as $display) {
-                                                  echo '<pre>'; print_r($display); echo '</pre>';
+                                                  // echo '<pre>'; print_r($display); echo '</pre>';
 
                                                   $tempCourseId = $display['course_id'];
                                                   $tempname = $display['course_name'];
