@@ -1,7 +1,7 @@
 <?php
   session_start();
   function invalidUserAcess() {
-    if(!isset($_SESSION['username'])){
+    if(!isset($_SESSION["username"])){
       $statusMessage = '\nSTOP RIGHT THERE Criminal Scum!\n\nPlease LOGIN with your account credentials or CREATE AN ACCOUNT before proceeding.';
       echo <<<GFG
         <script>
@@ -34,7 +34,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>Home - Brand</title>
+    <title>VIRTUOSO</title>
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:300,400,700">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=ABeeZee">
@@ -49,7 +49,10 @@
     <link rel="stylesheet" href="assets/css/Sidebar-Menu.css">
     <link rel="stylesheet" href="assets/css/untitled.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="assets/css/jquery-ui.css">
+    <script src="assets/js/external/jquery/jquery.js"></script>
+    <script src="assets/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
     <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 </head>
 <body>
@@ -67,16 +70,19 @@
                 <ul class="navbar-nav ms-auto">
                     <?php
                       if (isset($_SESSION["learnerid"])) {
+                        echo "<li class='nav-item'><a class='nav-link' href='browse.php' style='color: var(--bs-dark);'>Browse</a></li>";
                         echo "<li class='nav-item'><a class='nav-link' href='learnerhome.php' style='color: var(--bs-dark);'>My Account</a></li>";
                         echo "<li class='nav-item'><a class='nav-link' href='includes/logout.inc.php' style='color: var(--bs-dark);'>Log out</a></li>";
                       } elseif (isset($_SESSION["adminid"])){
                         echo "<li class='nav-item'><a class='nav-link' href='adminhome.php' style='color: var(--bs-dark);'>My Account</a></li>";
                         echo "<li class='nav-item'><a class='nav-link' href='includes/logout.inc.php' style='color: var(--bs-dark);'>Log out</a></li>";
                       } elseif (isset($_SESSION["teacherid"])){
+                        echo "<li class='nav-item'><a class='nav-link' href='browse.php' style='color: var(--bs-dark);'>Browse</a></li>";
                         echo "<li class='nav-item'><a class='nav-link' href='teacherhome.php' style='color: var(--bs-dark);'>My Account</a></li>";
                         echo "<li class='nav-item'><a class='nav-link' href='includes/logout.inc.php' style='color: var(--bs-dark);'>Log out</a></li>";
                       }
                       else {
+                        echo "<li class='nav-item'><a class='nav-link' href='browse.php' style='color: var(--bs-dark);'>Browse</a></li>";
                         echo '<li class="nav-item"><a class="nav-link" href="login.php" style="color: var(--bs-dark);">Log In</a></li>';
                         echo '<li class="nav-item"><a class="nav-link" href="signup.php" style="color: var(--bs-dark);">Create Account</a></li>';
                       }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 23, 2021 at 03:12 PM
+-- Generation Time: Jul 25, 2021 at 12:39 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -68,7 +68,8 @@ INSERT INTO `course` (`course_id`, `course_name`, `course_desc`, `t_fid`, `appro
 (77, 'This file test course', 'Yes desc; yes', 31, NULL),
 (78, 'Sunday Test', 'YASALSKDJKA*&*&', 26, NULL),
 (81, 'Crash Test', 'Testing', 26, NULL),
-(82, 'NEW', 'qweqweqwe', 26, NULL);
+(82, 'NEW', 'qweqweqwe', 26, NULL),
+(83, 'Very Maths', 'Thank you', 21, NULL);
 
 -- --------------------------------------------------------
 
@@ -113,7 +114,10 @@ INSERT INTO `course_subtopics` (`course_fid`, `sub_fid`, `display_order`) VALUES
 (81, 5, 1),
 (81, 1, 2),
 (82, 1, 1),
-(82, 5, 2);
+(82, 5, 2),
+(83, 5, 1),
+(83, 6, 2),
+(83, 14, 3);
 
 -- --------------------------------------------------------
 
@@ -147,7 +151,34 @@ INSERT INTO `learners` (`l_ID`, `l_email`, `l_pwd`, `l_username`, `l_nickname`, 
 (9, 'yessir222@mail.com', '$2y$10$mmRo0TX/9adhye7FrfW4x.v/zH/6VCVgyqAx7K6HgsH2NBWh744Je', 'yessir2', NULL, 'yessir two', 0),
 (10, 'error@mail.com', '$2y$10$7N6YvCuntKcvGQBEw7jpO.29fPt1unuk70jOxHlhjI9I0OwSW2usm', 'isthereerror', NULL, 'TesterrorStudent', 0),
 (11, 'asd', '$2y$10$HsDM0cCVBndeqnAEMDUVquj.DGjHlUTlzhL2LRO1oW4tD1AHbODDK', 'asd', NULL, 'asd', 0),
-(12, 'test@mail.com', '$2y$10$Jx/0n8OKs16c1MqXIsO0/.fGo2LjnePr3hBHp26SjcWW3.jFf2pPC', 'testforemail', NULL, 'Test For Email', 0);
+(12, 'test@mail.com', '$2y$10$Jx/0n8OKs16c1MqXIsO0/.fGo2LjnePr3hBHp26SjcWW3.jFf2pPC', 'testforemail', NULL, 'Test For Email', 0),
+(13, 'test@learner.com', '$2y$10$7WDa5Ft6aNO5cL4kXvQzu.SmUfBBdzWI31OAlcK0kYg1piyClBSai', 'newesttestlearner', NULL, 'Newest Test Learner', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `learners_course`
+--
+
+CREATE TABLE `learners_course` (
+  `l_fid` int(11) NOT NULL,
+  `course_fid` int(11) NOT NULL,
+  `total_progress` int(4) NOT NULL DEFAULT 0,
+  `quiz_scores` int(4) NOT NULL DEFAULT 0,
+  `subscription_date` datetime NOT NULL,
+  `material_progress` mediumtext DEFAULT NULL,
+  `quiz_progress` mediumtext DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `learners_course`
+--
+
+INSERT INTO `learners_course` (`l_fid`, `course_fid`, `total_progress`, `quiz_scores`, `subscription_date`, `material_progress`, `quiz_progress`) VALUES
+(6, 75, 100, 100, '2021-07-24 22:36:18', '[\"mat102\",\"mat94\",\"mat78\",\"mat104\"]', '[\"quiz108\",\"quiz117\",\"quiz119\"]'),
+(6, 76, 0, 0, '2021-07-25 18:33:57', NULL, NULL),
+(6, 82, 0, 0, '2021-07-25 18:35:27', NULL, NULL),
+(13, 76, 27, 20, '2021-07-25 18:35:59', '[\"mat97\",\"mat93\"]', '[\"quiz112\"]');
 
 -- --------------------------------------------------------
 
@@ -177,7 +208,8 @@ INSERT INTO `materials` (`mat_id`, `mat_name`, `mat_file_upload_fid`, `mat_conte
 (97, 'Normal Statistics', 70, 'The most common basic statistics terms you\'ll come across are the mean, mode and median. These are all what are known as “Measures of Central Tendency.” Also important in this early chapter of statistics is the shape of a distribution. This tells us something about how data is spread out around the mean or median.', 26, NULL),
 (102, 'While Loop', 75, 'A while loop is the most straightforward looping structure. While loop syntax in C programming language is as follows:\r\n\r\nIt is an entry-controlled loop. In while loop, a condition is evaluated before processing a body of the loop. If a condition is true then and only then the body of a loop is executed. After the body of a loop is executed then control again goes back at the beginning, and the condition is checked if it is true, the same process is executed until the condition becomes false. Once the condition becomes false, the control goes out of the loop.\r\n\r\nAfter exiting the loop, the control goes to the statements which are immediately after the loop. The body of a loop can contain more than one statement. If it contains only one statement, then the curly braces are not compulsory. It is a good practice though to use the curly braces even we have a single statement in the body.\r\n\r\nIn while loop, if the condition is not true, then the body of a loop will not be executed, not even once. It is different in do while loop which we will see shortly.', 26, NULL),
 (103, 'Isotopes', 76, 'Isotopes are various forms of an element that have the same number of protons but a different number of neutrons. Some elements, such as carbon, potassium, and uranium, have multiple naturally-occurring isotopes. Isotopes are defined first by their element and then by the sum of the protons and neutrons present.\r\n\r\nCarbon-12 (or 12C) contains six protons, six neutrons, and six electrons; therefore, it has a mass number of 12 amu (six protons and six neutrons).\r\nCarbon-14 (or 14C) contains six protons, eight neutrons, and six electrons; its atomic mass is 14 amu (six protons and eight neutrons).\r\nWhile the mass of individual isotopes is different, their physical and chemical properties remain mostly unchanged.\r\n\r\nIsotopes do differ in their stability. Carbon-12 (12C) is the most abundant of the carbon isotopes, accounting for 98.89% of carbon on Earth. Carbon-14 (14C) is unstable and only occurs in trace amounts. Unstable isotopes most commonly emit alpha particles (He2+) and electrons. Neutrons, protons, and positrons can also be emitted and electrons can be captured to attain a more stable atomic configuration (lower level of potential energy ) through a process called radioactive decay. The new atoms created may be in a high energy state and emit gamma rays which lowers the energy but alone does not change the atom into another isotope. These atoms are called radioactive isotopes or radioisotopes.', 26, NULL),
-(104, 'Electrochemistry Basics', 77, 'Electrochemistry is the study of chemical processes that cause electrons to move. This movement of electrons is called electricity, which can be generated by movements of electrons from one element to another in a reaction known as an oxidation-reduction (\"redox\") reaction. A redox reaction is a reaction that involves a change in oxidation state of one or more elements. When a substance loses an electron, its oxidation state increases; thus, it is oxidized. When a substance gains an electron, its oxidation state decreases, thus being reduced. For example, for the redox reaction', 24, NULL);
+(104, 'Electrochemistry Basics', 77, 'Electrochemistry is the study of chemical processes that cause electrons to move. This movement of electrons is called electricity, which can be generated by movements of electrons from one element to another in a reaction known as an oxidation-reduction (\"redox\") reaction. A redox reaction is a reaction that involves a change in oxidation state of one or more elements. When a substance loses an electron, its oxidation state increases; thus, it is oxidized. When a substance gains an electron, its oxidation state decreases, thus being reduced. For example, for the redox reaction', 24, NULL),
+(105, 'Binomial Distribution', 78, 'A binomial distribution can be thought of as simply the probability of a SUCCESS or FAILURE outcome in an experiment or survey that is repeated multiple times. The binomial is a type of distribution that has two possible outcomes (the prefix “bi” means two, or twice). For example, a coin toss has only two possible outcomes: heads or tails and taking a test could have two possible outcomes: pass or fail.\r\n\r\n- The first variable in the binomial formula, n, stands for the number of times the experiment runs.\r\n- The second variable, p, represents the probability of one specific outcome.\r\n\r\nFor example, let’s suppose you wanted to know the probability of getting a 1 on a die roll. if you were to roll a die 20 times, the probability of rolling a one on any throw is 1/6. Roll twenty times and you have a binomial distribution of (n=20, p=1/6). SUCCESS would be “roll a one” and FAILURE would be “roll anything else.” If the outcome in question was the probability of the die landing on an even number, the binomial distribution would then become (n=20, p=1/2). That’s because your probability of throwing an even number is one half.', 21, NULL);
 
 -- --------------------------------------------------------
 
@@ -211,7 +243,8 @@ INSERT INTO `quiz` (`quiz_id`, `quiz_question`, `display_order`) VALUES
 (116, 'The body of a loop can contain ____________ statement.', 1),
 (117, 'The body of a loop can contain more than one statement.', 1),
 (118, 'Unstable isotopes most commonly emit ', 1),
-(119, 'What is the oxidation state of magnesium in  MgF2 ?', 1);
+(119, 'What is the oxidation state of magnesium in  MgF2 ?', 1),
+(120, 'Kelvin has taken 3 shots in a shooting practice. The probability that Kelvin strikes the target is 0.6. X represents the number of times kelvin strikes the target.\n\n(a) Calculate the probability for the occurrence of elements of X, when X = 3', 1);
 
 -- --------------------------------------------------------
 
@@ -282,7 +315,11 @@ INSERT INTO `quizz_choices` (`choice_id`, `choice`, `true_false`, `quiz_fid`) VA
 (61, 'electrons.', 1, 118),
 (62, 'neutrons.', 0, 118),
 (63, 'MgF2  total charge=0 Total Charge=(-2)+(+1*2)=0', 0, 119),
-(64, 'MgF2  total charge=0 Total Charge=(+2)+(-1*2)=0', 1, 119);
+(64, 'MgF2  total charge=0 Total Charge=(+2)+(-1*2)=0', 1, 119),
+(65, '0.064', 0, 120),
+(66, '0.288', 0, 120),
+(67, '0.432', 0, 120),
+(68, '0.216', 1, 120);
 
 -- --------------------------------------------------------
 
@@ -370,7 +407,8 @@ INSERT INTO `subtopic_materials` (`quiz_fid`, `sub_fid`, `mat_fid`) VALUES
 (112, 5, 97),
 (117, 6, 102),
 (118, 1, 103),
-(119, 15, 104);
+(119, 15, 104),
+(120, 5, 105);
 
 -- --------------------------------------------------------
 
@@ -538,7 +576,8 @@ INSERT INTO `uploads` (`up_id`, `file_name`, `uploaded_on`, `status`) VALUES
 (74, 'image_2021-07-22_154015.png', '2021-07-22 15:40:42', '1'),
 (75, 'image_2021-07-22_154538.png', '2021-07-22 15:46:12', '1'),
 (76, 'image_2021-07-22_172023.png', '2021-07-22 17:21:46', '1'),
-(77, 'image_2021-07-23_205152.png', '2021-07-23 20:53:37', '1');
+(77, 'image_2021-07-23_205152.png', '2021-07-23 20:53:37', '1'),
+(78, 'image_2021-07-24_144925.png', '2021-07-24 14:54:16', '1');
 
 --
 -- Indexes for dumped tables
@@ -570,6 +609,13 @@ ALTER TABLE `course_subtopics`
 --
 ALTER TABLE `learners`
   ADD PRIMARY KEY (`l_ID`);
+
+--
+-- Indexes for table `learners_course`
+--
+ALTER TABLE `learners_course`
+  ADD KEY `l_fid` (`l_fid`,`course_fid`),
+  ADD KEY `linkcourse` (`course_fid`);
 
 --
 -- Indexes for table `materials`
@@ -662,31 +708,31 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT for table `learners`
 --
 ALTER TABLE `learners`
-  MODIFY `l_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `l_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `materials`
 --
 ALTER TABLE `materials`
-  MODIFY `mat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `mat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT for table `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `quiz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=120;
+  MODIFY `quiz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT for table `quizz_choices`
 --
 ALTER TABLE `quizz_choices`
-  MODIFY `choice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `choice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 
 --
 -- AUTO_INCREMENT for table `subject`
@@ -722,7 +768,7 @@ ALTER TABLE `t_proposal`
 -- AUTO_INCREMENT for table `uploads`
 --
 ALTER TABLE `uploads`
-  MODIFY `up_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `up_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- Constraints for dumped tables
@@ -741,6 +787,13 @@ ALTER TABLE `course`
 ALTER TABLE `course_subtopics`
   ADD CONSTRAINT `course_subtopics_ibfk_1` FOREIGN KEY (`course_fid`) REFERENCES `course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `course_subtopics_ibfk_2` FOREIGN KEY (`sub_fid`) REFERENCES `subtopic` (`sub_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `learners_course`
+--
+ALTER TABLE `learners_course`
+  ADD CONSTRAINT `linkcourse` FOREIGN KEY (`course_fid`) REFERENCES `course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `linklearner` FOREIGN KEY (`l_fid`) REFERENCES `learners` (`l_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `materials`

@@ -624,8 +624,93 @@ ul.subtopicRepo li.placeholder:before {
 
 }
 
+#progressSidebarRightFloat {
+  position:fixed;
+  padding: 6px 16px;
+  margin-top: 400px;
+  height: 14%;
+  width: 200px;
+  background-color: #ccc;
+  overflow-y: auto;
+  overflow-x: hidden;
+  float: right;
+  right: 0;
+  z-index: 14;
+  box-shadow: 0px 2px 14px rgba(0,0,0,.3);
+  border-radius: 6px 0px 0px 6px;
+
+}
+
 .gotTransition {
   transition: 0.3s;
-  
+
+
+}
+
+.resumebutton {
+  padding: 6px 16px;
+  float: right;
+  margin: 18px 10px !important;
+  margin-top: 24px;
+  background: rgb(72, 61, 139);
+  border: 0px;
+  color: 	#FFD700 !important;
+  border-radius: 6px 6px 6px 6px;
+  transition: 0.1s;
+
+}
+
+.resumebutton:hover {
+  /* padding: 8px 18px; */
+  background: rgb(30, 144, 255);
+  color: 	#F0E68C !important;
+  transition: 0.3s;
+  box-shadow: 0px 2px 14px rgba(0,0,0,.3);
+}
+
+.deletebutton {
+  padding: 6px 16px;
+  float: right;
+  margin: 18px 10px !important;
+  margin-top: 24px;
+  background: rgb(72, 61, 139);
+  border: 0px;
+  color: 	#FFD700 !important;
+  border-radius: 6px 6px 6px 6px;
+  transition: 0.1s;
+
+}
+
+.resumebutton:hover {
+  /* padding: 8px 18px; */
+  background: rgb(30, 144, 255);
+  color: 	#F0E68C !important;
+  transition: 0.3s;
+  box-shadow: 0px 2px 14px rgba(0,0,0,.3);
+
+}
+.hoverableCard:hover {
+  /* padding: 8px 18px; */
+  background: rgb(30, 144, 255);
+  color: 	#F0E68C !important;
+  transition: 0.3s;
+  box-shadow: 0px 2px 14px rgba(0,0,0,.3);
+
+}
+
+.hoverableCard:hover:enabled {
+  /* padding: 8px 18px; */
+  background: rgb(30, 144, 255);
+  color: 	#F0E68C !important;
+  transition: 0.3s;
+  box-shadow: 0px 2px 14px rgba(0,0,0,.3);
+
+}
+
+.hoverableCard:disabled {
+  /* padding: 8px 18px; */
+  background: #dddddd !important;
+  color: 	#A9A9A9 !important;
+  transition: 0.3s;
 
 }

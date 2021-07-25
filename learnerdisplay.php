@@ -1,15 +1,16 @@
 <?php
-  include_once 'teacherheader.php';
+  include_once 'header.php';
+
 
   require_once 'includes/dbh.inc.php';
   require_once 'includes/functions.inc.php';
   require_once 'includes/display.functions.inc.php';
-  
+
 
   retrieveGlobalCourse($conn);
   // retrieveTeacherMaterials($conn);
   retrieveGlobalMaterials($conn);
-  invalidUserAcess();
+  // invalidUserAcess();
 
   if (isset($_GET['subtopic'])){
     $viewSubtopicID = $_GET['subtopic'];
@@ -33,6 +34,7 @@
 
 
 ?>
+
 
 <main class="page" >
   <?php

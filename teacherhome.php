@@ -68,8 +68,8 @@
                     <div>
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab" href="#tab-1">Study Materials<br></a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-2">nil</a></li>
-                            <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-3">Achievements</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-2">Personal Stats</a></li>
+                            <!-- <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-3">Achievements</a></li> -->
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" role="tabpanel" id="tab-1">
@@ -79,6 +79,11 @@
                                         <div class="accordion-collapse collapse show item-1 text-start" role="tabpanel" data-bs-parent="#accordion-1">
                                             <div class="accordion-body">
                                               <?php
+                                              $countTotalCourseMade = 0;
+                                              $countTotalSubsMade = 0;
+                                              $countTotalMatsMade = 0;
+
+
                                               $num=0;
 
                                               //COURSE PART
@@ -112,6 +117,7 @@
                                                       // echo '<pre>'; print_r($coursesubsDisp); echo '</pre>';
 
                                                       if($tempCourseId == $tempinnercourse){
+                                                        $countTotalCourseMade ++;
                                                         // echo '<pre>'; print_r($coursesubsDisp); echo '</pre>';
 
                                                         $innercount = 0;
@@ -225,6 +231,9 @@
                                                                             </div>
                                                                         </div>
                                                                 GFG;
+                                                                if ($tempSubtopicTeacherId == $tempTID){
+                                                                        $countTotalSubsMade ++;
+                                                                }
                                                             }
                                                             $subtopicnum +=1;
                                                           }
@@ -274,6 +283,7 @@
                                                               $tempTopicFId = $subtopicDisplay['topic_fid'];
                                                               $tempSubtopicId = $subtopicDisplay['sub_id'];
                                                               $tempSubtopicTeacherId = $subtopicDisplay['t_fid'];
+
                                                               // if ($tempTopicId == $tempTopicFId){
                                                                   echo <<<GFG
                                                                       <div id="mat{$tempSubtopicId}" style="display: none;">
@@ -300,6 +310,7 @@
 
                                                                               if ($tempMatFId == $tempMatID){
                                                                                 $matExist += 1;
+                                                                                $countTotalMatsMade ++;
 
                                                                                 echo <<<GFG
                                                                                       <script>
@@ -375,11 +386,34 @@
                                 </div>
                             </div>
                             <div class="tab-pane" role="tabpanel" id="tab-2">
-                                <p>Content for tab 2.</p>
+                              <div class="card" style="padding: 24px;">
+                                <h4>Total Tinkered Courses</h4>
+                                <?php
+                                echo <<<GFG
+                                      <p>$countTotalCourseMade</p>
+                                GFG;
+                                ?>
+                                <h4>Total Cultivated Subtopics</h4>
+                                <?php
+                                echo <<<GFG
+                                      <p>$countTotalSubsMade</p>
+                                GFG;
+                                ?>
+                                <h4>Total Materialized Materials</h4>
+                                <?php
+                                echo <<<GFG
+                                      <p>$countTotalMatsMade</p>
+                                GFG;
+                                ?>
+
+
+
+
+                               </div>
                             </div>
-                            <div class="tab-pane" role="tabpanel" id="tab-3">
+                            <!-- <div class="tab-pane" role="tabpanel" id="tab-3">
                                 <p>Content for tab 3.</p>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

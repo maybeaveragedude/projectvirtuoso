@@ -66,16 +66,19 @@
                 <ul class="navbar-nav ms-auto">
                     <?php
                       if (isset($_SESSION["learnerid"])) {
+                        echo "<li class='nav-item'><a class='nav-link' href='browse.php' style='color: var(--bs-dark);'>Browse</a></li>";
                         echo "<li class='nav-item'><a class='nav-link' href='learnerhome.php' style='color: var(--bs-dark);'>My Account</a></li>";
                         echo "<li class='nav-item'><a class='nav-link' href='includes/logout.inc.php' style='color: var(--bs-dark);'>Log out</a></li>";
                       } elseif (isset($_SESSION["adminid"])){
                         echo "<li class='nav-item'><a class='nav-link' href='adminhome.php' style='color: var(--bs-dark);'>My Account</a></li>";
                         echo "<li class='nav-item'><a class='nav-link' href='includes/logout.inc.php' style='color: var(--bs-dark);'>Log out</a></li>";
                       } elseif (isset($_SESSION["teacherid"])){
+                        echo "<li class='nav-item'><a class='nav-link' href='browse.php' style='color: var(--bs-dark);'>Browse</a></li>";
                         echo "<li class='nav-item'><a class='nav-link' href='teacherhome.php' style='color: var(--bs-dark);'>My Account</a></li>";
                         echo "<li class='nav-item'><a class='nav-link' href='includes/logout.inc.php' style='color: var(--bs-dark);'>Log out</a></li>";
                       }
                       else {
+                        echo "<li class='nav-item'><a class='nav-link' href='browse.php' style='color: var(--bs-dark);'>Browse</a></li>";
                         echo '<li class="nav-item"><a class="nav-link" href="teacherlogin.php" style="color: var(--bs-dark);">Log In</a></li>';
                         echo '<li class="nav-item"><a class="nav-link" href="index.php" style="color: var(--bs-dark);">Cancel</a></li>';
                       }
