@@ -703,6 +703,68 @@ function checkGlobalCourse($conn) {
     mysqli_stmt_close($stmt);
 }
 
+function checkLearnerSubscribedCourse($conn, $learnerID) {
+    $sql = "SELECT * FROM learners_course WHERE l_fid = ?";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+      echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+      exit();
+    }
+
+    mysqli_stmt_bind_param($stmt, "s", $learnerID);
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    $rows = [];
+
+    while ($row = mysqli_fetch_assoc($resultData)){ //getting the rows from the query result
+      // return $row;
+      $rows[] = $row;
+    }
+    if ($row != mysqli_fetch_assoc($resultData)){
+      $result = false;
+      return $result;
+    }
+
+    return $rows;
+    mysqli_stmt_close($stmt);
+}
+
+function retrieveLearnerCourse($conn) {
+
+
+      $learnerID = $_SESSION["learnerid"];
+      $checkLearnerSubscribedCourse[] = checkLearnerSubscribedCourse($conn, $learnerID);
+      // $coursefid = $checkCourse[]
+      // echo "<script>alert('Retrieving teacher course');</script>";
+    //
+    //
+    // $i =0;
+    // foreach ($checkCourse as $value){
+    //   // echo '<pre>'; print_r($value); echo '</pre>';
+    //
+    //
+    //   foreach ($value as $coursefid){
+    //     // echo '<pre>'; print_r($coursefid['course_id']); echo '</pre>';
+    //     $coursetempfid= $coursefid['course_id'];
+    //     $tempcheck[] = checkCourseSubtopics($conn, $coursetempfid);
+    //     // array_push($checkCourseSubtopics, $tempcheck);
+    //
+    //   }
+    //   // echo '<pre>'; print_r($tempcheck); echo '</pre>';
+    //
+    //   $i += 1;
+    //
+    // }
+
+    $_SESSION["learnerCourse"] = $checkLearnerSubscribedCourse;
+    // $_SESSION["singleTeacherCourseSubtopics"] = $tempcheck;
+
+    // header("Refresh:2; url=../teacherhome.php");
+    // exit();
+}
+
+
 function retrieveTeacherCourse($conn) {
 
 
@@ -768,7 +830,7 @@ function headlesstailessretrieveTeacherCourse($conn) {
 
       $teacherid = $_SESSION["teacherid"];
       $checkCourse[] = checkCourse($conn, $teacherid);
-      $tempcheck;
+      $tempcheck = null;
       // $coursefid = $checkCourse[]
       // echo "<script>alert('Retrieving teacher course');</script>";
 
@@ -792,7 +854,7 @@ function headlesstailessretrieveTeacherCourse($conn) {
     }
 
     $_SESSION["singleTeacherCourse"] = $checkCourse;
-    if ($tempcheck== ""){
+    if ($tempcheck== null){
       $_SESSION["singleTeacherCourseSubtopics"] = "";
     } else {
       $_SESSION["singleTeacherCourseSubtopics"] = $tempcheck;
@@ -1174,8 +1236,14 @@ function getImage($conn, $uploadID) {
 }
 
 function getMaterial($conn, $viewSubtopicID, $tempMatSubId, $tempMatFId, $matExist, $tempQuizFId){
-  // echo '<pre>'; print_r($tempMatSubId); echo '</pre>';
+  echo <<<GFG
+        <script>
 
+        var correctCounter = 0;
+
+        </script>
+  GFG;  // echo '<pre>'; print_r($tempMatSubId); echo '</pre>';
+  
 if ($viewSubtopicID == $tempMatSubId) {
   // echo '<pre>'; print_r($viewSubtopicID); echo '</pre>';
 
@@ -1200,7 +1268,7 @@ if ($viewSubtopicID == $tempMatSubId) {
 
                  <div class="col maindisplay" >
                    <h2 style="padding: 16px 0px">{$tempMatTitle}</h2>
-                   <pre id="innersection{$tempMatTitle}" style="white-space: pre-wrap; font-family: var(--bs-font-sans-serif); font-size: 16px;">{$tempMatContents}</pre>
+                   <pre id="innersection{$tempMatTitle}" style="text-align: justify; white-space: pre-wrap; font-family: var(--bs-font-sans-serif); font-size: 16px;">{$tempMatContents}</pre>
                    <div  class=" justify-content-xxl-center align-items-xxl-center" style="padding: 56px 0px; margin: auto; justify-contents:middle; text-align: center; min-height: 200px;">
                      <img id="anothersection{$tempMatTitle}" src="{$imageSrc}" style="width: 400; height: auto; object-fit:cover;" alt=""/>
                    </div>
@@ -1322,25 +1390,69 @@ if ($viewSubtopicID == $tempMatSubId) {
                          $quizQuestionCount += 1;
 
 
+
+
                          echo <<<GFG
 
                              <div class="col" style="padding: 12px;">
                                  <div  class="form-check">
-                                   <input class="form-check-input" type="radio" name="quiz{$tempQuizID}" id = "quiz{$tempQuizID}choice{$quizQuestionCount}">
+                                   <input class="form-check-input" type="radio" name="quiz{$tempQuizID}" id = "quiz{$tempQuizID}choice{$quizQuestionCount}" value="$tempQuestionLabel">
                                    <label class="form-check-label helloRadio" for="quiz{$tempQuizID}choice{$quizQuestionCount}">$tempQuestionLabel</label>
                                  </div>
                              </div>
 
-
                          GFG;
+                         if ($tempQuestionBool == 1){
+
+                           //this is to store in js whick radio is the correct one
+                           echo <<<GFG
+                                 <script>
+                                      var jsquiz{$tempQuizID} = "quiz{$tempQuizID},{$tempQuestionLabel}";
+                                      console.log(jsquiz{$tempQuizID});
+                                      var tempthisquestion{$tempQuizID} = "$tempQuestionLabel";
+
+                                 </script>
+
+                            GFG;
+                         }
 
                        }
                        $questionI += 1;
                      }
 
                      echo <<<GFG
+                                <input id="submit{$tempQuizID}" class="hoverableCard" type="button" value="Submit" style="padding: 8px 18px; background: rgb(72, 61, 139); border: 0px; color:	#FFD700 !important; border-radius: 6px 6px 6px 6px; transition: 0.1s;"></input>
                                </div>
+
                            </section>
+                           <script>
+
+
+
+                             document.getElementById('submit{$tempQuizID}').onclick = function (){
+                               // console.log($('input[name=quiz{$tempQuizID}]:checked').val());
+
+                               if ($('input[name=quiz{$tempQuizID}]:checked').val() == tempthisquestion{$tempQuizID}){
+                                 alert('Correct');
+                                 correctCounter += 1;
+                                 console.log(correctCounter);
+                                    //  function showResult(quiz{$tempQuizID}) {
+                                    //   var x = document.getElementsByName(quiz{$tempQuizID});
+                                    //   console.log(x);
+                                    //   for (var i = 0; i < x.length; i++) {
+                                    //     x[i].disabled = true;
+                                    //   }
+                                    // }
+
+
+
+                               }  else {
+                                 alert('Incorrect');
+                                }
+
+                             }
+
+                           </script>
 
                      GFG;
                  }
