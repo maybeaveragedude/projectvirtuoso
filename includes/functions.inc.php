@@ -1465,3 +1465,32 @@ if ($viewSubtopicID == $tempMatSubId) {
    }
  }
 }
+
+function changeStatusActive($conn, $tID, $adminapproveid){
+  
+  $active = 1;
+  $sql = "UPDATE teacher SET t_status = ?, approval_admin_fid = ? WHERE t_ID = ?";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)){
+    echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+    exit();
+  }
+  mysqli_stmt_bind_param($stmt, "isi", $active, $adminapproveid, $tID);
+  mysqli_stmt_execute($stmt);
+
+}
+
+function changeStatusInactive($conn, $tID, $adminapproveid){
+  
+  $inactive = 2;
+  $sql = "UPDATE teacher SET t_status = ?, approval_admin_fid = ? WHERE t_ID = ?";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql)){
+    echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+    exit();
+  }
+  mysqli_stmt_bind_param($stmt, "isi", $inactive, $adminapproveid, $tID);
+  mysqli_stmt_execute($stmt);
+
+  
+}

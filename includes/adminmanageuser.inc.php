@@ -1,4 +1,5 @@
 <?php
+session_start();
 $conn = mysqli_connect("localhost", "root", "", "virtuoso");
 if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
@@ -9,7 +10,10 @@ $result = $conn -> query($sql);
 
 if ($result -> num_rows > 0){
     while ($row = $result -> fetch_assoc()){
-    echo "<tr>
+        $row2 = $row["t_ID"] + 1;
+    echo "<form method = 'post' action = 'includes/adminteacherstatus.inc.php'>
+    <input type='hidden' id='custId' name='tId' value=".$row["t_ID"].">
+    <tr>
     <td style='width: 265px;font-size: 24px;'>".$row["t_name"]."</td>
     <td style='width: 924px;'>
         <div>
@@ -119,11 +123,15 @@ if ($result -> num_rows > 0){
                     </div>";
                 }
                 include_once 'includes/functions.inc.php';
-                echo "<button class='btn btn-primary' type='button'>Activate</button><button class='btn btn-primary' type='button' style='margin-left: 20px;''>Deactivate</button>
+                echo "<input type='submit' name='act'
+                class='btn btn-primary' value='Activate' />
+                <input type='submit' name='deact'
+                class='btn btn-primary' value='Deactivate' style = 'margin-left:50px;' />
             </div>
         </div>
     </td>
-</tr>";
+</tr>
+</form>";
     }
 }
 ?>
