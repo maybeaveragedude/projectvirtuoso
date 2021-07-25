@@ -1,5 +1,5 @@
 <?php
-  include_once 'header.php';
+  include_once 'adminheader.php';
 ?>
 
     <main class="page hire-me-page">
@@ -39,8 +39,7 @@
                             }
                             elseif ($_GET["error"] == "none") {
                               echo "<p>Account created successfully!<p>";
-                              //***This line redirects user to learner home page***
-                              header("Refresh:2; url=adminhome.php");
+                              // header("Refresh:2; url=adminhome.php");
                             }
                           }
                         ?>

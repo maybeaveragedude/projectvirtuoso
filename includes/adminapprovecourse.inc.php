@@ -1,10 +1,28 @@
 <?php
-echo "<div class='accordion-item'>
-        <h2 class='accordion-header' role='tab'><button class='accordion-button collapsed' data-bs-toggle='collapse' data-bs-target='#accordion-1 .item-3' aria-expanded='false' aria-controls='accordion-1 .item-3'>Pending Courses</button></h2>
-        <div class='accordion-collapse collapse item-3' role='tabpanel' data-bs-parent='#accordion-1'>
-            <div class='accordion-body'>
-                <p class='mb-0'>Nullam id dolor id nibh ultricies vehicula ut id elit. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus.</p>
-            </div>
-        </div>
-    </div>";
+session_start();
+require_once 'dbh.inc.php';
+require_once 'functions.inc.php';
+
+$adminapproveid = $_SESSION["adminid"];
+
+if (isset($_POST["approve"])){
+
+	$courseID = $_POST["courseID"];
+	
+	approveCourse($conn, $courseID, $adminapproveid);
+	getCourseSubtopics($conn, $courseID, $adminapproveid);
+	// echo '<pre>'; print_r($courseID); echo '</pre>';
+	// echo '<pre>'; print_r($adminapproveid); echo '</pre>';
+	// echo '<pre>'; print_r($_SESSION["approveCourseSubtopicID"]); echo '</pre>';
+	$subID = $_SESSION["approveCourseSubtopicID"];
+	foreach ($subID as $value){
+		foreach ($value as $subtopicID){
+			approveCourseSubtopics($conn, $subtopicID, $adminapproveid);
+		}
+	}
+	header("Refresh:2; url=../adminhome.php");
+
+} else {
+	header("Refresh:2; url=../adminhome.php?error");
+}
 ?>

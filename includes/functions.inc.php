@@ -1240,7 +1240,7 @@ function getImage($conn, $uploadID) {
 function changeStatusActive($conn, $tID, $adminapproveid){
 
   $active = 1;
-  $sql = "UPDATE teacher SET t_status = ?, approval_admin_fid = ? WHERE t_ID = ?";
+  $sql = "UPDATE teacher SET t_status = ?, approval_admin_fid = ? WHERE t_ID = ?;";
   $stmt = mysqli_stmt_init($conn);
   if (!mysqli_stmt_prepare($stmt, $sql)){
     echo "<script>alert('Problem connecting to database, please try again later.');</script>";
@@ -1254,7 +1254,7 @@ function changeStatusActive($conn, $tID, $adminapproveid){
 function changeStatusInactive($conn, $tID, $adminapproveid){
 
   $inactive = 2;
-  $sql = "UPDATE teacher SET t_status = ?, approval_admin_fid = ? WHERE t_ID = ?";
+  $sql = "UPDATE teacher SET t_status = ?, approval_admin_fid = ? WHERE t_ID = ?;";
   $stmt = mysqli_stmt_init($conn);
   if (!mysqli_stmt_prepare($stmt, $sql)){
     echo "<script>alert('Problem connecting to database, please try again later.');</script>";
@@ -1263,5 +1263,57 @@ function changeStatusInactive($conn, $tID, $adminapproveid){
   mysqli_stmt_bind_param($stmt, "isi", $inactive, $adminapproveid, $tID);
   mysqli_stmt_execute($stmt);
 
+
+}
+
+function approveCourse($conn, $courseID, $adminapproveid){
+
+  $status = 1;
+  $sql1 = "UPDATE course SET approval_admin_fid = ?, course_status = ? WHERE course_id = ?;";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql1)){
+    echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+    exit();
+  }
+  mysqli_stmt_bind_param($stmt, "iii", $adminapproveid, $status, $courseID);
+  mysqli_stmt_execute($stmt);
+
+}
+
+function getCourseSubtopics($conn, $courseID, $adminapproveid){
+
+  $sql2 = "SELECT sub_fid FROM course_subtopics WHERE course_fid = ?";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql2)){
+    echo "<script>alert('Problem connecting to database, please try again later. AMOGUS');</script>";
+    exit();
+  }
+  mysqli_stmt_bind_param($stmt, "i", $courseID);
+  mysqli_stmt_execute($stmt);
+
+  $resultData = mysqli_stmt_get_result($stmt);
+  $rows = [];
+
+  while ($row = mysqli_fetch_assoc($resultData)){ //getting the rows from the query result
+    // return $row;
+    $rows[] = $row;
+  }
+  if ($row != mysqli_fetch_assoc($resultData)){
+    $result = false;
+    return $result;
+  }
+  $_SESSION["approveCourseSubtopicID"] = $rows;
+}
+
+function approveCourseSubtopics($conn, $subtopicID, $adminapproveid){
+
+  $sql1 = "UPDATE subtopic SET approval_admin_fid = ? WHERE sub_id = ? AND approval_admin_fid IS NULL;";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql1)){
+    echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+    exit();
+  }
+  mysqli_stmt_bind_param($stmt, "ii", $adminapproveid, $subtopicID);
+  mysqli_stmt_execute($stmt);
 
 }

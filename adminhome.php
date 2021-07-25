@@ -64,71 +64,7 @@
                                             <div class='accordion-collapse collapse item-1 text-start' role='tabpanel' data-bs-parent='#accordion-1'>
                                                 <div class='accordion-body'>
                                                     <?php
-                                                        $num=0;
-
-                                              //COURSE PART
-                                                foreach ($_SESSION["course"][$num] as $display) {
-                                                  // echo '<pre>'; print_r($display); echo '</pre>';
-
-                                                  $tempCourseId = $display['course_id'];
-                                                  $tempname = $display['course_name'];
-                                                  $tempdesc = $display['course_desc'];
-                                                  $tempTFID = $display['t_fid'];
-                                                  // $tempTID = $_SESSION["teacherid"];
-                                                  echo <<<GFG
-                                                      <div class="coursetitle" id="coursetitle{$tempCourseId}">
-                                                        <a class="btn btn-primary listgroupdropMain subjectList" style="font-size: 20px; margin: 14px 0px;"data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$num}" href="#collapseCourse-{$num}" role="button"><strong>{$tempname}</strong></a>
-                                                        <a class="simpleTextEdit" style="margin: 14px 0px;" href="teachercourseedit.php?editcourse={$tempCourseId}">Edit</a>
-                                                          <div class="collapse" id="collapseCourse-{$num}">
-
-                                                 GFG;
-                                                    //DISPLAY ORDERED SUBTOPICS
-                                                    $subsnum = 0;
-                                                    foreach ($_SESSION["courseSubtopics"] as $coursesubsDisp){
-                                                      $tempinnercourse = $coursesubsDisp[$subsnum]['course_fid'];
-                                                      $tempTopSubname = $coursesubsDisp[$subsnum];
-                                                      // $tempSubdesc = $coursesubsDisp[$subsnum]['sub_desc'];
-                                                      // $tempSubFId = $coursesubsDisp['sbjt_fid'];
-                                                      // $tempTopicId = $coursesubsDisp['topic_id'];
-                                                      // echo '<pre>'; print_r($coursesubsDisp); echo '</pre>';
-
-                                                      if($tempCourseId == $tempinnercourse){
-                                                        // echo '<pre>'; print_r($coursesubsDisp); echo '</pre>';
-
-                                                        $innercount = 0;
-                                                        foreach ($coursesubsDisp as $count) {
-                                                          $tempSubname = $count['sub_name'];
-                                                          echo <<<GFG
-                                                              <div class="singleTopicRow" id="singleTopicRow{$subsnum}">
-                                                                <a class="btn btn-primary listgroupdropMain TopicList" style="padding-top: 0px; padding-bottom: 2px;margin-left: 24px; margin-top: 0px; margin-bottom: 12px;" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$subsnum}" href="#collapseTopic-{$subsnum}" role="button">{$tempSubname}</a>
-
-                                                          GFG;
-
-
-                                                          echo <<<GFG
-
-
-
-                                                                  </div>
-                                                          GFG;
-                                                          $innercount += 1;
-                                                        }
-                                                        }
-
-                                                      $subsnum +=1;
-                                                    }
-
-                                                 echo <<<GFG
-
-                                                          </div>
-                                                      </div>
-
-                                                  GFG;
-                                                  // <div class="singleSubjectRowLine" style="margin: 0px auto 0px 24px; width: 140px; text-align: center !important; align: center;"></div>
-                                                  $num += 1;
-                                                }
-
-                                                    // include_once 'includes/adminmanagecourse.inc.php';
+                                                    include_once 'includes/adminmanagecourse.inc.php';
 
                                                     //TO DO
                                                     // include_once 'includes/adminapprovecourse.inc.php';

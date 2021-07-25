@@ -12,6 +12,7 @@ if (isset($_POST["act"])){
 	// echo '<pre>'; print_r($tID); echo '</pre>';
 	// echo '<pre>'; print_r($adminapproveid); echo '</pre>';
 	changeStatusActive($conn, $tID, $adminapproveid);
+	header("Refresh:2; url=../adminhome.php");
 
 }
 if (isset($_POST["deact"])){
@@ -21,5 +22,6 @@ if (isset($_POST["deact"])){
 	// echo '<pre>'; print_r($tID); echo '</pre>';
 	// echo '<pre>'; print_r($adminapproveid); echo '</pre>';
 	changeStatusInactive($conn, $tID, $adminapproveid);
+	header("Refresh:2; url=../adminhome.php");
 }
 ?>
