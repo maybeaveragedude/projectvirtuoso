@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2021 at 12:39 PM
+-- Generation Time: Jul 25, 2021 at 06:10 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -54,22 +54,23 @@ CREATE TABLE `course` (
   `course_name` varchar(128) NOT NULL,
   `course_desc` text NOT NULL,
   `t_fid` int(11) NOT NULL,
-  `approval_admin_fid` int(11) DEFAULT NULL
+  `approval_admin_fid` int(11) DEFAULT NULL,
+  `course_status` int(1) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `course`
 --
 
-INSERT INTO `course` (`course_id`, `course_name`, `course_desc`, `t_fid`, `approval_admin_fid`) VALUES
-(73, 'asasd', 'qweqwe', 24, NULL),
-(75, 'New Test Course', 'yes', 26, NULL),
-(76, 'ANOTHER ONE', 'ANOTHER ONE', 26, NULL),
-(77, 'This file test course', 'Yes desc; yes', 31, NULL),
-(78, 'Sunday Test', 'YASALSKDJKA*&*&', 26, NULL),
-(81, 'Crash Test', 'Testing', 26, NULL),
-(82, 'NEW', 'qweqweqwe', 26, NULL),
-(83, 'Very Maths', 'Thank you', 21, NULL);
+INSERT INTO `course` (`course_id`, `course_name`, `course_desc`, `t_fid`, `approval_admin_fid`, `course_status`) VALUES
+(73, 'asasd', 'qweqwe', 24, NULL, 0),
+(75, 'New Test Course', 'yes', 26, NULL, 0),
+(76, 'ANOTHER ONE', 'ANOTHER ONE', 26, NULL, 0),
+(77, 'This file test course', 'Yes desc; yes', 31, NULL, 0),
+(78, 'Sunday Test', 'YASALSKDJKA*&*&', 26, NULL, 0),
+(81, 'Crash Test', 'Testing', 26, NULL, 0),
+(82, 'NEW', 'qweqweqwe', 26, NULL, 0),
+(83, 'Very Maths', 'Thank you', 21, NULL, 0);
 
 -- --------------------------------------------------------
 
