@@ -11,6 +11,21 @@
                                 <picture style="width: 128px;height: 128px;"><img id="profileavatar" src="assets/img/avatars/avatar.jpg" style="width: 128px;height: 128px;border-radius: 176px;"></picture>
                             </div>
                             <div class="col d-xxl-flex align-items-xxl-center">
+                                <?php
+                                    if (isset($_GET["courseapprove"])){
+                                        if($_GET["courseapprove"] == "successful"){
+                                            echo "<script>alert('Course has been approved!');</script>";
+                                        } elseif ($_GET["courseapprove"] == "error"){
+                                            echo "<script>alert('Something went wrong! Please try again later.');</script>";
+                                        }
+                                    } elseif (isset($_GET["tstatus"])){
+                                        if($_GET["tstatus"] == "activated"){
+                                            echo "<script>alert('Selected teacher account has been activated!');</script>";
+                                        } elseif ($_GET["tstatus"] == "deactivated"){
+                                            echo "<script>alert('Selected teacher account has been deactivated!');</script>";
+                                        }
+                                    } 
+                                ?>
                                 <div>
                                     <h1 class="d-xxl-flex justify-content-xxl-start">
                                         <?php 

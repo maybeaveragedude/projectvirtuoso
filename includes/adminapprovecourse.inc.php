@@ -20,9 +20,9 @@ if (isset($_POST["approve"])){
 			approveCourseSubtopics($conn, $subtopicID, $adminapproveid);
 		}
 	}
-	header("Refresh:2; url=../adminhome.php");
+	header("Refresh:2; url=../adminhome.php?courseapprove=successful");
 
 } else {
-	header("Refresh:2; url=../adminhome.php?error");
+	header("Refresh:2; url=../adminhome.php?courseapprove=error");
 }
 ?>
