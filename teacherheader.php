@@ -26,6 +26,18 @@
       exit();
     }
   }
+  function invalidLearnerUserAcess() {
+    if(isset($_SESSION['learnerid'])){
+      $statusMessage = '\nSTOP RIGHT THERE Criminal Scum!\n\nPlease LOGOUT and LOGIN AGAIN with your TEACHER account credentials or CREATE AN ACCOUNT before proceeding.';
+      echo <<<GFG
+        <script>
+          alert("$statusMessage");
+          window.location.href='index.php?error=internetpolice';
+        </script>
+      GFG;
+      exit();
+    }
+  }
 ?>
 
 <!DOCTYPE html>

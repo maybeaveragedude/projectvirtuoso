@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 25, 2021 at 06:10 PM
+-- Generation Time: Jul 26, 2021 at 06:07 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -41,7 +41,8 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`admin_id`, `admin_username`, `admin_name`, `admin_email`, `admin_pwd`, `admin_role`) VALUES
-(1, 'dummyadmin', 'Dummy Admin', 'admin@dumb.mail', '123', '1');
+(1, 'dummyadmin', 'Dummy Admin', 'admin@dumb.mail', '123', '1'),
+(2, 'shawnadmin', 'Shawn Admin', 'shawn@admin.com', '$2y$10$K1kmHgMRIWhYzUmjhC9MvequLe.RUvwmqyUSQCpAkVgh7mdF5bel6', '');
 
 -- --------------------------------------------------------
 
@@ -63,7 +64,7 @@ CREATE TABLE `course` (
 --
 
 INSERT INTO `course` (`course_id`, `course_name`, `course_desc`, `t_fid`, `approval_admin_fid`, `course_status`) VALUES
-(73, 'asasd', 'qweqwe', 24, NULL, 0),
+(73, 'asasd', 'qweqwe', 24, 2, 1),
 (75, 'New Test Course', 'yes', 26, NULL, 0),
 (76, 'ANOTHER ONE', 'ANOTHER ONE', 26, NULL, 0),
 (77, 'This file test course', 'Yes desc; yes', 31, NULL, 0),
@@ -367,8 +368,8 @@ CREATE TABLE `subtopic` (
 --
 
 INSERT INTO `subtopic` (`sub_id`, `sub_name`, `sub_desc`, `t_fid`, `approval_admin_fid`, `topic_fid`) VALUES
-(1, 'Atomic Structure', 'the structure of an atom, theoretically consisting of a positively charged nucleus surrounded and neutralized by negatively charged electrons revolving in orbits at varying distances from the nucleus, the constitution of the nucleus and the arrangement of the electrons differing with various chemical elements.', 25, NULL, 1),
-(3, 'Cells', 'Cells are the basic building blocks of all living things. The human body is composed of trillions of cells. They provide structure for the body, take in nutrients from food, convert those nutrients into energy, and carry out specialized functions. Cells also contain the body’s hereditary material and can make copies of themselves.', 25, NULL, 4),
+(1, 'Atomic Structure', 'the structure of an atom, theoretically consisting of a positively charged nucleus surrounded and neutralized by negatively charged electrons revolving in orbits at varying distances from the nucleus, the constitution of the nucleus and the arrangement of the electrons differing with various chemical elements.', 25, 2, 1),
+(3, 'Cells', 'Cells are the basic building blocks of all living things. The human body is composed of trillions of cells. They provide structure for the body, take in nutrients from food, convert those nutrients into energy, and carry out specialized functions. Cells also contain the body’s hereditary material and can make copies of themselves.', 25, 2, 4),
 (4, 'Units and Standards I', 'These are called the base quantities for that system and their units are the system\'s base units. All other physical quantities can then be expressed as algebraic combinations of the base quantities. Each of these physical quantities is then known as a derived quantity and each unit is called a derived unit.', 26, NULL, 5),
 (5, 'Descriptive statistics', 'A descriptive statistic is a summary statistic that quantitatively describes or summarizes features from a collection of information, while descriptive statistics is the process of using and analysing those statistics.', 26, NULL, 6),
 (6, 'Looping with C', 'Looping Statements in C execute the sequence of statements many times until the stated condition becomes false. A loop in C consists of two parts, a body of a loop and a control statement. The control statement is a combination of some conditions that direct the body of the loop to execute until the specified condition becomes false. The purpose of the C loop is to repeat the same code a number of times.', 26, NULL, 7),
@@ -435,11 +436,11 @@ INSERT INTO `teacher` (`t_ID`, `t_username`, `t_name`, `t_email`, `t_pwd`, `t_st
 (21, 'dummy', 'Shawn Lee Wen Xuen', 'leysuyan@mail.com', '$2y$10$t4vBtY7X/mZ66fnGeScIhOYt5OejdU8FaO.RO7q/soOti2ewO4e0e', 3, NULL),
 (22, 'dummytwo', 'Shawn Lee Wen Xuen', 'dummytwo@mail.com', '$2y$10$aE2.PSPzHjHhhl19E/APmuwk4b1bNX2hYzs.Gp5W6Ml0CHr7nB3X6', 3, NULL),
 (23, 'dummytwo333', 'Shawn Lee Wen Xuen', 'rebornedshawnlee@hotmail.com', '$2y$10$vqmOvsMseDuaFkhlxjg2FO8aHNLjvH.M5MKFN/1FzBjVrvluE3Pym', 3, NULL),
-(24, 'AverageDude', 'Shawn Lee Wen Xuen', 'textable@mail.com', '$2y$10$j5e5Oh68epXR8IuHDr35fOcRSYBe5/luIrNpDRJAsvJqHZdJflEr2', 3, NULL),
+(24, 'AverageDude', 'Shawn Lee Wen Xuen', 'textable@mail.com', '$2y$10$j5e5Oh68epXR8IuHDr35fOcRSYBe5/luIrNpDRJAsvJqHZdJflEr2', 1, 2),
 (25, 'offteacher', 'Official Test', 'testteacher@mail.com', '$2y$10$5GGWibvVF1pbiRpsayZa8uhTjbzEbCXAAGF5/9J2Xd.TIwBU1k5Oa', 3, NULL),
-(26, 'newdummy', 'New Dummy', 'new@mail.com', '$2y$10$SH6y2mIvF.BcngxS2rg/MOxwrlaHnZYfKvwJQpsKkpeQlo/JR4oZC', 0, NULL),
+(26, 'newdummy', 'New Dummy', 'new@mail.com', '$2y$10$SH6y2mIvF.BcngxS2rg/MOxwrlaHnZYfKvwJQpsKkpeQlo/JR4oZC', 1, 2),
 (27, 'emptyteacher', 'Empty New Teacher', 'empty@mail.com', '$2y$10$MF8Rybph61xRbCMCf6LF9.SXak7qETo81ez8GcQflptymSLNykZmm', 0, NULL),
-(28, 'yanteaches', 'Leysu Yan', 'yan@mail.com', '$2y$10$H4YJakfIZ6tOyPiX33G2X.1GeJEQBDS..jfo5UDSFqSG2PG.dWV8i', 0, NULL),
+(28, 'yanteaches', 'Leysu Yan', 'yan@mail.com', '$2y$10$H4YJakfIZ6tOyPiX33G2X.1GeJEQBDS..jfo5UDSFqSG2PG.dWV8i', 1, 2),
 (29, 'clementteaches', 'Clement Ho', 'clement@mail.com', '$2y$10$BMTNRdp8HN7Sj8VcHzA6Pumahpu755bJbl3zDaNNqs9IaV/FlclNO', 0, NULL),
 (30, 'helloworld', 'another yes sir', 'another@mail.com', '$2y$10$fxU1iUiK5O7QiAvHu41s4uOM52gZ/Ek0ZF.ktqMqgxgU0.PIisKWC', 0, NULL),
 (31, 'testfile', 'TestFile', 'testfile@mail.com', '$2y$10$ONbb/7I/d/js3Udh4M0NVOFBEpK4WCDym02KlRYw2nFiY72Qe3A2y', 0, NULL);
@@ -703,7 +704,7 @@ ALTER TABLE `uploads`
 -- AUTO_INCREMENT for table `admin`
 --
 ALTER TABLE `admin`
-  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `admin_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `course`

@@ -1,5 +1,6 @@
 <?php
   include_once 'header.php';
+  invalidTeacherUserAcess();
   loggedInInvalidUserAcess();
 ?>
 
@@ -22,7 +23,8 @@
                         }
                       }
                     ?>
-                    <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" name="submit">Log In</button></div><a class="forgot" href="#">Forgot your email or password?</a>
+                    <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit" name="submit">Log In</button></div>
+                    <a class="forgot" href="signup.php">Dont have an account? Register here!</a>
                 </form>
             </section>
         <!-- </section> -->
