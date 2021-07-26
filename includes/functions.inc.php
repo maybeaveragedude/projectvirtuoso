@@ -1317,3 +1317,16 @@ function approveCourseSubtopics($conn, $subtopicID, $adminapproveid){
   mysqli_stmt_execute($stmt);
 
 }
+function revokeCourse($conn, $courseID, $adminapproveid){
+
+  $status = 2;
+  $sql1 = "UPDATE course SET approval_admin_fid = ?, course_status = ? WHERE course_id = ?;";
+  $stmt = mysqli_stmt_init($conn);
+  if (!mysqli_stmt_prepare($stmt, $sql1)){
+    echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+    exit();
+  }
+  mysqli_stmt_bind_param($stmt, "iii", $adminapproveid, $status, $courseID);
+  mysqli_stmt_execute($stmt);
+
+}

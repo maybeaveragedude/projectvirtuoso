@@ -20,9 +20,17 @@ if (isset($_POST["approve"])){
 			approveCourseSubtopics($conn, $subtopicID, $adminapproveid);
 		}
 	}
-	header("Refresh:2; url=../adminhome.php?courseapprove=successful");
+	adminRetrieveCourses($conn);
+	header("Refresh:2; url=../adminhome.php?coursestatusupdate=approved");
+} elseif (isset($_POST["revoke"])){
 
-} else {
-	header("Refresh:2; url=../adminhome.php?courseapprove=error");
+	$courseID = $_POST["courseID"];
+	
+	revokeCourse($conn, $courseID, $adminapproveid);
+	adminRetrieveCourses($conn);
+	header("Refresh:2; url=../adminhome.php?coursestatusupdate=revoked");
+
+}else{
+	header("Refresh:2; url=../adminhome.php?coursestatusupdate=error");
 }
 ?>

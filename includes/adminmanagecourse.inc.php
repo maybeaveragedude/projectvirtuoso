@@ -9,6 +9,7 @@ foreach ($_SESSION["course"][$num] as $display) {
 $tempCourseId = $display['course_id'];
 $tempname = $display['course_name'];
 $tempdesc = $display['course_desc'];
+$tempstatus = $display['course_status'];
 $tempTFID = $display['t_fid'];
 // $tempTID = $_SESSION["teacherid"];
 echo <<<GFG
@@ -19,16 +20,7 @@ echo <<<GFG
       <input class="simpleTextEdit" type="button" style="margin: 14px 0px; color:blue;" value="Preview" onclick="redirectViewCourse({$tempCourseId})"></input>
       <input type="submit" name="approve" class="simpleTextEdit" style="margin: 14px 0px; color:green;" value="Approve" )"></input>
       <input type="submit" name="revoke" class="simpleTextEdit"  style="margin: 14px 0px;" value="Revoke" )"></input>
-
-
-
         <div class="collapse" id="collapseCourse-{$num}">
-
-
-
-
-
-
 GFG;
   //DISPLAY ORDERED SUBTOPICS
   $subsnum = 0;
@@ -65,6 +57,20 @@ GFG;
 
       }
 
+  }
+
+  switch ($tempstatus){
+    case "0":
+      echo "<div><p style='color: rgb(0,0,0,0.5);'><small>Pending</small></p></div>";
+      break;
+    case "1":
+      echo "<div><p style='color: rgb(52,231,7);'><small>Approved</small></p></div>";
+      break;
+    case "2":
+      echo "<div><p style='color: rgb(231,7,7);'><small>Revoked</small></p></div>";
+      break;
+    default:
+      break;
   }
 
 echo <<<GFG
