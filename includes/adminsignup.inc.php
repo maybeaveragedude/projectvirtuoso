@@ -1,5 +1,8 @@
 <?php
 
+require_once 'dbh.inc.php';
+require_once 'functions.inc.php';
+
 if (isset($_POST["signup"])){
 
 
@@ -10,9 +13,6 @@ if (isset($_POST["signup"])){
   $pwdRepeat = $_POST["password-repeat"];
 
   //echo $name . $username . $email . $pwd .$pwdRepeat;
-
-  require_once 'dbh.inc.php';
-  require_once 'functions.inc.php';
 
   if (emptyInputSignup($name, $username, $email, $pwd, $pwdRepeat) !== false) {
     //changed filename
@@ -46,10 +46,8 @@ if (isset($_POST["signup"])){
 
   createAdminUser($conn, $name, $username, $email, $pwd);
 
-
-}
-else {
+} else {
   //changed filename
-  header("location: ../adminsignup.php");
+  loggedInInvalidIncludesUserAcess();
   exit();
 }

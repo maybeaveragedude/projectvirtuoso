@@ -43,7 +43,7 @@
                             }
                           }
                         ?>
-                        <div class="mb-3"><button class="btn btn-primary d-block w-100" id="signup" type="submit" name="signup" style="margin-top: 0px;">Sign Up</button></div><a class="already" href="adminlogin.php">You already have an account? Login here.</a>
+                        <div class="mb-3"><button class="btn btn-primary d-block w-100" id="signup" type="submit" name="signup" style="margin-top: 0px;">Sign Up</button></div><a class="already" href="adminlogin.php">Login here.</a>
                     </form>
                 </div>
             </section>
