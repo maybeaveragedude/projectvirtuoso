@@ -1,7 +1,7 @@
 <?php
   session_start();
   function invalidUserAcess() {
-    if(!isset($_SESSION["username"])){
+    if(!isset($_SESSION["learnerid"])){
       $statusMessage = '\nSTOP RIGHT THERE Criminal Scum!\n\nPlease LOGIN with your account credentials or CREATE AN ACCOUNT before proceeding.';
       echo <<<GFG
         <script>
@@ -13,7 +13,7 @@
     }
   }
   function loggedInInvalidUserAcess() {
-    if(isset($_SESSION['username'])){
+    if(isset($_SESSION['learnerid'])){
       $tempname = $_SESSION['username'];
       $statusMessage = '\nSTOP RIGHT THERE Criminal Scum!\n\nYou are already logged in as '.$tempname.'!';
 
@@ -21,6 +21,18 @@
         <script>
           alert("$statusMessage");
           window.location.href='index.php';
+        </script>
+      GFG;
+      exit();
+    }
+  }
+  function invalidTeacherUserAcess() {
+    if(isset($_SESSION["teacherid"])){
+      $statusMessage = '\nSTOP RIGHT THERE Criminal Scum!\n\nPlease LOGOUT and LOGIN AGAIN with your LEARNER account credentials or CREATE AN ACCOUNT before proceeding.';
+      echo <<<GFG
+        <script>
+          alert("$statusMessage");
+          window.location.href='index.php?error=internetpolice';
         </script>
       GFG;
       exit();
@@ -74,6 +86,7 @@
                         echo "<li class='nav-item'><a class='nav-link' href='learnerhome.php' style='color: var(--bs-dark);'>My Account</a></li>";
                         echo "<li class='nav-item'><a class='nav-link' href='includes/logout.inc.php' style='color: var(--bs-dark);'>Log out</a></li>";
                       } elseif (isset($_SESSION["adminid"])){
+                        echo "<li class='nav-item'><a class='nav-link' href='browse.php' style='color: var(--bs-dark);'>Browse</a></li>";
                         echo "<li class='nav-item'><a class='nav-link' href='adminhome.php' style='color: var(--bs-dark);'>My Account</a></li>";
                         echo "<li class='nav-item'><a class='nav-link' href='includes/logout.inc.php' style='color: var(--bs-dark);'>Log out</a></li>";
                       } elseif (isset($_SESSION["teacherid"])){

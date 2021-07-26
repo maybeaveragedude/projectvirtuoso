@@ -1,5 +1,6 @@
 <?php
   include_once 'teacherheader.php';
+  invalidLearnerUserAcess();
   loggedInInvalidUserAcess();
 ?>
 

@@ -16,10 +16,18 @@ echo <<<GFG
   <input type="hidden" id="custId" name="courseID" value="{$tempCourseId}">
     <div class="coursetitle" id="coursetitle{$tempCourseId}">
       <a class="btn btn-primary listgroupdropMain subjectList" style="font-size: 20px; margin: 14px 0px;"data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$num}" href="#collapseCourse-{$num}" role="button"><strong>{$tempname}</strong></a>
-      <input type="submit" name="approve" class="simpleTextEdit" style="margin: 14px 0px; color:blue;" value="Approve" )"></input>
+      <input class="simpleTextEdit" type="button" style="margin: 14px 0px; color:blue;" value="Preview" onclick="redirectViewCourse({$tempCourseId})"></input>
+      <input type="submit" name="approve" class="simpleTextEdit" style="margin: 14px 0px; color:green;" value="Approve" )"></input>
       <input type="submit" name="revoke" class="simpleTextEdit"  style="margin: 14px 0px;" value="Revoke" )"></input>
 
+
+
         <div class="collapse" id="collapseCourse-{$num}">
+
+
+
+
+
 
 GFG;
   //DISPLAY ORDERED SUBTOPICS
@@ -65,8 +73,15 @@ echo <<<GFG
     </div>
   </form>
 
+
 GFG;
 // <div class="singleSubjectRowLine" style="margin: 0px auto 0px 24px; width: 140px; text-align: center !important; align: center;"></div>
 $num += 1;
 }
 ?>
+
+<script>
+        function redirectViewCourse(tempCourseId){ //redirect to preview course
+          window.location.href=`learnerdisplay.php?course=${tempCourseId}`;
+        }
+</script>
