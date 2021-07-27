@@ -104,6 +104,8 @@ if (isset($_POST["submitMat"])){
           // header("location: ../teachsignupbuffer.php?error");
           exit();
       }
+  } else {
+    $last_mat_up_id = null;
   }
 // for ($i=0; $i<$ARRquestionType.length; $i++){
 //   $tempQid = 0;
@@ -119,7 +121,7 @@ if (isset($_POST["submitMat"])){
   $mat_fid =createNewMat($conn, $matTitle, $last_mat_up_id, $matContent, $teacherid);
 
   $i = 1;
-  echo '<pre>'; print_r($ARRquestionType); echo '</pre>';
+  // echo '<pre>'; print_r($ARRquestionType); echo '</pre>';
 
 
 // $test = 0;
