@@ -18,7 +18,7 @@ if(isset($_GET['subtopic'])){
                 <h1 style="height: 12px; margin-bottom: -14px;"><strong>Basic Guidelines</strong></h1>
                 <ul style="font-size: 20px;">
                     <li style="">Select <i>Subject > Topic > Subtopic </i> for your <strong>material entry</strong>.</li>
-                    <li style="">Provide <strong>clear name & contents</strong>to provide clarity to the leaerners.</li>
+                    <li style="">Provide <strong>clear name & contents </strong>to provide clarity to the learners.</li>
                     <li style=""><strong>Upload</strong> an image or a video to increase the depth of the material.</li>
                     <li style="">Drag and Drop you desired quiz types into the <strong>Quiz Wizard</strong>.</li>
                     <li style="">Put a suitable title for your <strong>question</strong>!</li>
@@ -846,7 +846,7 @@ if(isset($_GET['subtopic'])){
                 systemSetSubjectDisplay("{$tempSubname}","{$tempSubdesc}","{$tempSubId}");
                 systemSetTopicDisplay("{$tempTopicname}","{$tempTopicdesc}","{$tempTopicId}","subtopic{$tempSubtopicId}");
                 console.log("this is"+subtopicChosen);
-                
+
           </script>
 
           GFG;
