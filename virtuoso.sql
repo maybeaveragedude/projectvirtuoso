@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 26, 2021 at 06:07 AM
+-- Generation Time: Jul 27, 2021 at 11:55 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -32,17 +32,16 @@ CREATE TABLE `admin` (
   `admin_username` varchar(128) NOT NULL,
   `admin_name` varchar(128) NOT NULL,
   `admin_email` varchar(128) NOT NULL,
-  `admin_pwd` varchar(128) NOT NULL,
-  `admin_role` varchar(128) NOT NULL
+  `admin_pwd` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `admin`
 --
 
-INSERT INTO `admin` (`admin_id`, `admin_username`, `admin_name`, `admin_email`, `admin_pwd`, `admin_role`) VALUES
-(1, 'dummyadmin', 'Dummy Admin', 'admin@dumb.mail', '123', '1'),
-(2, 'shawnadmin', 'Shawn Admin', 'shawn@admin.com', '$2y$10$K1kmHgMRIWhYzUmjhC9MvequLe.RUvwmqyUSQCpAkVgh7mdF5bel6', '');
+INSERT INTO `admin` (`admin_id`, `admin_username`, `admin_name`, `admin_email`, `admin_pwd`) VALUES
+(1, 'dummyadmin', 'Dummy Admin', 'admin@dumb.mail', '123'),
+(2, 'shawnadmin', 'Shawn Admin', 'shawn@admin.com', '$2y$10$K1kmHgMRIWhYzUmjhC9MvequLe.RUvwmqyUSQCpAkVgh7mdF5bel6');
 
 -- --------------------------------------------------------
 
@@ -65,13 +64,13 @@ CREATE TABLE `course` (
 
 INSERT INTO `course` (`course_id`, `course_name`, `course_desc`, `t_fid`, `approval_admin_fid`, `course_status`) VALUES
 (73, 'asasd', 'qweqwe', 24, 2, 1),
-(75, 'New Test Course', 'yes', 26, NULL, 0),
+(75, 'New Test Course', 'yes', 26, 2, 1),
 (76, 'ANOTHER ONE', 'ANOTHER ONE', 26, NULL, 0),
-(77, 'This file test course', 'Yes desc; yes', 31, NULL, 0),
+(77, 'This file test course', 'Yes desc; yes', 31, 2, 2),
 (78, 'Sunday Test', 'YASALSKDJKA*&*&', 26, NULL, 0),
-(81, 'Crash Test', 'Testing', 26, NULL, 0),
+(81, 'Crash Test', 'Testing', 26, 2, 1),
 (82, 'NEW', 'qweqweqwe', 26, NULL, 0),
-(83, 'Very Maths', 'Thank you', 21, NULL, 0);
+(85, 'Clement\'s Course', 'Very nice course indeed', 29, NULL, 0);
 
 -- --------------------------------------------------------
 
@@ -117,9 +116,10 @@ INSERT INTO `course_subtopics` (`course_fid`, `sub_fid`, `display_order`) VALUES
 (81, 1, 2),
 (82, 1, 1),
 (82, 5, 2),
-(83, 5, 1),
-(83, 6, 2),
-(83, 14, 3);
+(85, 6, 1),
+(85, 5, 2),
+(85, 16, 3),
+(85, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -132,29 +132,27 @@ CREATE TABLE `learners` (
   `l_email` varchar(128) NOT NULL,
   `l_pwd` varchar(128) NOT NULL,
   `l_username` varchar(128) NOT NULL,
-  `l_nickname` varchar(128) DEFAULT NULL,
-  `l_name` varchar(128) NOT NULL,
-  `l_age` int(3) NOT NULL
+  `l_name` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `learners`
 --
 
-INSERT INTO `learners` (`l_ID`, `l_email`, `l_pwd`, `l_username`, `l_nickname`, `l_name`, `l_age`) VALUES
-(1, 'dummy1@mail.com', 'dummypass', 'dummypass', 'dummypass', 'dummypass', 12),
-(2, 'Dummy@mail.com', '$2y$10$mYt1d482B7p81IHzWe/b3uUzdur6BLBl2MiYpSCg0RnKQU7U64sQG', 'Dummy', NULL, 'Dummy', 0),
-(3, 'dummytwo@mail.com', '$2y$10$5LJq8U7CHZmaAkYIPVwEGOxGDITO2CRkZu2UJJZhlpE0UGtb7OqwC', 'dummytwo', NULL, 'Dummytwo', 0),
-(4, 'leysu@mail.com', '$2y$10$CvIkMDXGg0xM.IFahsLMLe13nNwXg/KIf7/7uWIGDon1qiT3G5wxa', 'Leysu', NULL, 'leysu', 0),
-(5, 'textable@mail.com', '$2y$10$PlZwMn7Pb7wnykiQBkXH3uNDtoCygvygJB3TAg0g31NeCugG2H/s2', 'verytestable', NULL, 'Testing', 0),
-(6, 'leysuyan@mail.com', '$2y$10$kQC1WHhQJ45fgKHAOVCEl.YLI6hFTbpBF6q5dKQfj7HzkqHkw6i.a', 'leysuyan', NULL, 'Leysuyan', 0),
-(7, 'mail@mailmail.com', '$2y$10$2nDYA7XmxnUKhtN63HLBbOMJLWCbO1wV4sxu4lcz6HYIvHmJ1a81O', 'yessir', NULL, 'yes', 0),
-(8, 'newtest@test.com', '$2y$10$gXpiQ6L6/BPI4tHZOX5og.1cyYblvG90UzcZIpqo3pyHGRCUB5vSm', 'testlearner', NULL, 'TestUser', 0),
-(9, 'yessir222@mail.com', '$2y$10$mmRo0TX/9adhye7FrfW4x.v/zH/6VCVgyqAx7K6HgsH2NBWh744Je', 'yessir2', NULL, 'yessir two', 0),
-(10, 'error@mail.com', '$2y$10$7N6YvCuntKcvGQBEw7jpO.29fPt1unuk70jOxHlhjI9I0OwSW2usm', 'isthereerror', NULL, 'TesterrorStudent', 0),
-(11, 'asd', '$2y$10$HsDM0cCVBndeqnAEMDUVquj.DGjHlUTlzhL2LRO1oW4tD1AHbODDK', 'asd', NULL, 'asd', 0),
-(12, 'test@mail.com', '$2y$10$Jx/0n8OKs16c1MqXIsO0/.fGo2LjnePr3hBHp26SjcWW3.jFf2pPC', 'testforemail', NULL, 'Test For Email', 0),
-(13, 'test@learner.com', '$2y$10$7WDa5Ft6aNO5cL4kXvQzu.SmUfBBdzWI31OAlcK0kYg1piyClBSai', 'newesttestlearner', NULL, 'Newest Test Learner', 0);
+INSERT INTO `learners` (`l_ID`, `l_email`, `l_pwd`, `l_username`, `l_name`) VALUES
+(1, 'dummy1@mail.com', 'dummypass', 'dummypass', 'dummypass'),
+(2, 'Dummy@mail.com', '$2y$10$mYt1d482B7p81IHzWe/b3uUzdur6BLBl2MiYpSCg0RnKQU7U64sQG', 'Dummy', 'Dummy'),
+(3, 'dummytwo@mail.com', '$2y$10$5LJq8U7CHZmaAkYIPVwEGOxGDITO2CRkZu2UJJZhlpE0UGtb7OqwC', 'dummytwo', 'Dummytwo'),
+(4, 'leysu@mail.com', '$2y$10$CvIkMDXGg0xM.IFahsLMLe13nNwXg/KIf7/7uWIGDon1qiT3G5wxa', 'Leysu', 'leysu'),
+(5, 'textable@mail.com', '$2y$10$PlZwMn7Pb7wnykiQBkXH3uNDtoCygvygJB3TAg0g31NeCugG2H/s2', 'verytestable', 'Testing'),
+(6, 'leysuyan@mail.com', '$2y$10$kQC1WHhQJ45fgKHAOVCEl.YLI6hFTbpBF6q5dKQfj7HzkqHkw6i.a', 'leysuyan', 'Leysuyan'),
+(7, 'mail@mailmail.com', '$2y$10$2nDYA7XmxnUKhtN63HLBbOMJLWCbO1wV4sxu4lcz6HYIvHmJ1a81O', 'yessir', 'yes'),
+(8, 'newtest@test.com', '$2y$10$gXpiQ6L6/BPI4tHZOX5og.1cyYblvG90UzcZIpqo3pyHGRCUB5vSm', 'testlearner', 'TestUser'),
+(9, 'yessir222@mail.com', '$2y$10$mmRo0TX/9adhye7FrfW4x.v/zH/6VCVgyqAx7K6HgsH2NBWh744Je', 'yessir2', 'yessir two'),
+(10, 'error@mail.com', '$2y$10$7N6YvCuntKcvGQBEw7jpO.29fPt1unuk70jOxHlhjI9I0OwSW2usm', 'isthereerror', 'TesterrorStudent'),
+(11, 'asd', '$2y$10$HsDM0cCVBndeqnAEMDUVquj.DGjHlUTlzhL2LRO1oW4tD1AHbODDK', 'asd', 'asd'),
+(12, 'test@mail.com', '$2y$10$Jx/0n8OKs16c1MqXIsO0/.fGo2LjnePr3hBHp26SjcWW3.jFf2pPC', 'testforemail', 'Test For Email'),
+(13, 'test@learner.com', '$2y$10$7WDa5Ft6aNO5cL4kXvQzu.SmUfBBdzWI31OAlcK0kYg1piyClBSai', 'newesttestlearner', 'Newest Test Learner');
 
 -- --------------------------------------------------------
 
@@ -371,17 +369,17 @@ INSERT INTO `subtopic` (`sub_id`, `sub_name`, `sub_desc`, `t_fid`, `approval_adm
 (1, 'Atomic Structure', 'the structure of an atom, theoretically consisting of a positively charged nucleus surrounded and neutralized by negatively charged electrons revolving in orbits at varying distances from the nucleus, the constitution of the nucleus and the arrangement of the electrons differing with various chemical elements.', 25, 2, 1),
 (3, 'Cells', 'Cells are the basic building blocks of all living things. The human body is composed of trillions of cells. They provide structure for the body, take in nutrients from food, convert those nutrients into energy, and carry out specialized functions. Cells also contain the body’s hereditary material and can make copies of themselves.', 25, 2, 4),
 (4, 'Units and Standards I', 'These are called the base quantities for that system and their units are the system\'s base units. All other physical quantities can then be expressed as algebraic combinations of the base quantities. Each of these physical quantities is then known as a derived quantity and each unit is called a derived unit.', 26, NULL, 5),
-(5, 'Descriptive statistics', 'A descriptive statistic is a summary statistic that quantitatively describes or summarizes features from a collection of information, while descriptive statistics is the process of using and analysing those statistics.', 26, NULL, 6),
-(6, 'Looping with C', 'Looping Statements in C execute the sequence of statements many times until the stated condition becomes false. A loop in C consists of two parts, a body of a loop and a control statement. The control statement is a combination of some conditions that direct the body of the loop to execute until the specified condition becomes false. The purpose of the C loop is to repeat the same code a number of times.', 26, NULL, 7),
+(5, 'Descriptive statistics', 'A descriptive statistic is a summary statistic that quantitatively describes or summarizes features from a collection of information, while descriptive statistics is the process of using and analysing those statistics.', 26, 2, 6),
+(6, 'Looping with C', 'Looping Statements in C execute the sequence of statements many times until the stated condition becomes false. A loop in C consists of two parts, a body of a loop and a control statement. The control statement is a combination of some conditions that direct the body of the loop to execute until the specified condition becomes false. The purpose of the C loop is to repeat the same code a number of times.', 26, 2, 7),
 (7, 'Variables in C', 'Your C programs can use two types of values: immediate and variable. An immediate value is one that you specify in the source code — a value you type or a defined constant. Variables are also values, but their contents can change. That’s why they’re called variables and not all-the-time-ables.', 26, NULL, 7),
-(8, 'C Arithmetic Operators', 'An arithmetic operator performs mathematical operations such as addition, subtraction, multiplication, division etc on numerical values (constants and variables).', 26, NULL, 7),
+(8, 'C Arithmetic Operators', 'An arithmetic operator performs mathematical operations such as addition, subtraction, multiplication, division etc on numerical values (constants and variables).', 26, 2, 7),
 (9, 'A Poison Tree', '\"A Poison Tree\" is a poem written by William Blake, published in 1794 as part of his Songs of Experience collection. It describes the narrator\'s repressed feelings of anger towards an individual, emotions which eventually lead to murder.', 26, NULL, 8),
 (10, 'Probability III', 'the quality or state of being probable; the extent to which something is likely to happen or be the case.', 26, NULL, 6),
 (11, 'The Art of War', 'The Art of War is an ancient Chinese military treatise dating from the Late Spring and Autumn Period. The work, which is attributed to the ancient Chinese military strategist Sun Tzu, is composed of 13 chapters.', 26, NULL, 9),
 (12, 'Pointer in C', 'The Pointer in C, is a variable that stores address of another variable. A pointer can also be used to refer to another pointer function. A pointer can be incremented/decremented, i.e., to point to the next/ previous memory location. The purpose of pointer is to save memory space and achieve faster execution time.', 28, NULL, 7),
-(13, 'Header Files in C', 'In C language, header files contain the set of predefined standard library functions. The “#include” preprocessing directive is used to include the header files with “.h” extension in the program.', 28, NULL, 7),
-(14, 'Object oriented programming with Java', 'The OOPs Concepts in Java are abstraction, encapsulation, inheritance, and polymorphism. These concepts aim to implement real-world entities in programs.', 30, NULL, 10),
-(15, 'Electrochemistry', 'Electrochemistry is the branch of physical chemistry concerned with the relationship between electrical potential, as a measurable and quantitative phenomenon, and identifiable chemical change, with either electrical potential as an outcome of a particular chemical change, or vice versa.', 26, NULL, 1),
+(13, 'Header Files in C', 'In C language, header files contain the set of predefined standard library functions. The “#include” preprocessing directive is used to include the header files with “.h” extension in the program.', 28, 2, 7),
+(14, 'Object oriented programming with Java', 'The OOPs Concepts in Java are abstraction, encapsulation, inheritance, and polymorphism. These concepts aim to implement real-world entities in programs.', 30, 2, 10),
+(15, 'Electrochemistry', 'Electrochemistry is the branch of physical chemistry concerned with the relationship between electrical potential, as a measurable and quantitative phenomenon, and identifiable chemical change, with either electrical potential as an outcome of a particular chemical change, or vice versa.', 26, 2, 1),
 (16, 'Units and Standards II', 'this is the description for Units and Standards II', 31, NULL, 5);
 
 -- --------------------------------------------------------
@@ -433,16 +431,13 @@ CREATE TABLE `teacher` (
 --
 
 INSERT INTO `teacher` (`t_ID`, `t_username`, `t_name`, `t_email`, `t_pwd`, `t_status`, `approval_admin_fid`) VALUES
-(21, 'dummy', 'Shawn Lee Wen Xuen', 'leysuyan@mail.com', '$2y$10$t4vBtY7X/mZ66fnGeScIhOYt5OejdU8FaO.RO7q/soOti2ewO4e0e', 3, NULL),
-(22, 'dummytwo', 'Shawn Lee Wen Xuen', 'dummytwo@mail.com', '$2y$10$aE2.PSPzHjHhhl19E/APmuwk4b1bNX2hYzs.Gp5W6Ml0CHr7nB3X6', 3, NULL),
-(23, 'dummytwo333', 'Shawn Lee Wen Xuen', 'rebornedshawnlee@hotmail.com', '$2y$10$vqmOvsMseDuaFkhlxjg2FO8aHNLjvH.M5MKFN/1FzBjVrvluE3Pym', 3, NULL),
 (24, 'AverageDude', 'Shawn Lee Wen Xuen', 'textable@mail.com', '$2y$10$j5e5Oh68epXR8IuHDr35fOcRSYBe5/luIrNpDRJAsvJqHZdJflEr2', 1, 2),
-(25, 'offteacher', 'Official Test', 'testteacher@mail.com', '$2y$10$5GGWibvVF1pbiRpsayZa8uhTjbzEbCXAAGF5/9J2Xd.TIwBU1k5Oa', 3, NULL),
+(25, 'offteacher', 'Official Test', 'testteacher@mail.com', '$2y$10$5GGWibvVF1pbiRpsayZa8uhTjbzEbCXAAGF5/9J2Xd.TIwBU1k5Oa', 2, 2),
 (26, 'newdummy', 'New Dummy', 'new@mail.com', '$2y$10$SH6y2mIvF.BcngxS2rg/MOxwrlaHnZYfKvwJQpsKkpeQlo/JR4oZC', 1, 2),
 (27, 'emptyteacher', 'Empty New Teacher', 'empty@mail.com', '$2y$10$MF8Rybph61xRbCMCf6LF9.SXak7qETo81ez8GcQflptymSLNykZmm', 0, NULL),
 (28, 'yanteaches', 'Leysu Yan', 'yan@mail.com', '$2y$10$H4YJakfIZ6tOyPiX33G2X.1GeJEQBDS..jfo5UDSFqSG2PG.dWV8i', 1, 2),
-(29, 'clementteaches', 'Clement Ho', 'clement@mail.com', '$2y$10$BMTNRdp8HN7Sj8VcHzA6Pumahpu755bJbl3zDaNNqs9IaV/FlclNO', 0, NULL),
-(30, 'helloworld', 'another yes sir', 'another@mail.com', '$2y$10$fxU1iUiK5O7QiAvHu41s4uOM52gZ/Ek0ZF.ktqMqgxgU0.PIisKWC', 0, NULL),
+(29, 'clementteaches', 'Clement Ho', 'clement@mail.com', '$2y$10$BMTNRdp8HN7Sj8VcHzA6Pumahpu755bJbl3zDaNNqs9IaV/FlclNO', 2, 2),
+(30, 'helloworld', 'another yes sir', 'another@mail.com', '$2y$10$fxU1iUiK5O7QiAvHu41s4uOM52gZ/Ek0ZF.ktqMqgxgU0.PIisKWC', 2, 2),
 (31, 'testfile', 'TestFile', 'testfile@mail.com', '$2y$10$ONbb/7I/d/js3Udh4M0NVOFBEpK4WCDym02KlRYw2nFiY72Qe3A2y', 0, NULL);
 
 -- --------------------------------------------------------
@@ -710,7 +705,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- AUTO_INCREMENT for table `learners`

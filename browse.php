@@ -20,7 +20,7 @@
                 <div class="col" style="width: 1300px;margin: auto;">
                     <h1 style="margin: auto;">Catalog Browsing</h1>
                     <div class="row">
-                        <div class="col"><small><strong>Choose </strong>any <strong>Course</strong> and start learning today.</small></div>
+                        <div class="col"><small><strong>Choose </strong>any <strong>Approved Course</strong> and start learning today.</small></div>
                     </div>
                 </div>
             </div>
@@ -65,7 +65,10 @@
                                   $tempname = $display['course_name'];
                                   $tempdesc = $display['course_desc'];
                                   $tempTFID = $display['t_fid'];
+                                  $tempapproved = $display['course_status'];
                                   // $tempTID = $_SESSION["teacherid"];
+
+                                  if ($tempapproved == 1){
                                   echo <<<GFG
                                       <div class="coursetitle" id="coursetitle{$tempCourseId}">
                                         <a class="btn btn-primary listgroupdropMain subjectList" style="font-size: 20px; margin: 14px 0px;"data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$num}" href="#collapseCourse-{$num}" role="button"><strong>{$tempname}</strong></a>
@@ -73,6 +76,7 @@
 
 
                                   GFG;
+
 
                                   if (isset($_SESSION['learnerid'])){
                                   // foreach ($tempSUBBEDcourseID as $key) {
@@ -173,6 +177,7 @@
                                   GFG;
                                   // <div class="singleSubjectRowLine" style="margin: 0px auto 0px 24px; width: 140px; text-align: center !important; align: center;"></div>
                                   $num += 1;
+                                }
                                 }
 
 

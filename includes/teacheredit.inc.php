@@ -21,7 +21,7 @@ $_SESSION["teachersubjectsDesc"] = "";
   retrieveSubjects($conn);
   invalidIncludesUserAcess();
   // $testtitle = $_SESSION["teachersubjectsName"];
-  echo "<script>alert('$testtitle');</script>";
+  // echo "<script>alert('$testtitle');</script>";
 // }
 // else {
 //   header("location: ../teacherlogin.php");

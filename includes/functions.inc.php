@@ -310,13 +310,14 @@ function loginTeacherUser($conn, $email, $pwd) {
     $checkPwd = password_verify($pwd, $pwdHashed);
 
     if ($checkPwd === false) {
-      header("location: ../teachlogin.php?error=wronglogin");
+      header("location: ../teacherlogin.php?error=wronglogin");
       exit();
     }
     elseif ($checkPwd === true) {
       session_start();
       $_SESSION["teacherid"] = $usernameExists["t_ID"];
       $_SESSION["username"] = $usernameExists["t_username"];
+      $_SESSION["teacherstatus"] = $usernameExists["t_status"];
       // retrieveTeacherSubjects($conn);
       headlesstaillessretrieveSubjects($conn);
       headlesstailessretrieveTeacherCourse($conn);
@@ -434,7 +435,7 @@ function checkSubtopics($conn) {
 
 function retrieveSubjects($conn) {
     session_start();
-    header("Refresh:2; url=../teacheredit.php");
+    header("Refresh:0; url=../teacheredit.php");
 
       $checkSubjects[] = checkSubjects($conn);
       $checkTopics[] = checkTopics($conn);
@@ -450,31 +451,31 @@ function retrieveSubjects($conn) {
     // }
 
 // THIS SNIPPET IS FOR RESULT TESTING ONLY
-    foreach($checkSubjects[0] as $result) { //this is for checking the results from query
-      echo $result['sbjt_name'], '<br>';
-      // $localvarName[]= $result['sbjt_name'];
-      // $_SESSION["teachersubjectsName"] = $localvarName;
-
-
-      echo $result['sbjt_desc'], '<br>';
-      $localvarDesc[]= $result['sbjt_desc'];
-      // $_SESSION["teachersubjectsDesc"] = $localvarDesc;
-
-      echo '<br>';
-    }
-
-    foreach($checkTopics[0] as $result) { //this is for checking the results from query
-      echo $result['topic_name'], '<br>';
-      // $localvarName[]= $result['sbjt_name'];
-      // $_SESSION["teachersubjectsName"] = $localvarName;
-
-
-      echo $result['topic_desc'], '<br>';
-      // $localvarDesc[]= $result['sbjt_desc'];
-      // $_SESSION["teachersubjectsDesc"] = $localvarDesc;
-
-      echo '<br>';
-    }
+    // foreach($checkSubjects[0] as $result) { //this is for checking the results from query
+    //   echo $result['sbjt_name'], '<br>';
+    //   // $localvarName[]= $result['sbjt_name'];
+    //   // $_SESSION["teachersubjectsName"] = $localvarName;
+    //
+    //
+    //   echo $result['sbjt_desc'], '<br>';
+    //   $localvarDesc[]= $result['sbjt_desc'];
+    //   // $_SESSION["teachersubjectsDesc"] = $localvarDesc;
+    //
+    //   echo '<br>';
+    // }
+    //
+    // foreach($checkTopics[0] as $result) { //this is for checking the results from query
+    //   echo $result['topic_name'], '<br>';
+    //   // $localvarName[]= $result['sbjt_name'];
+    //   // $_SESSION["teachersubjectsName"] = $localvarName;
+    //
+    //
+    //   echo $result['topic_desc'], '<br>';
+    //   // $localvarDesc[]= $result['sbjt_desc'];
+    //   // $_SESSION["teachersubjectsDesc"] = $localvarDesc;
+    //
+    //   echo '<br>';
+    // }
     // echo $_SESSION["teachersubjectsName"][0], '<br>';
     $_SESSION["teachersubjectsCombined"] = $checkSubjects;
     $_SESSION["teachertopicsCombined"] = $checkTopics;

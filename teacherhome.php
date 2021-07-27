@@ -20,10 +20,29 @@
                         <div class="col-3" id="avatar">
                             <picture style="width: 128px;height: 128px;"><img id="profileavatar" src="assets/img/avatars/avatar.jpg" style="width: 128px;height: 128px;border-radius: 176px;"></picture>
                         </div>
-                        <div class="col d-xxl-flex align-items-xxl-center">
+                        <div class="col d-xxl-flex align-items-xxl-center" style="display: inline-block">
                           <div>
                             <?php
-                             echo '<h1 class="d-xxl-flex justify-content-xxl-start">' . "$_SESSION[username]" . '</h1><small class="d-xxl-flex justify-content-xxl-start">Pick a nickname</small>';
+                             echo '<h1 class="d-xxl-flex justify-content-xxl-start">' . "$_SESSION[username]" . '</h1>';
+                              switch ($_SESSION['teacherstatus']) {
+                                case 0:
+                                        echo <<<GFG
+                                               <h4 style="text-align: left">Status:&nbsp &nbsp Pending 🍳</h4>
+                                        GFG;
+                                  break;
+
+                                case 1:
+                                        echo <<<GFG
+                                               <h4 style="text-align: left">Status:&nbsp &nbspActivated ✅</h4>
+                                        GFG;
+                                  break;
+                                case 2:
+                                        echo <<<GFG
+                                               <h4 style="text-align: left">Status:&nbsp &nbsp Disabled 😥</h4>
+                                        GFG;
+                                  break;
+                              }
+
 
                              //this is error handling message for users
                                if (isset($_GET["create"])) {
@@ -100,13 +119,41 @@
                                                       <div class="coursetitle" id="coursetitle{$tempCourseId}">
                                                         <a class="btn btn-primary listgroupdropMain subjectList" style="font-size: 20px; margin: 14px 0px;"data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$num}" href="#collapseCourse-{$num}" role="button"><strong>{$tempname}</strong></a>
                                                         <input class="simpleTextEdit" type="button" style="margin: 14px 0px; color:blue;" value="View" onclick="redirectViewCourse({$tempCourseId})"></input>
-                                                        <input class="simpleTextEdit" type="button" style="margin: 14px 0px;" value="Edit" onclick="redirectEditCourse({$tempCourseId})"></input>
-                                                        <input class="simpleTextEdit" type="button" style="margin: 14px 0px; color:red;" value="Delete" onclick="redirectDeleteCourse({$tempCourseId})"></input>
+
+                                                  GFG;
+                                                  switch ($_SESSION['teacherstatus']) {
+
+                                                    case 2:
+                                                            echo <<<GFG
+                                                                  <input class="simpleTextEdit" type="button" style="margin: 14px 0px; color:rgb(169, 169 ,169) !important; pointer-events: none;" value="Edit" disabled="" onclick="redirectEditCourse({$tempCourseId})"></input>
+                                                                  <input class="simpleTextEdit" type="button" style="margin: 14px 0px; color:rgb(169, 169 ,169) !important; pointer-events: none;" disabled="" value="Delete" onclick="redirectDeleteCourse({$tempCourseId})"></input>
+
+                                                                  <div class="collapse" id="collapseCourse-{$num}">
+
+                                                            GFG;
+                                                      break;
+
+                                                    default:
+                                                            echo <<<GFG
+                                                                  <input class="simpleTextEdit" type="button" style="margin: 14px 0px;" value="Edit" onclick="redirectEditCourse({$tempCourseId})"></input>
+                                                                  <input class="simpleTextEdit" type="button" style="margin: 14px 0px; color:red;" value="Delete" onclick="redirectDeleteCourse({$tempCourseId})"></input>
+
+                                                                  <div class="collapse" id="collapseCourse-{$num}">
+
+                                                            GFG;
 
 
-                                                          <div class="collapse" id="collapseCourse-{$num}">
+                                                      break;
+                                                  }
 
-                                                 GFG;
+                                                 //  echo <<<GFG
+                                                 //        <input class="simpleTextEdit" type="button" style="margin: 14px 0px;" value="Edit" onclick="redirectEditCourse({$tempCourseId})"></input>
+                                                 //        <input class="simpleTextEdit" type="button" style="margin: 14px 0px; color:red;" value="Delete" onclick="redirectDeleteCourse({$tempCourseId})"></input>
+                                                 //
+                                                 //
+                                                 //          <div class="collapse" id="collapseCourse-{$num}">
+                                                 //
+                                                 // GFG;
                                                     //DISPLAY ORDERED SUBTOPICS
                                                     $subsnum = 0;
                                                     foreach ($_SESSION["singleTeacherCourseSubtopics"] as $coursesubsDisp){
@@ -174,8 +221,37 @@
                                                 </div> -->
                                                 <div>
                                                   <button id="courseemptyNotice" class="" style="display: none; padding: 16px 4px; margin-left: 10px; margin-bottom: 12px; cursor: default; background: #FFFFFF; border: 0px;" role="button" >It's pretty barren in here...</button>
+                                                  <?php
+                                                  switch ($_SESSION['teacherstatus']) {
 
-                                                  <div><a class="btn btn-primary" style="margin-top: 12px; margin-left: 10px;border-radius: 7px;background: #1eb53a;" href="teachercourseedit.php">Tinker a New Course!</a></div>
+                                                    case 2:
+                                                            echo <<<GFG
+                                                                  <div>
+                                                                    <a class="btn btn-primary" disabled="" style="background-color: rgba(169, 169 ,169, 0.25) !important; pointer-events: none; margin-top: 12px; margin-left: 10px;border-radius: 7px;background: #1eb53a;">Tinker a New Course!</a>
+                                                                  </div>
+
+                                                            GFG;
+                                                      break;
+
+                                                    default:
+                                                            echo <<<GFG
+                                                                  <div>
+                                                                    <a class="btn btn-primary" style="margin-top: 12px; margin-left: 10px;border-radius: 7px;background: #1eb53a;" href="teachercourseedit.php">Tinker a New Course!</a>
+                                                                  </div>
+
+                                                            GFG;
+
+
+                                                      break;
+                                                  }
+
+
+
+
+                                                   ?>
+                                                  <!-- <div>
+                                                    <a class="btn btn-primary" style="margin-top: 12px; margin-left: 10px;border-radius: 7px;background: #1eb53a;" href="teachercourseedit.php">Tinker a New Course!</a>
+                                                  </div> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -263,9 +339,36 @@
                                                <div>
                                                  <div>
                                                  <button id="emptyNotice" class="" style="display: none; padding: 16px 4px; margin-bottom: 12px; margin-left: 10px; cursor: default; background: #FFFFFF; border: 0px;" role="button" >It's pretty barren in here...</button>
+                                                 <?php
+                                                 switch ($_SESSION['teacherstatus']) {
+
+                                                   case 2:
+                                                           echo <<<GFG
+                                                               </div>
+                                                                 <a class="btn btn-primary" disabled="" style=" background-color: rgba(169, 169 ,169, 0.25) !important; pointer-events: none;margin-top: 12px; margin-left: 10px;border-radius: 7px;" href="includes/teacheredit.inc.php">Cultivate something new!</a>
+                                                               </div>
+
+                                                           GFG;
+                                                     break;
+
+                                                   default:
+                                                           echo <<<GFG
+                                                               </div>
+                                                                 <a class="btn btn-primary" style="margin-top: 12px; margin-left: 10px;border-radius: 7px;background: #1eb53a;" href="includes/teacheredit.inc.php">Cultivate something new!</a>
+                                                               </div>
+
+                                                           GFG;
+
+
+                                                     break;
+                                                 }
+
+                                                  ?>
+
+<!--
                                                </div>
                                                  <a class="btn btn-primary" style="margin-top: 12px; margin-left: 10px;border-radius: 7px;background: #1eb53a;" href="includes/teacheredit.inc.php">Cultivate something new!</a>
-                                               </div>
+                                               </div> -->
                                         </div>
                                     </div>
                                   </div>
@@ -373,10 +476,33 @@
                                                     GFG;
                                                   }
 
+                                                  switch ($_SESSION['teacherstatus']) {
+
+                                                    case 2:
+                                                            echo <<<GFG
+                                                                </div>
+                                                                  <a class="btn btn-primary" disabled="" style="background-color: rgba(169, 169 ,169, 0.25) !important; pointer-events: none; margin-top: 12px; margin-left: 10px;border-radius: 7px;background: #1eb53a;" href="matedit.php">Materialize More!</a>
+                                                                </div>
+
+                                                            GFG;
+                                                      break;
+
+                                                    default:
+                                                            echo <<<GFG
+                                                                </div>
+                                                                  <a class="btn btn-primary" style="margin-top: 12px; margin-left: 10px;border-radius: 7px;background: #1eb53a;" href="matedit.php">Materialize More!</a>
+                                                                </div>
+
+                                                            GFG;
+
+
+                                                      break;
+                                                  }
+
                                                   ?>
-                                               </div>
+                                               <!-- </div>
                                                  <a class="btn btn-primary" style="margin-top: 12px; margin-left: 10px;border-radius: 7px;background: #1eb53a;" href="matedit.php">Materialize More!</a>
-                                               </div>
+                                               </div> -->
                                             </div>
 
                                             <div>
