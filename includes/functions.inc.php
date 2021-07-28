@@ -354,6 +354,32 @@ function checkTeacherSubjects($conn, $teacherid) { //to list out materials creat
     mysqli_stmt_close($stmt);
 }
 
+function checkLearners($conn) {
+    $sql = "SELECT * FROM learners;";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+      echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+      exit();
+    }
+
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    $rows = [];
+
+    while ($row = mysqli_fetch_assoc($resultData)){ //getting the rows from the query result
+      // return $row;
+      $rows[] = $row;
+    }
+    if ($row != mysqli_fetch_assoc($resultData)){
+      $result = false;
+      return $result;
+    }
+
+    return $rows;
+    mysqli_stmt_close($stmt);
+}
+
 
 function checkSubjects($conn) {
     $sql = "SELECT * FROM subject;";
@@ -1329,5 +1355,149 @@ function revokeCourse($conn, $courseID, $adminapproveid){
   }
   mysqli_stmt_bind_param($stmt, "iii", $adminapproveid, $status, $courseID);
   mysqli_stmt_execute($stmt);
+
+}
+
+function checkLearnerFeedback($conn) {
+    $sql = "SELECT * FROM learner_course_feedbacks";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+      echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+      exit();
+    }
+
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    $rows = [];
+
+    while ($row = mysqli_fetch_assoc($resultData)){ //getting the rows from the query result
+      // return $row;
+      $rows[] = $row;
+    }
+    if ($row != mysqli_fetch_assoc($resultData)){
+      $result = false;
+      return $result;
+    }
+
+    return $rows;
+    mysqli_stmt_close($stmt);
+}
+
+function retrieveLearnerFeedback($conn) {
+
+      $checkLearnerFeedback[] = checkLearnerFeedback($conn);
+
+    $_SESSION["learnerFeedback"] = $checkLearnerFeedback;
+
+}
+
+function retrieveLearners($conn) {
+
+      $checkLearners[] = checkLearners($conn);
+
+    $_SESSION["learnerList"] = $checkLearners;
+
+}
+
+function checkTeacherFeedback($conn) {
+    $sql = "SELECT * FROM teacher_course_feedbacks";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+      echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+      exit();
+    }
+
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    $rows = [];
+
+    while ($row = mysqli_fetch_assoc($resultData)){ //getting the rows from the query result
+      // return $row;
+      $rows[] = $row;
+    }
+    if ($row != mysqli_fetch_assoc($resultData)){
+      $result = false;
+      return $result;
+    }
+
+    return $rows;
+    mysqli_stmt_close($stmt);
+}
+
+function retrieveTeacherFeedback($conn) {
+
+      $checkTeacherFeedback[] = checkTeacherFeedback($conn);
+
+    $_SESSION["teacherFeedback"] = $checkTeacherFeedback;
+
+}
+
+function checkTeacherLearnerFeedback($conn) {
+    $sql = "SELECT * FROM teacher_learner_feedbacks";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+      echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+      exit();
+    }
+
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    $rows = [];
+
+    while ($row = mysqli_fetch_assoc($resultData)){ //getting the rows from the query result
+      // return $row;
+      $rows[] = $row;
+    }
+    if ($row != mysqli_fetch_assoc($resultData)){
+      $result = false;
+      return $result;
+    }
+
+    return $rows;
+    mysqli_stmt_close($stmt);
+}
+
+function retrieveTeacherLearnerFeedback($conn) {
+
+      $checkTeacherLearnerFeedback[] = checkTeacherLearnerFeedback($conn);
+
+    $_SESSION["teacherLearnerFeedback"] = $checkTeacherLearnerFeedback;
+
+}
+
+function checkTeacherList($conn) {
+    $sql = "SELECT * FROM teacher";
+    $stmt = mysqli_stmt_init($conn);
+    if (!mysqli_stmt_prepare($stmt, $sql)){
+      echo "<script>alert('Problem connecting to database, please try again later.');</script>";
+      exit();
+    }
+
+    mysqli_stmt_execute($stmt);
+
+    $resultData = mysqli_stmt_get_result($stmt);
+    $rows = [];
+
+    while ($row = mysqli_fetch_assoc($resultData)){ //getting the rows from the query result
+      // return $row;
+      $rows[] = $row;
+    }
+    if ($row != mysqli_fetch_assoc($resultData)){
+      $result = false;
+      return $result;
+    }
+
+    return $rows;
+    mysqli_stmt_close($stmt);
+}
+
+function retrieveTeacherList($conn) {
+
+      $checkTeacherList[] = checkTeacherList($conn);
+
+    $_SESSION["teacherList"] = $checkTeacherList;
 
 }

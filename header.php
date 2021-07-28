@@ -60,10 +60,12 @@
     <link rel="stylesheet" href="assets/css/Sidebar-Menu-1.css">
     <link rel="stylesheet" href="assets/css/Sidebar-Menu.css">
     <link rel="stylesheet" href="assets/css/untitled.css">
+    <link rel="stylesheet" href="assets/css/modal.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css">
     <link rel="stylesheet" href="assets/css/jquery-ui.css">
     <script src="assets/js/external/jquery/jquery.js"></script>
     <script src="assets/js/jquery-ui.js"></script>
+    <!-- <script src="assets/js/modal.js"></script> -->
     <script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
     <!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
 </head>

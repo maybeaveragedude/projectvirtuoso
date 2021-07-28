@@ -6,6 +6,8 @@
 
   // headlesstaillessretrieveSubjects($conn);
   headlesstailessretrieveTeacherCourse($conn);
+  retrieveGlobalCourse($conn);
+
   invalidLearnerUserAcess();
   invalidUserAcess();
 
@@ -89,7 +91,7 @@
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab" href="#tab-1">Study Materials<br></a></li>
                             <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-2">Personal Stats</a></li>
-                            <!-- <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-3">Achievements</a></li> -->
+                            <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-3">Feedbacks</a></li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" role="tabpanel" id="tab-1">
@@ -538,9 +540,321 @@
 
                                </div>
                             </div>
-                            <!-- <div class="tab-pane" role="tabpanel" id="tab-3">
-                                <p>Content for tab 3.</p>
-                            </div> -->
+                            <div class="tab-pane" role="tabpanel" id="tab-3">
+                              <h3 style="padding: 14px;margin-top: 16px; text-align: left;">Feedbacks from Learners</h3>
+
+                              <div class="card-group" style="text-align: left;">
+
+                                <?php
+
+                                retrieveLearnerFeedback($conn);
+                                retrieveLearners($conn);
+
+                                foreach ($_SESSION['learnerFeedback'][0] as $key) {
+                                  // echo '<pre>'; print_r($key); echo '</pre>';
+                                  $learnerID = $key['learner_fid'];
+                                  $courseFID = $key['course_fid'];
+                                  $message = $key['message'];
+                                  $courseName = "";
+
+                                  foreach ($_SESSION['singleTeacherCourse'][0] as $thisArray) {
+                                    $courseTempName = $thisArray['course_name'];
+                                    $courseID = $thisArray['course_id'];
+                                    $courseTeacherFID = $thisArray['t_fid'];
+                                    if ($courseID == $courseFID && $courseTeacherFID == $_SESSION['teacherid']){
+                                      $courseName = $courseTempName;
+
+                                      $counter =0;
+                                      foreach ($_SESSION['learnerList'][0] as $var) {
+                                        $lID = $var['l_ID'];
+                                        $learnerName = $var['l_name'];
+                                        $learnerUsername = $var['l_username'];
+
+                                        if ($learnerID == $lID && $courseFID == $courseID){
+                                          echo <<<GFG
+                                                  <div class="card" style="padding: 24px;" id="learner{$lID}">
+                                                    <div>
+                                                        <h4 style="padding: 12px 0px;"><strong>${courseName}</strong></h4>
+                                                        <h4>Learner's Name: &nbsp&nbsp${learnerName}</h4>
+                                                        <h6><i>Username: &nbsp&nbsp${learnerUsername}</i></h6>
+                                                    </div>
+                                                    <div style ="margin-top: 20px; background-color: rgba(169, 169, 169, 0.1); padding: 24px;">
+                                                        <pre>${message}</pre>
+                                                    </div>
+
+                                                    <input id= "showFeedbackBox{$counter}" class="simpleTextEdit" type="button" style="margin: 14px 0px; color:green;" value="Reply Feedback" ></input>
+                                                    <div id="feedbackBox{$counter}" class="modal">
+
+                                                    <div class="modal-content">
+                                                      <div>
+                                                          <h4 style=" padding: 24px; text-align: center !important; display: inline-block;">Replying to <strong>{$learnerName}</strong></h4>
+                                                          <span style=" display: inline-block;text-align: right; padding: 18px; margin-right: 14px;" id="close{$counter}" class="close">&times;</span>
+                                                      </div>
+
+                                                      <form style="all: revert; padding: 24px;" method="post" action="includes/feedbacks.inc.php">
+                                                        <div>
+                                                            <textarea name="teacherMsg" style="width: 100%; height: 200px;"></textarea>
+                                                        </div>
+                                                        <div>
+                                                            <input type="hidden" name="hiddenCourseID" value="{$courseID}">
+                                                            <input type="hidden" name="hiddenLearnerID" value="{$lID}">
+
+                                                            <input type="submit" class="btn btn-primary myhover" name="teacherLearnerFeedback" style="margin-top: 24px; float: right; border-radius: 7px;background: #1eb53a;"></input>
+                                                        </div>
+                                                      </form>
+                                                    </div>
+
+                                                    </div>
+
+                                                    <script>
+                                                          var modal{$counter} = document.getElementById("feedbackBox{$counter}");
+
+                                                          // Get the button that opens the modal
+                                                          var show{$counter} = document.getElementById("showFeedbackBox{$counter}");
+
+                                                          // Get the <span> element that closes the modal
+                                                          var close{$counter} = document.getElementById("close{$counter}");
+
+                                                          // When the user clicks on the button, open the modal
+                                                          show{$counter}.onclick = function() {
+                                                            modal{$counter}.style.display = "block";
+                                                          }
+
+                                                          // When the user clicks on <span> (x), close the modal
+                                                          close{$counter}.onclick = function() {
+                                                            modal{$counter}.style.display = "none";
+                                                          }
+
+                                                    </script>
+
+                                                  </div>
+
+
+
+                                          GFG;
+                                        }
+                                        $counter ++;
+
+                                      }
+                                    }
+
+                                  }
+
+                                }
+
+                                 ?>
+                               </div>
+                                 <h3 style="padding: 14px; margin-top: 16px; text-align: left;">Your Feedbacks Reply</h3>
+
+                                 <div class="card-group" style="text-align: left;">
+
+                                     <?php //IN PROGRESS
+                                     retrieveTeacherLearnerFeedback($conn);
+                                     retrieveLearners($conn);
+                                     foreach ($_SESSION['teacherLearnerFeedback'][0] as $key) {
+                                       // echo '<pre>'; print_r($key); echo '</pre>';
+                                       $thisTeacherID = $key['submit_teacher_fid'];
+                                       $learnerID = $key['receive_learner_fid'];
+                                       $courseFID = $key['course_fid'];
+                                       $message = $key['message'];
+                                       $courseName = "";
+                                       $learnername = "";
+
+
+                                       foreach ($_SESSION['GlobalCourse'][0] as $thisArray) {
+                                         $courseTempName = $thisArray['course_name'];
+                                         $courseID = $thisArray['course_id'];
+                                         if ($courseID == $courseFID){
+                                           $courseName = $courseTempName;
+                                           break;
+                                         }
+
+                                       }
+                                       foreach ($_SESSION['learnerList'][0] as $var) {
+                                         $lID = $var['l_ID'];
+                                         $templearnerName = $var['l_name'];
+                                         $learnerUsername = $var['l_username'];
+
+                                         if ($learnerID == $lID){
+                                           $learnername = $templearnerName;
+                                           break;
+                                         }
+
+                                       }
+
+                                       if ($thisTeacherID == $_SESSION['teacherid']){
+                                               echo <<<GFG
+
+                                                       <div class="card">
+                                                       <span style="text-align: left;">
+                                                         <h3 class="subjectList" style="display: inline-block; padding: 10px 24px; text-align: left; margin: 8px 0px;"><strong>{$courseName}</strong></h3>
+                                                         <input class="simpleTextCancel" type="button" style="transition: 0.1s; padding-right: 24px; margin: 18px 0px;background-color:inherit;" value = "Remove" onclick="redirectRemoveTLFeedback({$courseFID},{$lID},'{$message}')"></input>
+
+                                                         <h4 class="subjectList" style="; padding: 0px 36px; text-align: left; margin: 8px 0px;">Replied to: &nbsp&nbsp{$learnername}</h4>
+
+
+                                                         <div style="margin: 0px 36px; margin-bottom: 24px;background-color: rgba(169, 169, 169, 0.1); padding: 24px;">
+                                                             <pre>{$message}</pre>
+                                                         </div>
+                                                       </span>
+                                                       </div>
+
+
+
+                                               GFG;
+                                       }
+
+                                     }
+
+
+
+
+
+                                      ?>
+<!--
+                                <div class="card" style="padding: 24px;" id="coursetitle{$tempCourseId}">
+                                  <p>Content for tab 3.</p>
+                                  <div><p>test</p></div>
+                                  <div><p>test</p></div>
+                                </div>
+
+                                <div class="card" style="padding: 24px;" id="coursetitle{$tempCourseId}">
+                                  <p>Content for tab 3.</p>
+                                  <div><p>test</p></div>
+                                  <div><p>test</p></div>
+                                </div>
+                                 -->
+                              </div>
+                              <h3 style="padding: 14px; margin-top: 16px; text-align: left;">Your Course Feedbacks</h3>
+
+                              <div class="card-group" style="text-align: left;">
+
+                                <?php
+
+                                retrieveTeacherFeedback($conn);
+
+                                foreach ($_SESSION['teacherFeedback'][0] as $key) {
+                                  // echo '<pre>'; print_r($key); echo '</pre>';
+                                  $teacherid = $key['submit_teacher_fid'];
+                                  $courseFID = $key['course_fid'];
+                                  $message = $key['message'];
+                                  $courseName = "";
+
+                                  if ($teacherid == $_SESSION['teacherid']){
+
+                                  foreach ($_SESSION['GlobalCourse'][0] as $thisArray) {
+                                    $courseTempName = $thisArray['course_name'];
+                                    $courseID = $thisArray['course_id'];
+                                    $courseTeacherFID = $thisArray['t_fid'];
+                                    if ($courseID == $courseFID){
+                                      $courseName = $courseTempName;
+
+
+                                      // foreach ($_SESSION['learnerList'][0] as $var) {
+                                      //   $lID = $var['l_ID'];
+                                      //   $learnerName = $var['l_name'];
+                                      //   $learnerUsername = $var['l_username'];
+                                      //
+                                      //   if ($learnerID == $lID && $courseFID == $courseID){
+                                          echo <<<GFG
+                                                  <div class="card" style="padding: 24px;" id="learner{$lID}">
+                                                    <div>
+                                                        <h4 style="display: inline-block; padding: 12px 0px;"><strong>{$courseName}</strong></h4>
+                                                        <input class="simpleTextCancel" type="button" style="transition: 0.1s; padding-right: 24px; margin: 16px 0px;background-color:inherit;" value = "Remove" onclick="redirectRemoveFeedback({$courseFID},{$teacherid})"></input>
+
+                                                    </div>
+                                                    <div style ="margin-top: 20px; background-color: rgba(169, 169, 169, 0.1); padding: 24px;">
+                                                        <pre>{$message}</pre>
+                                                    </div>
+
+                                                  </div>
+
+
+
+                                          GFG;
+                                      //   }
+                                      //
+                                      // }
+                                    }
+
+                                  }
+                                  }
+                                }
+
+                                 ?>
+                               </div>
+                               <h3 style="padding: 14px; margin-top: 16px; text-align: left;">Feedbacks from Teachers</h3>
+
+                               <div class="card-group" style="text-align: left;">
+
+                                 <?php
+
+                                 retrieveTeacherFeedback($conn);
+
+                                 foreach ($_SESSION['teacherFeedback'][0] as $key) {
+                                   // echo '<pre>'; print_r($key); echo '</pre>';
+                                   $teacherid = $key['submit_teacher_fid'];
+                                   $courseFID = $key['course_fid'];
+                                   $message = $key['message'];
+                                   $courseName = "";
+
+                                   if ($teacherid !== $_SESSION['teacherid']){
+
+                                   foreach ($_SESSION['GlobalCourse'][0] as $thisArray) {
+                                     $courseTempName = $thisArray['course_name'];
+                                     $courseID = $thisArray['course_id'];
+                                     $courseTeacherFID = $thisArray['t_fid'];
+                                     if ($courseID == $courseFID && $courseTeacherFID == $_SESSION['teacherid']){
+                                       $courseName = $courseTempName;
+
+
+                                       // foreach ($_SESSION['learnerList'][0] as $var) {
+                                       //   $lID = $var['l_ID'];
+                                       //   $learnerName = $var['l_name'];
+                                       //   $learnerUsername = $var['l_username'];
+                                       //
+                                       //   if ($learnerID == $lID && $courseFID == $courseID){
+                                           echo <<<GFG
+                                                   <div class="card" style="padding: 24px;" id="teacher{$teacherid}">
+                                                     <div>
+                                                         <h4 style="display: inline-block; padding: 12px 0px;"><strong>{$courseName}</strong></h4>
+
+
+                                                     </div>
+                                                     <div style ="margin-top: 20px; background-color: rgba(169, 169, 169, 0.1); padding: 24px;">
+                                                         <pre>{$message}</pre>
+                                                     </div>
+
+                                                   </div>
+
+
+
+                                           GFG;
+                                       //   }
+                                       //
+                                       // }
+                                     }
+
+                                   }
+                                   }
+                                 }
+
+                                  ?>
+                                <!-- <div class="card" style="padding: 24px;" id="coursetitle{$tempCourseId}">
+                                  <h3>Your feedbacks</h3>
+                                  <p>Content for tab 3.</p>
+                                </div> -->
+
+                                   <!-- <p>Content for tab 3.</p> -->
+                                       </div>
+                                   </div>
+                                  <!-- <div class="card" style="padding: 24px;" id="coursetitle{$tempCourseId}">
+                                    <h3>Your feedbacks</h3>
+                                    <p>Content for tab 3.</p>
+                                  </div> -->
+                                </div>
+                              </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -744,6 +1058,13 @@
     function redirectAddNewMatIn(subtopicID){ //to redirect to adding materials in the selected subtopic
       window.location.href=`matedit.php?subtopic=${subtopicID}`;
     }
+    function redirectRemoveFeedback(courseID, teacherID){ //to redirect to adding materials in the selected subtopic
+      window.location.href=`includes/feedbacks.inc.php?remove=${courseID}&teacher=${teacherID}`;
+    }
+    function redirectRemoveTLFeedback(courseID, learnerID, message){ //to redirect to adding materials in the selected subtopic
+      window.location.href=`includes/feedbacks.inc.php?remove=${courseID}&learner=${learnerID}&msg=${message}`;
+    }
+
 
     </script>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>

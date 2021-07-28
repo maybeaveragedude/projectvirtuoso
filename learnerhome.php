@@ -42,7 +42,7 @@
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item" role="presentation"><a class="nav-link active" role="tab" data-bs-toggle="tab" href="#tab-1">Courses</a></li>
                                 <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-2">Progress</a></li>
-                                <!-- <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-3">Achievements</a></li> -->
+                                <li class="nav-item" role="presentation"><a class="nav-link" role="tab" data-bs-toggle="tab" href="#tab-3">Feedbacks</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div class="tab-pane active" role="tabpanel" id="tab-1">
@@ -256,6 +256,51 @@
                                                           <p>{$tempProgressPercentage}%</p>
                                                           <h4>Quiz Score</h4>
                                                           <p>{$tempQuizScore}%</p>
+                                                          <input id="showFeedbackBox{$tempCourseId}" class="simpleTextCancel" type="button" style="transition: 0.1s; padding-right: 24px; margin: 18px 0px;background-color:inherit;" value = "Provide Feedback" ></input>
+                                                          <div id="feedbackBox{$tempCourseId}" class="modal">
+
+                                                          <!-- Modal content -->
+                                                          <div class="modal-content">
+                                                            <div>
+                                                                <h4 style=" padding: 24px; text-align: center !important; display: inline-block;">Feedback for <strong>{$tempname}</strong></h4>
+                                                                <span style=" display: inline-block;text-align: right; padding: 18px; margin-right: 14px;" id="close{$tempCourseId}" class="close">&times;</span>
+                                                            </div>
+
+                                                            <form style="all: revert; padding: 24px;" method="post" action="includes/feedbacks.inc.php">
+                                                              <div>
+                                                                  <textarea name="studentMsg" style="width: 100%; height: 200px;"></textarea>
+                                                              </div>
+                                                              <div>
+                                                                  <input type="hidden" name="hiddenCourseID" value="{$tempCourseId}">
+                                                                  <input type="submit" class="btn btn-primary myhover"  name="studentfeedback" style="margin-top: 24px; float: right; border-radius: 7px;background: #1eb53a;"></input>
+                                                              </div>
+                                                            </form>
+                                                          </div>
+
+                                                        </div>
+
+                                                        <script>
+                                                                var modal{$tempCourseId} = document.getElementById("feedbackBox{$tempCourseId}");
+
+                                                                // Get the button that opens the modal
+                                                                var show{$tempCourseId} = document.getElementById("showFeedbackBox{$tempCourseId}");
+
+                                                                // Get the <span> element that closes the modal
+                                                                // var close{$tempCourseId} = document.getElementsByClassName("close")[0];
+                                                                var close{$tempCourseId} = document.getElementById("close{$tempCourseId}");
+
+                                                                // When the user clicks on the button, open the modal
+                                                                show{$tempCourseId}.onclick = function() {
+                                                                  modal{$tempCourseId}.style.display = "block";
+                                                                }
+
+                                                                // When the user clicks on <span> (x), close the modal
+                                                                close{$tempCourseId}.onclick = function() {
+                                                                  modal{$tempCourseId}.style.display = "none";
+                                                                }
+
+                                                        </script>
+
 
 
 
@@ -283,9 +328,130 @@
                                ?>
                                     </div>
                                 </div>
-                                <!-- <div class="tab-pane" role="tabpanel" id="tab-3">
-                                    <p>Content for tab 3.</p>
-                                </div> -->
+                                <div class="tab-pane" role="tabpanel" id="tab-3">
+                                  <h3 style="padding: 14px;margin-top: 16px; text-align: left;">Your Given Feedbacks</h3>
+
+                                  <div class="card-group">
+
+                                  <?php
+                                  retrieveLearnerFeedback($conn);
+                                  foreach ($_SESSION['learnerFeedback'][0] as $key) {
+                                    // echo '<pre>'; print_r($key); echo '</pre>';
+                                    $learnerID = $key['learner_fid'];
+                                    $courseFID = $key['course_fid'];
+                                    $message = $key['message'];
+                                    $courseName = "";
+
+
+                                    foreach ($_SESSION['GlobalCourse'][0] as $thisArray) {
+                                      $courseTempName = $thisArray['course_name'];
+                                      $courseID = $thisArray['course_id'];
+                                      if ($courseID == $courseFID){
+                                        $courseName = $courseTempName;
+                                        break;
+                                      }
+
+                                    }
+
+
+
+                                    if ($learnerID == $_SESSION['learnerid']){
+                                    echo <<<GFG
+
+                                            <div class="card">
+                                            <span style="text-align: left;">
+                                              <h3 class="subjectList" style="display: inline-block; padding: 10px 24px; text-align: left; margin: 8px 0px;"><strong>{$courseName}</strong></h3>
+                                              <input class="simpleTextCancel" type="button" style="transition: 0.1s; padding-right: 24px; margin: 18px 0px;background-color:inherit;" value = "Remove" onclick="redirectRemoveFeedback({$courseFID})"></input>
+
+                                              <div style="margin: 0px 36px; margin-bottom: 24px;background-color: rgba(169, 169, 169, 0.1); padding: 24px;">
+                                                  <pre>{$message}</pre>
+                                              </div>
+                                            </span>
+                                            </div>
+
+
+
+                                    GFG;}
+                                  }
+
+                                   ?>
+                                 </div>
+
+                                   <div class="tab-pane" role="tabpanel" id="tab-3">
+                                     <h3 style="padding: 14px;margin-top: 16px; text-align: left;">Feedbacks from Teachers</h3>
+                                     <div class="card-group">
+
+                                     <?php //
+                                     retrieveTeacherLearnerFeedback($conn);
+                                     retrieveTeacherList($conn);
+
+
+                                    foreach ($_SESSION['teacherLearnerFeedback'][0] as $key) {
+                                       // echo '<pre>'; print_r($key); echo '</pre>';
+                                       if (in_array($_SESSION['learnerid'], $key)){
+                                       $learnerID = $key['receive_learner_fid'];
+                                       $teacherFID = $key['submit_teacher_fid'];
+                                       $courseFID = $key['course_fid'];
+                                       $message = $key['message'];
+                                       $courseName = "";
+                                       $teacherRefName = "";
+
+
+                                       foreach ($_SESSION['GlobalCourse'][0] as $thisArray) {
+                                         $courseTempName = $thisArray['course_name'];
+                                         $courseID = $thisArray['course_id'];
+                                         if ($courseID == $courseFID){
+                                           $courseName = $courseTempName;
+                                           break;
+                                         }
+
+                                       }
+
+                                       foreach ($_SESSION['teacherList'][0] as $temp) {
+                                         $teacherName = $temp['t_name'];
+                                         $teacherUsername = $temp['t_username'];
+
+                                         $teachertempID = $temp['t_ID'];
+                                         if ($teacherFID == $teachertempID){
+                                           $teacherRefName = $teacherName;
+                                           break;
+                                         }
+
+                                       }
+
+                                       if ($learnerID == $_SESSION['learnerid']){
+                                       echo <<<GFG
+
+                                               <div class="card" style="text-align: left;">
+                                               <div style="padding: 12px 36px;">
+                                                   <h4 style="padding: 12px 0px;"><strong>${courseName}</strong></h4>
+                                                   <h4>Teachers's Name: &nbsp&nbsp${teacherRefName}</h4>
+                                                   <h6><i>Username: &nbsp&nbsp${teacherUsername}</i></h6>
+                                               </div>
+                                               <span style="text-align: left;">
+
+
+
+                                                 <div style="margin: 0px 36px; margin-bottom: 24px;background-color: rgba(169, 169, 169, 0.1); padding: 24px;">
+                                                     <pre>{$message}</pre>
+                                                 </div>
+                                               </span>
+                                               </div>
+
+
+
+                                       GFG;}
+                                     }
+                                   }
+
+
+
+
+                                      ?>
+                                    <!-- <p>Content for tab 3.</p> -->
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -308,6 +474,9 @@
     }
     function redirectResumeCourse(tempCourseId){ //to allows learner to subscribe to the course
       window.location.href=`learnerdisplaysession.php?course=${tempCourseId}`;
+    }
+    function redirectRemoveFeedback(tempCourseId){ //to allows learner to subscribe to the course
+      window.location.href=`includes/feedbacks.inc.php?remove=${tempCourseId}`;
     }
     </script>
 

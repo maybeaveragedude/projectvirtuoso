@@ -32,7 +32,9 @@
                             <div class="row" style="width: 1300px;margin: auto; box-shadow: 0px 2px 26px rgba(0,0,0,.1); padding: 24px 48px; border-radius: 16px;" >
                               <!-- <p>test</p> -->
                               <?php
-                              $tempSUBBEDcourseID[] = "";
+                              if (isset($_SESSION['teacherid'])) {
+
+                                $tempSUBBEDcourseID[] = "";
 
 
                               if (isset($_SESSION['learnerid'])){
@@ -73,9 +75,52 @@
                                       <div class="coursetitle" id="coursetitle{$tempCourseId}">
                                         <a class="btn btn-primary listgroupdropMain subjectList" style="font-size: 20px; margin: 14px 0px;"data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$num}" href="#collapseCourse-{$num}" role="button"><strong>{$tempname}</strong></a>
                                         <input class="simpleTextEdit" type="button" style="margin: 14px 0px; color:blue;" value="Preview" onclick="redirectViewCourse({$tempCourseId})"></input>
+                                        <input id= "showFeedbackBox{$tempCourseId}" class="simpleTextEdit" type="button" style="margin: 14px 0px; color:green;" value="Provide Feedback" ></input>
+                                        <div id="feedbackBox{$tempCourseId}" class="modal">
 
+                                        <div class="modal-content">
+                                          <div>
+                                              <h4 style=" padding: 24px; text-align: center !important; display: inline-block;">Feedback for <strong>{$tempname}</strong></h4>
+                                              <span style=" display: inline-block;text-align: right; padding: 18px; margin-right: 14px;" id="close{$tempCourseId}" class="close">&times;</span>
+                                          </div>
+
+                                          <form style="all: revert; padding: 24px;" method="post" action="includes/feedbacks.inc.php">
+                                            <div>
+                                                <textarea name="teacherMsg" style="width: 100%; height: 200px;"></textarea>
+                                            </div>
+                                            <div>
+                                                <input type="hidden" name="hiddenCourseID" value="{$tempCourseId}">
+                                                <input type="submit" class="btn btn-primary myhover" name="teacherCoursefeedback" style="margin-top: 24px; float: right; border-radius: 7px;background: #1eb53a;"></input>
+                                            </div>
+                                          </form>
+                                        </div>
+
+                                        </div>
+
+                                        <script>
+                                              var modal{$tempCourseId} = document.getElementById("feedbackBox{$tempCourseId}");
+
+                                              // Get the button that opens the modal
+                                              var show{$tempCourseId} = document.getElementById("showFeedbackBox{$tempCourseId}");
+
+                                              // Get the <span> element that closes the modal
+                                              // var close{$tempCourseId} = document.getElementsByClassName("close")[0];
+                                              var close{$tempCourseId} = document.getElementById("close{$tempCourseId}");
+
+                                              // When the user clicks on the button, open the modal
+                                              show{$tempCourseId}.onclick = function() {
+                                                modal{$tempCourseId}.style.display = "block";
+                                              }
+
+                                              // When the user clicks on <span> (x), close the modal
+                                              close{$tempCourseId}.onclick = function() {
+                                                modal{$tempCourseId}.style.display = "none";
+                                              }
+
+                                        </script>
 
                                   GFG;
+
 
 
                                   if (isset($_SESSION['learnerid'])){
@@ -178,7 +223,160 @@
                                   // <div class="singleSubjectRowLine" style="margin: 0px auto 0px 24px; width: 140px; text-align: center !important; align: center;"></div>
                                   $num += 1;
                                 }
+                              }
+                            } else {
+
+                              $tempSUBBEDcourseID[] = "";
+
+
+                            if (isset($_SESSION['learnerid'])){
+                                foreach ($_SESSION["learnerCourse"][0] as $subscribed){
+
+                                  if (empty($subscribed)){
+                                    $tempSUBBEDcourseID = "";
+                                    // echo '<pre>'; print_r($subscribed); echo '</pre>';
+
+
+                                  } else {
+
+                                    $tempSUBBEDcourseID[] = $subscribed['course_fid'];
+                                    // echo '<pre>'; print_r($subscribed); echo '</pre>';
+
+
+                                  }
                                 }
+                          }
+
+
+
+                            $num=0;
+
+                            //COURSE PART
+                              foreach ($_SESSION["GlobalCourse"][$num] as $display) {
+                                // echo '<pre>'; print_r($display); echo '</pre>';
+
+                                $tempCourseId = $display['course_id'];
+                                $tempname = $display['course_name'];
+                                $tempdesc = $display['course_desc'];
+                                $tempTFID = $display['t_fid'];
+                                $tempapproved = $display['course_status'];
+                                // $tempTID = $_SESSION["teacherid"];
+
+                                if ($tempapproved == 1){
+                                echo <<<GFG
+                                    <div class="coursetitle" id="coursetitle{$tempCourseId}">
+                                      <a class="btn btn-primary listgroupdropMain subjectList" style="font-size: 20px; margin: 14px 0px;"data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$num}" href="#collapseCourse-{$num}" role="button"><strong>{$tempname}</strong></a>
+                                      <input class="simpleTextEdit" type="button" style="margin: 14px 0px; color:blue;" value="Preview" onclick="redirectViewCourse({$tempCourseId})"></input>
+
+
+                                GFG;
+
+
+                                if (isset($_SESSION['learnerid'])){
+                                // foreach ($tempSUBBEDcourseID as $key) {
+                                  if (in_array($tempCourseId, $tempSUBBEDcourseID))
+                                  // if ($key == $tempCourseId)
+                                  // {
+                                  //
+                                  //   echo <<<GFG
+                                  //         <input class="simpleTextEdit" type="button" style="margin: 14px 0px; color:green;" value="I WANT THIS" onclick="redirectLearnerSubscribe({$tempCourseId})"></input>
+                                  //   GFG;
+                                  //
+                                  //
+                                  // } else
+                                  {
+
+                                    echo <<<GFG
+
+                                    <div style="float:right;margin-left:24px; display: inline-block; box-shadow: 0px 4px 26px rgba(0,60,0,.3); border-radius: 20px 20px 20px 20px; background-color: rgba(255,5,0,.3);">
+                                          <span>
+                                            <input class="simpleTextEdit" type="button"style="color: black;font-size: 18px; margin: 10px 0px !important; padding: 0px 24px; background-color:inherit;" value = "Opt out on course 😢" onclick="redirectRemoveSubscription({$tempCourseId})"></input>
+
+                                          </span>
+                                    </div>
+
+
+                                    <div style="float:right;margin-left:24px; display: inline-block; box-shadow: 0px 4px 26px rgba(0,60,0,.3); border-radius: 20px 20px 20px 20px; background-color: rgba(222,200,0,.3);">
+                                          <span>
+                                            <p style="font-size: 18px; margin: 14px 0px !important; padding: 0px 60px;"> You are subscribed to this course!</p>
+
+                                          </span>
+                                    </div>
+
+
+
+                                    GFG;
+                                    // break;
+
+
+                                  } else {
+                                    echo <<<GFG
+                                          <input class="simpleTextEdit" type="button" style="margin: 14px 0px; color:green;" value="I WANT THIS" onclick="redirectLearnerSubscribe({$tempCourseId})"></input>
+                                    GFG;
+                                    // break;
+                                  }
+                                }
+
+
+                                // }
+
+
+                                echo <<<GFG
+
+                                        <div class="collapse" id="collapseCourse-{$num}">
+
+                                GFG;
+                                  //DISPLAY ORDERED SUBTOPICS
+                                  $subsnum = 0;
+                                  foreach ($_SESSION["GlobalCourseSubtopics"] as $coursesubsDisp){
+                                    $tempinnercourse = $coursesubsDisp[$subsnum]['course_fid'];
+                                    // $tempTopSubname = $coursesubsDisp[$subsnum];
+                                    // $tempSubdesc = $coursesubsDisp[$subsnum]['sub_desc'];
+                                    // $tempSubFId = $coursesubsDisp['sbjt_fid'];
+                                    // $tempTopicId = $coursesubsDisp['topic_id'];
+                                    // echo '<pre>'; print_r($coursesubsDisp); echo '</pre>';
+
+                                    if($tempCourseId == $tempinnercourse){
+                                      // echo '<pre>'; print_r($coursesubsDisp); echo '</pre>';
+
+                                      $innercount = 0;
+                                      foreach ($coursesubsDisp as $count) {
+                                        $tempSubname = $count['sub_name'];
+                                        echo <<<GFG
+                                            <div class="singleTopicRow" id="singleTopicRow{$subsnum}">
+                                              <a class="btn btn-primary listgroupdropMain TopicList" style="padding-top: 0px; padding-bottom: 2px;margin-left: 24px; margin-top: 0px; margin-bottom: 12px;" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-{$subsnum}" href="#collapseTopic-{$subsnum}" role="button">{$tempSubname}</a>
+
+                                        GFG;
+
+
+                                        echo <<<GFG
+
+
+
+                                                </div>
+                                        GFG;
+                                        $innercount += 1;
+                                      }
+                                      $subsnum +=1;
+
+                                      }
+
+                                  }
+
+                               echo <<<GFG
+
+                                        </div>
+                                    </div>
+
+                                GFG;
+                                // <div class="singleSubjectRowLine" style="margin: 0px auto 0px 24px; width: 140px; text-align: center !important; align: center;"></div>
+                                $num += 1;
+                              }
+                            }
+
+
+
+                              }
 
 
                                ?>
@@ -210,6 +408,7 @@
     function redirectRemoveSubscription(tempCourseId){ //to allows learner to subscribe to the course
       window.location.href=`includes/subscribetocourse.inc.php?delete=${tempCourseId}`;
     }
+
     </script>
 
 
