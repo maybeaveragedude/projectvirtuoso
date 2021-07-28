@@ -13,13 +13,15 @@
     <main class="page landing-page">
         <section class="portfolio-block block-intro" style="padding: 50px 75px;padding-bottom: 0px;">
             <div class="container">
-                <div class="row" style="padding-bottom: 50px;border-bottom-style: solid;">
+                <div class="row" style=" padding-bottom: 50px;border-bottom-style: solid;">
                     <div class="col-5 align-self-center">
                         <h1 style="padding: 10px;text-align: left;font-weight: bold;">Learn to think</h1>
                         <p style="margin: 0px;text-align: left;padding-left: 10px;">Virtuoso introduces hands-on, interactive lessons with supporting lecture videos. It's a captivating (and fun) way to learn.<br><br></p>
                         <div class="text-start" style="padding-left: 10px;"><a class="btn btn-primary btn-lg text-center border rounded" role="button" style="padding-right: 25px;padding-left: 25px;" href="signup.php">Get Started</a></div>
                     </div>
-                    <div class="col-7 text-center d-flex flex-grow-1 flex-shrink-1 align-items-center"><iframe class="d-flex flex-shrink-1 flex-fill align-items-center align-content-center justify-content-xl-center" allowfullscreen="" frameborder="0" src="https://www.youtube.com/embed/abqsJpdvrbU?autoplay=1&amp;mute=1&amp;loop=1&amp;playlist=abqsJpdvrbU" width="800" height="400" style="padding: 0px;margin: 30px;text-align: center;margin-top: 50px;margin-bottom: 50px;"></iframe></div>
+                    <div class="col-7 text-center d-flex flex-grow-1 flex-shrink-1 align-items-center">
+                      <video class="d-flex flex-shrink-1 flex-fill align-items-center align-content-center justify-content-xl-center" autoplay=""  src="assets/img/200430_Reading Books_01_4k_021_preview.webm" width="800" height="400" style="padding: 0px;margin: 30px;text-align: center;margin-top: 50px;margin-bottom: 50px;"></video>
+                    </div>
                 </div>
             </div>
         </section>
@@ -87,9 +89,9 @@
     </section>
     <footer class="page-footer">
         <div class="container">
-            <div class="links"><a href="#">Contact us</a></div>
+            <!-- <div class="links"><a href="#">Contact us</a></div> -->
             <div class="links"><a href="adminlogin.php"></small>Admin Login</small></a></div>
-            <div class="social-icons"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-instagram-outline"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a></div>
+            <!-- <div class="social-icons"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-instagram-outline"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a></div> -->
         </div>
     </footer>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>

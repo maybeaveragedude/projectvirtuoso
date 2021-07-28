@@ -28,7 +28,7 @@
               }
               elseif ($_GET["error"] == "usernametaken") {
                 // echo "<p>Username is taken!<p>";
-                echo "<script>alert('Username is taken!');</script>";
+                echo "<script>alert('Username/Email is registered!');</script>";
               }
               elseif ($_GET["error"] == "stmtfailed") {
                 // echo "<p>Something wrong occured! Please try again later.<p>";

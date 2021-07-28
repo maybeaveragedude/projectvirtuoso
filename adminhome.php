@@ -26,7 +26,7 @@
                                         } elseif ($_GET["tstatus"] == "deactivated"){
                                             echo "<script>alert('Selected teacher account has been deactivated!');</script>";
                                         }
-                                    } 
+                                    }
                                 ?>
                                 <div>
                                     <h1 class="d-xxl-flex justify-content-xxl-start">
@@ -123,8 +123,8 @@
     </section>
     <footer class="page-footer">
         <div class="container">
-            <div class="links"><a href="#">Contact us</a></div>
-            <div class="social-icons"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-instagram-outline"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a></div>
+            <!-- <div class="links"><a href="#">Contact us</a></div> -->
+            <!-- <div class="social-icons"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-instagram-outline"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a></div> -->
         </div>
     </footer>
 
