@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 27, 2021 at 11:55 AM
+-- Generation Time: Jul 28, 2021 at 07:38 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -152,7 +152,8 @@ INSERT INTO `learners` (`l_ID`, `l_email`, `l_pwd`, `l_username`, `l_name`) VALU
 (10, 'error@mail.com', '$2y$10$7N6YvCuntKcvGQBEw7jpO.29fPt1unuk70jOxHlhjI9I0OwSW2usm', 'isthereerror', 'TesterrorStudent'),
 (11, 'asd', '$2y$10$HsDM0cCVBndeqnAEMDUVquj.DGjHlUTlzhL2LRO1oW4tD1AHbODDK', 'asd', 'asd'),
 (12, 'test@mail.com', '$2y$10$Jx/0n8OKs16c1MqXIsO0/.fGo2LjnePr3hBHp26SjcWW3.jFf2pPC', 'testforemail', 'Test For Email'),
-(13, 'test@learner.com', '$2y$10$7WDa5Ft6aNO5cL4kXvQzu.SmUfBBdzWI31OAlcK0kYg1piyClBSai', 'newesttestlearner', 'Newest Test Learner');
+(13, 'test@learner.com', '$2y$10$7WDa5Ft6aNO5cL4kXvQzu.SmUfBBdzWI31OAlcK0kYg1piyClBSai', 'newesttestlearner', 'Newest Test Learner'),
+(14, 'final@test.com', '$2y$10$NleiyxCIOExjJ8d2qaFVg.x2fJqqWUMpC1w7buZ.hdVZmapnuncfC', 'finaltest', 'Final Test');
 
 -- --------------------------------------------------------
 
@@ -176,9 +177,33 @@ CREATE TABLE `learners_course` (
 
 INSERT INTO `learners_course` (`l_fid`, `course_fid`, `total_progress`, `quiz_scores`, `subscription_date`, `material_progress`, `quiz_progress`) VALUES
 (6, 75, 100, 100, '2021-07-24 22:36:18', '[\"mat102\",\"mat94\",\"mat78\",\"mat104\"]', '[\"quiz108\",\"quiz117\",\"quiz119\"]'),
-(6, 76, 0, 0, '2021-07-25 18:33:57', NULL, NULL),
-(6, 82, 0, 0, '2021-07-25 18:35:27', NULL, NULL),
-(13, 76, 27, 20, '2021-07-25 18:35:59', '[\"mat97\",\"mat93\"]', '[\"quiz112\"]');
+(13, 76, 27, 20, '2021-07-25 18:35:59', '[\"mat97\",\"mat93\"]', '[\"quiz112\"]'),
+(10, 81, 0, 0, '2021-07-28 19:01:28', NULL, NULL),
+(10, 75, 0, 0, '2021-07-28 19:01:42', NULL, NULL),
+(6, 81, 0, 0, '2021-07-29 01:12:08', NULL, NULL),
+(14, 75, 0, 0, '2021-07-29 01:34:26', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `learner_course_feedbacks`
+--
+
+CREATE TABLE `learner_course_feedbacks` (
+  `learner_fid` int(11) NOT NULL,
+  `course_fid` int(11) NOT NULL,
+  `message` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `learner_course_feedbacks`
+--
+
+INSERT INTO `learner_course_feedbacks` (`learner_fid`, `course_fid`, `message`) VALUES
+(6, 75, 'asdasd'),
+(10, 75, 'Sick'),
+(6, 81, 'THINK'),
+(14, 75, 'Nice');
 
 -- --------------------------------------------------------
 
@@ -443,6 +468,49 @@ INSERT INTO `teacher` (`t_ID`, `t_username`, `t_name`, `t_email`, `t_pwd`, `t_st
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `teacher_course_feedbacks`
+--
+
+CREATE TABLE `teacher_course_feedbacks` (
+  `submit_teacher_fid` int(11) NOT NULL,
+  `course_fid` int(11) NOT NULL,
+  `message` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `teacher_course_feedbacks`
+--
+
+INSERT INTO `teacher_course_feedbacks` (`submit_teacher_fid`, `course_fid`, `message`) VALUES
+(26, 81, 'CRASH'),
+(24, 75, 'Very nice'),
+(25, 81, 'This is a legit feedback');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `teacher_learner_feedbacks`
+--
+
+CREATE TABLE `teacher_learner_feedbacks` (
+  `submit_teacher_fid` int(11) NOT NULL,
+  `receive_learner_fid` int(11) NOT NULL,
+  `course_fid` int(11) NOT NULL,
+  `message` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `teacher_learner_feedbacks`
+--
+
+INSERT INTO `teacher_learner_feedbacks` (`submit_teacher_fid`, `receive_learner_fid`, `course_fid`, `message`) VALUES
+(26, 10, 75, 'VERY NICE'),
+(26, 6, 75, 'sdfsdfsdf'),
+(26, 14, 75, 'Thanks for your feedback');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `topic`
 --
 
@@ -615,6 +683,13 @@ ALTER TABLE `learners_course`
   ADD KEY `linkcourse` (`course_fid`);
 
 --
+-- Indexes for table `learner_course_feedbacks`
+--
+ALTER TABLE `learner_course_feedbacks`
+  ADD KEY `student_fid` (`learner_fid`,`course_fid`),
+  ADD KEY `learnerfeedcourse` (`course_fid`);
+
+--
 -- Indexes for table `materials`
 --
 ALTER TABLE `materials`
@@ -669,6 +744,21 @@ ALTER TABLE `teacher`
   ADD KEY `approval_admin_fid` (`approval_admin_fid`);
 
 --
+-- Indexes for table `teacher_course_feedbacks`
+--
+ALTER TABLE `teacher_course_feedbacks`
+  ADD KEY `submit_teacher_fid` (`submit_teacher_fid`,`course_fid`),
+  ADD KEY `courseid` (`course_fid`);
+
+--
+-- Indexes for table `teacher_learner_feedbacks`
+--
+ALTER TABLE `teacher_learner_feedbacks`
+  ADD KEY `submit_teacher_fid` (`submit_teacher_fid`,`receive_learner_fid`,`course_fid`),
+  ADD KEY `learnerlFid` (`receive_learner_fid`),
+  ADD KEY `courselFid` (`course_fid`);
+
+--
 -- Indexes for table `topic`
 --
 ALTER TABLE `topic`
@@ -711,7 +801,7 @@ ALTER TABLE `course`
 -- AUTO_INCREMENT for table `learners`
 --
 ALTER TABLE `learners`
-  MODIFY `l_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `l_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `materials`
@@ -793,6 +883,13 @@ ALTER TABLE `learners_course`
   ADD CONSTRAINT `linklearner` FOREIGN KEY (`l_fid`) REFERENCES `learners` (`l_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `learner_course_feedbacks`
+--
+ALTER TABLE `learner_course_feedbacks`
+  ADD CONSTRAINT `learnerfeedcourse` FOREIGN KEY (`course_fid`) REFERENCES `course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `learnerid` FOREIGN KEY (`learner_fid`) REFERENCES `learners` (`l_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `materials`
 --
 ALTER TABLE `materials`
@@ -832,6 +929,21 @@ ALTER TABLE `subtopic_materials`
 --
 ALTER TABLE `teacher`
   ADD CONSTRAINT `teacher_ibfk_1` FOREIGN KEY (`approval_admin_fid`) REFERENCES `admin` (`admin_id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `teacher_course_feedbacks`
+--
+ALTER TABLE `teacher_course_feedbacks`
+  ADD CONSTRAINT `courseid` FOREIGN KEY (`course_fid`) REFERENCES `course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `teacherid` FOREIGN KEY (`submit_teacher_fid`) REFERENCES `teacher` (`t_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `teacher_learner_feedbacks`
+--
+ALTER TABLE `teacher_learner_feedbacks`
+  ADD CONSTRAINT `courselFid` FOREIGN KEY (`course_fid`) REFERENCES `course` (`course_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `learnerlFid` FOREIGN KEY (`receive_learner_fid`) REFERENCES `learners` (`l_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `teacherlFid` FOREIGN KEY (`submit_teacher_fid`) REFERENCES `teacher` (`t_ID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `topic`
