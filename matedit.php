@@ -12,6 +12,12 @@ if(isset($_GET['subtopic'])){
  <script type="text/javascript" src="assets/js/jquery-ui.min.js"></script>
 
     <main class="page lanidng-page">
+      <div id="sidebarRightFloatGuideline" >
+        <span>
+            <a class="d-xxl-flex justify-content-xxl-end" style="all: revert; font-size: 40px; color:black; cursor: pointer;" onclick="on()">Guideline</a>
+        </span>
+      </div>
+
       <!-- FOR HIDDEN GUIDELINE -->
         <div id="overlay" class="overlay">
             <div id="guidelinebox" class="guidelinebox">
@@ -35,9 +41,10 @@ if(isset($_GET['subtopic'])){
                         <div class="col"><small><strong>Create </strong>&amp;&nbsp;<strong>Edit</strong>&nbsp;materials for your subtopics!</small></div>
                     </div>
                 </div>
-                <div class="col d-xxl-flex justify-content-xxl-end align-items-xxl-center"><a class="d-xxl-flex justify-content-xxl-end" style="font-size: 40px;font-family: Lato, sans-serif;font-style: italic;" onclick="on()">Guideline</a></div>
+
             </div>
         </section>
+
         <section class="d-xxl-flex justify-content-xxl-center mateditor" style="margin: auto;">
             <div class="col-xxl-12 text-start d-xxl-flex justify-content-xxl-center" style="max-width: 3000px;text-align: left;">
                 <form id="teachereditorform" method="post"action="includes/newmat.inc.php" enctype="multipart/form-data" style = "padding-top: 40px;padding-bottom: 40px; min-height: inherit; width: inherit;margin: 0px;">
@@ -293,6 +300,7 @@ if(isset($_GET['subtopic'])){
                         <div class="col-xxl-7" style="padding: 0px 40px;margin: 0px 0px;min-height: 900px;padding-top: 16px;margin-top: 14px;">
 
                             <h2>Quiz Wizard</h2>
+                            <h5>Remember to fill in all the options and mark it as the correct answer above it.</h5>
 
                             <ul id="newquizlist" class="list-unstyled sortable newquizlist canBeTrashed connectedSortable" style="min-height: 400px; margin-top: 24px;padding-top: 24px;padding-right: 40px;padding-left: 40px;border-width: 1px;border-style: solid;padding-bottom: 16px;">
                                 <!-- <li class="matlistObjects">Item 1</li>
@@ -329,9 +337,11 @@ if(isset($_GET['subtopic'])){
 
             </div>
         </section>
+
         <section class="portfolio-block skills" style="padding: 50px 75px;padding-top: 75px;"></section>
         <section class="portfolio-block block-intro" style="padding: 50px 75px;padding-top: 0px;"></section>
     </main>
+
     <footer class="page-footer">
         <div class="container">
             <!-- <div class="links"><a href="#">Contact us</a></div>
