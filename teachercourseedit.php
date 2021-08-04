@@ -24,7 +24,7 @@
     </section>
     <section class="editor">
         <div class="col">
-            <form id="courseeditForm"style="padding-top: 40px;padding-bottom: 40px;" method="post" action="includes/coursenew.inc.php">
+            <form id="courseeditForm"style="padding-top: 40px;padding-bottom: 40px;" onsubmit="return showid()" method="post" action="includes/coursenew.inc.php">
                 <div class="row" style="padding-right: 80px;padding-left: 80px;">
                     <div class="col-xxl-8" style="height: 311px;padding: 0px;margin: 0px 0px;border-right-width: 1px;border-left-width: 1px;margin-bottom: 14px;padding-right: 0px;">
                       <label class="form-label middlelabel biggerlabel" style="font-size: 36px;" >Course Name</label>
@@ -291,7 +291,7 @@
                            ?>
 
                         </ul>
-                        <button class="btn btn-primary myhover" id="submitcourse" style="margin-top: 24px; float: right; border-radius: 7px;background: #1eb53a;" onclick="showid()">Send In!</button>
+                        <button class="btn btn-primary myhover" id="submitcourse" style="margin-top: 24px; float: right; border-radius: 7px;background: #1eb53a;" onclick="">Send In!</button>
 
                         <?php
                         if(isset($_GET['editcourse'])){
@@ -553,7 +553,12 @@
 
       function showid(){
         console.log(document.getElementById("hiddenIDlist"));
-
+        if (document.getElementById("hiddenIDlist").value == 0){
+          alert("You cannot submit an empty course!");
+          return false;
+        } else {
+          return true;
+        }
       }
 
 
