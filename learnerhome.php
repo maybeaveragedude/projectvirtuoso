@@ -133,9 +133,9 @@
 
                                                           </div>
                                                   GFG;
-                                                  $innercount += 1;
+                                                  // $innercount += 1;
                                                 }
-                                                $subsnum +=1;
+                                                // $subsnum +=1;
 
                                                 }
 
@@ -150,7 +150,7 @@
 
                                               GFG;
                                           // <div class="singleSubjectRowLine" style="margin: 0px auto 0px 24px; width: 140px; text-align: center !important; align: center;"></div>
-                                          $num += 1;
+                                          // $num += 1;
                                         }
                                       }
 
