@@ -100,7 +100,7 @@
                             <label for="myfile"></label>
                             <input type="file" id="filecred" name="file" multiple><br><br>
                             <label class="form-label">Or any URL to your Youtube channel or education sites!</label>
-                            <input class="form-control" type="url" placeholder="Website URLs" style="width: 75%;" name="Websiteforreferences">
+                            <input class="form-control" type="text" placeholder="Website URLs" style="width: 75%;" name="Websiteforreferences">
                         </div>
                         <div id="Step6" class="tabcontent">
                             <h1 class="display-5 text-start">Done!&nbsp;<br>Our team will contact you shortly!</h1>
@@ -110,12 +110,12 @@
             </div>
         </section>
     </main>
-    <footer class="page-footer">
+    <!-- <footer class="page-footer">
         <div class="container">
             <div class="links"><a href="#">Contact us</a></div>
             <div class="social-icons"><a href="#"><i class="icon ion-social-facebook"></i></a><a href="#"><i class="icon ion-social-instagram-outline"></i></a><a href="#"><i class="icon ion-social-twitter"></i></a></div>
         </div>
-    </footer>
+    </footer> -->
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
     <script src="assets/js/smart-forms.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

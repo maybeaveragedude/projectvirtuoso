@@ -512,7 +512,10 @@ if (isset($_GET['course'])){
 
     console.log(viewedMatArray);
 
+
+    var allowRedirect = false;
     window.onload = function(){
+
       var temptotal =viewedMatCounter + initAttemptedQuiz
       document.getElementById("userProgress").value = temptotal;
       var totalPercentage = (temptotal/globalMatCounter)*100;
@@ -523,13 +526,30 @@ if (isset($_GET['course'])){
 
     }
 
-    window.onbeforeunload = function(){
+    if (allowRedirect){
+      window.onbeforeunload = function(){
 
-        return 'stop';
+      }
 
+    } else {
+      window.onbeforeunload = function(){
+          return 'stop';
+      }
     }
 
+
     function redirectSaveProgress(tempCourseId){
+      allowRedirect = true;
+      if (allowRedirect){
+        window.onbeforeunload = function(){
+
+        }
+
+      } else {
+        window.onbeforeunload = function(){
+            return 'stop';
+        }
+      }
       viewedMatArray = JSON.stringify(viewedMatArray);
       attemptedQuizArray = JSON.stringify(attemptedQuizArray);
       totalPercentage = document.getElementById("progressPercentage").innerHTML;

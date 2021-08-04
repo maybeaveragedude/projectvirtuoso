@@ -214,9 +214,9 @@ function validateForm() {
                        y[i].className += " invalid";
                        valid = false;
                        alert ("Please provide at least ONE credible reference.");
-                       
+
                    }
-               } else if (temp.type == "url") {
+               } else if (temp.type == "text") {
                    if (temp.value != "") {
                        valid = true;
                        document.getElementsByClassName("tablinks")[5].className += " finish";

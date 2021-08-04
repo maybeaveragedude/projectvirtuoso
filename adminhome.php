@@ -103,7 +103,7 @@
         <section class="portfolio-block skills" style="padding: 50px 75px;padding-top: 75px;"></section>
         <section class="portfolio-block block-intro" style="padding: 50px 75px;padding-top: 0px;"></section>
     </main>
-    <section class="portfolio-block website gradient">
+    <!-- <section class="portfolio-block website gradient">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-md-12 col-lg-5 offset-lg-1 text">
@@ -120,7 +120,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <footer class="page-footer">
         <div class="container">
             <!-- <div class="links"><a href="#">Contact us</a></div> -->

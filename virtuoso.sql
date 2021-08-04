@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2021 at 07:38 PM
+-- Generation Time: Aug 04, 2021 at 04:10 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -40,7 +40,6 @@ CREATE TABLE `admin` (
 --
 
 INSERT INTO `admin` (`admin_id`, `admin_username`, `admin_name`, `admin_email`, `admin_pwd`) VALUES
-(1, 'dummyadmin', 'Dummy Admin', 'admin@dumb.mail', '123'),
 (2, 'shawnadmin', 'Shawn Admin', 'shawn@admin.com', '$2y$10$K1kmHgMRIWhYzUmjhC9MvequLe.RUvwmqyUSQCpAkVgh7mdF5bel6');
 
 -- --------------------------------------------------------
@@ -63,14 +62,11 @@ CREATE TABLE `course` (
 --
 
 INSERT INTO `course` (`course_id`, `course_name`, `course_desc`, `t_fid`, `approval_admin_fid`, `course_status`) VALUES
-(73, 'asasd', 'qweqwe', 24, 2, 1),
-(75, 'New Test Course', 'yes', 26, 2, 1),
-(76, 'ANOTHER ONE', 'ANOTHER ONE', 26, NULL, 0),
-(77, 'This file test course', 'Yes desc; yes', 31, 2, 2),
-(78, 'Sunday Test', 'YASALSKDJKA*&*&', 26, NULL, 0),
-(81, 'Crash Test', 'Testing', 26, 2, 1),
+(76, 'Freshgrad Course', 'Refresh your mind with this course compiled by out dear contributors.', 26, NULL, 0),
+(77, 'Carl\'s Special Course', 'Very special course for Carl, by Carl.', 31, 2, 1),
+(81, 'Crash Course', 'Testing', 26, 2, 1),
 (82, 'NEW', 'qweqweqwe', 26, NULL, 0),
-(85, 'Clement\'s Course', 'Very nice course indeed', 29, NULL, 0);
+(85, 'Clement\'s Course', 'Very nice course indeed', 29, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -89,8 +85,6 @@ CREATE TABLE `course_subtopics` (
 --
 
 INSERT INTO `course_subtopics` (`course_fid`, `sub_fid`, `display_order`) VALUES
-(73, 1, 1),
-(73, 3, 2),
 (76, 5, 1),
 (76, 9, 2),
 (76, 10, 3),
@@ -102,16 +96,6 @@ INSERT INTO `course_subtopics` (`course_fid`, `sub_fid`, `display_order`) VALUES
 (77, 6, 3),
 (77, 9, 4),
 (77, 10, 5),
-(78, 5, 1),
-(78, 16, 2),
-(78, 4, 3),
-(78, 11, 4),
-(78, 15, 5),
-(75, 8, 1),
-(75, 14, 2),
-(75, 6, 3),
-(75, 13, 4),
-(75, 15, 5),
 (81, 5, 1),
 (81, 1, 2),
 (82, 1, 1),
@@ -140,8 +124,6 @@ CREATE TABLE `learners` (
 --
 
 INSERT INTO `learners` (`l_ID`, `l_email`, `l_pwd`, `l_username`, `l_name`) VALUES
-(1, 'dummy1@mail.com', 'dummypass', 'dummypass', 'dummypass'),
-(2, 'Dummy@mail.com', '$2y$10$mYt1d482B7p81IHzWe/b3uUzdur6BLBl2MiYpSCg0RnKQU7U64sQG', 'Dummy', 'Dummy'),
 (3, 'dummytwo@mail.com', '$2y$10$5LJq8U7CHZmaAkYIPVwEGOxGDITO2CRkZu2UJJZhlpE0UGtb7OqwC', 'dummytwo', 'Dummytwo'),
 (4, 'leysu@mail.com', '$2y$10$CvIkMDXGg0xM.IFahsLMLe13nNwXg/KIf7/7uWIGDon1qiT3G5wxa', 'Leysu', 'leysu'),
 (5, 'textable@mail.com', '$2y$10$PlZwMn7Pb7wnykiQBkXH3uNDtoCygvygJB3TAg0g31NeCugG2H/s2', 'verytestable', 'Testing'),
@@ -150,10 +132,10 @@ INSERT INTO `learners` (`l_ID`, `l_email`, `l_pwd`, `l_username`, `l_name`) VALU
 (8, 'newtest@test.com', '$2y$10$gXpiQ6L6/BPI4tHZOX5og.1cyYblvG90UzcZIpqo3pyHGRCUB5vSm', 'testlearner', 'TestUser'),
 (9, 'yessir222@mail.com', '$2y$10$mmRo0TX/9adhye7FrfW4x.v/zH/6VCVgyqAx7K6HgsH2NBWh744Je', 'yessir2', 'yessir two'),
 (10, 'error@mail.com', '$2y$10$7N6YvCuntKcvGQBEw7jpO.29fPt1unuk70jOxHlhjI9I0OwSW2usm', 'isthereerror', 'TesterrorStudent'),
-(11, 'asd', '$2y$10$HsDM0cCVBndeqnAEMDUVquj.DGjHlUTlzhL2LRO1oW4tD1AHbODDK', 'asd', 'asd'),
 (12, 'test@mail.com', '$2y$10$Jx/0n8OKs16c1MqXIsO0/.fGo2LjnePr3hBHp26SjcWW3.jFf2pPC', 'testforemail', 'Test For Email'),
 (13, 'test@learner.com', '$2y$10$7WDa5Ft6aNO5cL4kXvQzu.SmUfBBdzWI31OAlcK0kYg1piyClBSai', 'newesttestlearner', 'Newest Test Learner'),
-(14, 'final@test.com', '$2y$10$NleiyxCIOExjJ8d2qaFVg.x2fJqqWUMpC1w7buZ.hdVZmapnuncfC', 'finaltest', 'Final Test');
+(14, 'final@test.com', '$2y$10$NleiyxCIOExjJ8d2qaFVg.x2fJqqWUMpC1w7buZ.hdVZmapnuncfC', 'finaltest', 'Final Test'),
+(15, 'jdoe@gmail.com', '$2y$10$dW72XxCIemAWHq6iXqUTwOEK9/.jmMsw9wcjJzlS1URHJAxqNYV3y', 'jdoe', 'John Doe');
 
 -- --------------------------------------------------------
 
@@ -176,12 +158,9 @@ CREATE TABLE `learners_course` (
 --
 
 INSERT INTO `learners_course` (`l_fid`, `course_fid`, `total_progress`, `quiz_scores`, `subscription_date`, `material_progress`, `quiz_progress`) VALUES
-(6, 75, 100, 100, '2021-07-24 22:36:18', '[\"mat102\",\"mat94\",\"mat78\",\"mat104\"]', '[\"quiz108\",\"quiz117\",\"quiz119\"]'),
 (13, 76, 27, 20, '2021-07-25 18:35:59', '[\"mat97\",\"mat93\"]', '[\"quiz112\"]'),
 (10, 81, 0, 0, '2021-07-28 19:01:28', NULL, NULL),
-(10, 75, 0, 0, '2021-07-28 19:01:42', NULL, NULL),
-(6, 81, 0, 0, '2021-07-29 01:12:08', NULL, NULL),
-(14, 75, 0, 0, '2021-07-29 01:34:26', NULL, NULL);
+(6, 81, 21, 17, '2021-08-04 22:00:18', '[\"mat97\",\"mat93\"]', '[\"quiz112\"]');
 
 -- --------------------------------------------------------
 
@@ -200,10 +179,7 @@ CREATE TABLE `learner_course_feedbacks` (
 --
 
 INSERT INTO `learner_course_feedbacks` (`learner_fid`, `course_fid`, `message`) VALUES
-(6, 75, 'asdasd'),
-(10, 75, 'Sick'),
-(6, 81, 'THINK'),
-(14, 75, 'Nice');
+(6, 81, 'THINK');
 
 -- --------------------------------------------------------
 
@@ -234,7 +210,10 @@ INSERT INTO `materials` (`mat_id`, `mat_name`, `mat_file_upload_fid`, `mat_conte
 (102, 'While Loop', 75, 'A while loop is the most straightforward looping structure. While loop syntax in C programming language is as follows:\r\n\r\nIt is an entry-controlled loop. In while loop, a condition is evaluated before processing a body of the loop. If a condition is true then and only then the body of a loop is executed. After the body of a loop is executed then control again goes back at the beginning, and the condition is checked if it is true, the same process is executed until the condition becomes false. Once the condition becomes false, the control goes out of the loop.\r\n\r\nAfter exiting the loop, the control goes to the statements which are immediately after the loop. The body of a loop can contain more than one statement. If it contains only one statement, then the curly braces are not compulsory. It is a good practice though to use the curly braces even we have a single statement in the body.\r\n\r\nIn while loop, if the condition is not true, then the body of a loop will not be executed, not even once. It is different in do while loop which we will see shortly.', 26, NULL),
 (103, 'Isotopes', 76, 'Isotopes are various forms of an element that have the same number of protons but a different number of neutrons. Some elements, such as carbon, potassium, and uranium, have multiple naturally-occurring isotopes. Isotopes are defined first by their element and then by the sum of the protons and neutrons present.\r\n\r\nCarbon-12 (or 12C) contains six protons, six neutrons, and six electrons; therefore, it has a mass number of 12 amu (six protons and six neutrons).\r\nCarbon-14 (or 14C) contains six protons, eight neutrons, and six electrons; its atomic mass is 14 amu (six protons and eight neutrons).\r\nWhile the mass of individual isotopes is different, their physical and chemical properties remain mostly unchanged.\r\n\r\nIsotopes do differ in their stability. Carbon-12 (12C) is the most abundant of the carbon isotopes, accounting for 98.89% of carbon on Earth. Carbon-14 (14C) is unstable and only occurs in trace amounts. Unstable isotopes most commonly emit alpha particles (He2+) and electrons. Neutrons, protons, and positrons can also be emitted and electrons can be captured to attain a more stable atomic configuration (lower level of potential energy ) through a process called radioactive decay. The new atoms created may be in a high energy state and emit gamma rays which lowers the energy but alone does not change the atom into another isotope. These atoms are called radioactive isotopes or radioisotopes.', 26, NULL),
 (104, 'Electrochemistry Basics', 77, 'Electrochemistry is the study of chemical processes that cause electrons to move. This movement of electrons is called electricity, which can be generated by movements of electrons from one element to another in a reaction known as an oxidation-reduction (\"redox\") reaction. A redox reaction is a reaction that involves a change in oxidation state of one or more elements. When a substance loses an electron, its oxidation state increases; thus, it is oxidized. When a substance gains an electron, its oxidation state decreases, thus being reduced. For example, for the redox reaction', 24, NULL),
-(105, 'Binomial Distribution', 78, 'A binomial distribution can be thought of as simply the probability of a SUCCESS or FAILURE outcome in an experiment or survey that is repeated multiple times. The binomial is a type of distribution that has two possible outcomes (the prefix “bi” means two, or twice). For example, a coin toss has only two possible outcomes: heads or tails and taking a test could have two possible outcomes: pass or fail.\r\n\r\n- The first variable in the binomial formula, n, stands for the number of times the experiment runs.\r\n- The second variable, p, represents the probability of one specific outcome.\r\n\r\nFor example, let’s suppose you wanted to know the probability of getting a 1 on a die roll. if you were to roll a die 20 times, the probability of rolling a one on any throw is 1/6. Roll twenty times and you have a binomial distribution of (n=20, p=1/6). SUCCESS would be “roll a one” and FAILURE would be “roll anything else.” If the outcome in question was the probability of the die landing on an even number, the binomial distribution would then become (n=20, p=1/2). That’s because your probability of throwing an even number is one half.', 21, NULL);
+(105, 'Binomial Distribution', 78, 'A binomial distribution can be thought of as simply the probability of a SUCCESS or FAILURE outcome in an experiment or survey that is repeated multiple times. The binomial is a type of distribution that has two possible outcomes (the prefix “bi” means two, or twice). For example, a coin toss has only two possible outcomes: heads or tails and taking a test could have two possible outcomes: pass or fail.\r\n\r\n- The first variable in the binomial formula, n, stands for the number of times the experiment runs.\r\n- The second variable, p, represents the probability of one specific outcome.\r\n\r\nFor example, let’s suppose you wanted to know the probability of getting a 1 on a die roll. if you were to roll a die 20 times, the probability of rolling a one on any throw is 1/6. Roll twenty times and you have a binomial distribution of (n=20, p=1/6). SUCCESS would be “roll a one” and FAILURE would be “roll anything else.” If the outcome in question was the probability of the die landing on an even number, the binomial distribution would then become (n=20, p=1/2). That’s because your probability of throwing an even number is one half.', 21, NULL),
+(106, 'While Loop for C', 80, 'Valid content', 32, NULL),
+(107, 'Periodic table', 82, 'h he li be b c n o f ne na mg ', 33, NULL),
+(108, 'Hydrocarbons', NULL, 'hydrogen and carbon magic apparently', 33, NULL);
 
 -- --------------------------------------------------------
 
@@ -269,7 +248,11 @@ INSERT INTO `quiz` (`quiz_id`, `quiz_question`, `display_order`) VALUES
 (117, 'The body of a loop can contain more than one statement.', 1),
 (118, 'Unstable isotopes most commonly emit ', 1),
 (119, 'What is the oxidation state of magnesium in  MgF2 ?', 1),
-(120, 'Kelvin has taken 3 shots in a shooting practice. The probability that Kelvin strikes the target is 0.6. X represents the number of times kelvin strikes the target.\n\n(a) Calculate the probability for the occurrence of elements of X, when X = 3', 1);
+(120, 'Kelvin has taken 3 shots in a shooting practice. The probability that Kelvin strikes the target is 0.6. X represents the number of times kelvin strikes the target.\n\n(a) Calculate the probability for the occurrence of elements of X, when X = 3', 1),
+(121, 'another valid 4', 1),
+(122, 'valid', 2),
+(123, 'What is the proton number of H?', 1),
+(124, 'He is the last element of the periodic table', 2);
 
 -- --------------------------------------------------------
 
@@ -344,7 +327,19 @@ INSERT INTO `quizz_choices` (`choice_id`, `choice`, `true_false`, `quiz_fid`) VA
 (65, '0.064', 0, 120),
 (66, '0.288', 0, 120),
 (67, '0.432', 0, 120),
-(68, '0.216', 1, 120);
+(68, '0.216', 1, 120),
+(69, '1', 0, 121),
+(70, '2', 0, 121),
+(71, '4', 0, 121),
+(72, '3', 1, 121),
+(73, 'yes', 1, 122),
+(74, 'false', 0, 122),
+(75, '1', 1, 123),
+(76, '420', 0, 123),
+(77, '69', 0, 123),
+(78, '2', 0, 123),
+(79, 'True', 1, 124),
+(80, 'False', 0, 124);
 
 -- --------------------------------------------------------
 
@@ -398,14 +393,15 @@ INSERT INTO `subtopic` (`sub_id`, `sub_name`, `sub_desc`, `t_fid`, `approval_adm
 (6, 'Looping with C', 'Looping Statements in C execute the sequence of statements many times until the stated condition becomes false. A loop in C consists of two parts, a body of a loop and a control statement. The control statement is a combination of some conditions that direct the body of the loop to execute until the specified condition becomes false. The purpose of the C loop is to repeat the same code a number of times.', 26, 2, 7),
 (7, 'Variables in C', 'Your C programs can use two types of values: immediate and variable. An immediate value is one that you specify in the source code — a value you type or a defined constant. Variables are also values, but their contents can change. That’s why they’re called variables and not all-the-time-ables.', 26, NULL, 7),
 (8, 'C Arithmetic Operators', 'An arithmetic operator performs mathematical operations such as addition, subtraction, multiplication, division etc on numerical values (constants and variables).', 26, 2, 7),
-(9, 'A Poison Tree', '\"A Poison Tree\" is a poem written by William Blake, published in 1794 as part of his Songs of Experience collection. It describes the narrator\'s repressed feelings of anger towards an individual, emotions which eventually lead to murder.', 26, NULL, 8),
-(10, 'Probability III', 'the quality or state of being probable; the extent to which something is likely to happen or be the case.', 26, NULL, 6),
+(9, 'A Poison Tree', '\"A Poison Tree\" is a poem written by William Blake, published in 1794 as part of his Songs of Experience collection. It describes the narrator\'s repressed feelings of anger towards an individual, emotions which eventually lead to murder.', 26, 2, 8),
+(10, 'Probability III', 'the quality or state of being probable; the extent to which something is likely to happen or be the case.', 26, 2, 6),
 (11, 'The Art of War', 'The Art of War is an ancient Chinese military treatise dating from the Late Spring and Autumn Period. The work, which is attributed to the ancient Chinese military strategist Sun Tzu, is composed of 13 chapters.', 26, NULL, 9),
 (12, 'Pointer in C', 'The Pointer in C, is a variable that stores address of another variable. A pointer can also be used to refer to another pointer function. A pointer can be incremented/decremented, i.e., to point to the next/ previous memory location. The purpose of pointer is to save memory space and achieve faster execution time.', 28, NULL, 7),
 (13, 'Header Files in C', 'In C language, header files contain the set of predefined standard library functions. The “#include” preprocessing directive is used to include the header files with “.h” extension in the program.', 28, 2, 7),
 (14, 'Object oriented programming with Java', 'The OOPs Concepts in Java are abstraction, encapsulation, inheritance, and polymorphism. These concepts aim to implement real-world entities in programs.', 30, 2, 10),
 (15, 'Electrochemistry', 'Electrochemistry is the branch of physical chemistry concerned with the relationship between electrical potential, as a measurable and quantitative phenomenon, and identifiable chemical change, with either electrical potential as an outcome of a particular chemical change, or vice versa.', 26, 2, 1),
-(16, 'Units and Standards II', 'this is the description for Units and Standards II', 31, NULL, 5);
+(16, 'Units and Standards II', 'this is the description for Units and Standards II', 31, NULL, 5),
+(17, 'Looping with C II', 'Valid description', 32, 2, 7);
 
 -- --------------------------------------------------------
 
@@ -433,7 +429,10 @@ INSERT INTO `subtopic_materials` (`quiz_fid`, `sub_fid`, `mat_fid`) VALUES
 (117, 6, 102),
 (118, 1, 103),
 (119, 15, 104),
-(120, 5, 105);
+(120, 5, 105),
+(122, 17, 106),
+(124, 1, 107),
+(0, 1, 108);
 
 -- --------------------------------------------------------
 
@@ -463,7 +462,10 @@ INSERT INTO `teacher` (`t_ID`, `t_username`, `t_name`, `t_email`, `t_pwd`, `t_st
 (28, 'yanteaches', 'Leysu Yan', 'yan@mail.com', '$2y$10$H4YJakfIZ6tOyPiX33G2X.1GeJEQBDS..jfo5UDSFqSG2PG.dWV8i', 1, 2),
 (29, 'clementteaches', 'Clement Ho', 'clement@mail.com', '$2y$10$BMTNRdp8HN7Sj8VcHzA6Pumahpu755bJbl3zDaNNqs9IaV/FlclNO', 2, 2),
 (30, 'helloworld', 'another yes sir', 'another@mail.com', '$2y$10$fxU1iUiK5O7QiAvHu41s4uOM52gZ/Ek0ZF.ktqMqgxgU0.PIisKWC', 2, 2),
-(31, 'testfile', 'TestFile', 'testfile@mail.com', '$2y$10$ONbb/7I/d/js3Udh4M0NVOFBEpK4WCDym02KlRYw2nFiY72Qe3A2y', 0, NULL);
+(31, 'testfile', 'TestFile', 'testfile@mail.com', '$2y$10$ONbb/7I/d/js3Udh4M0NVOFBEpK4WCDym02KlRYw2nFiY72Qe3A2y', 0, NULL),
+(32, 'newesttest', 'This is a teacher', 'mail@test.com', '$2y$10$bGTgHK1egQ0lOomjThG29uVuI5UdKMmeiJBGqqLLzOwFXSGYQynpO', 0, NULL),
+(33, 'janedoe', 'Jane Doe', 'jane@gmail.com', '$2y$10$tTZDGT6D27a9U/tksP5eAehYin1ZmEWZYgf717BEHIhPFNBaJsGya', 1, 2),
+(34, '123', 'Shawn Lee Wen Xuen', 'owieri@mail.com', '$2y$10$8RULCliUVm1UwSKWuRSddOFGMxbu.wMeuLPpDm7YP3STVRgnIqRn6', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -483,7 +485,6 @@ CREATE TABLE `teacher_course_feedbacks` (
 
 INSERT INTO `teacher_course_feedbacks` (`submit_teacher_fid`, `course_fid`, `message`) VALUES
 (26, 81, 'CRASH'),
-(24, 75, 'Very nice'),
 (25, 81, 'This is a legit feedback');
 
 -- --------------------------------------------------------
@@ -498,15 +499,6 @@ CREATE TABLE `teacher_learner_feedbacks` (
   `course_fid` int(11) NOT NULL,
   `message` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `teacher_learner_feedbacks`
---
-
-INSERT INTO `teacher_learner_feedbacks` (`submit_teacher_fid`, `receive_learner_fid`, `course_fid`, `message`) VALUES
-(26, 10, 75, 'VERY NICE'),
-(26, 6, 75, 'sdfsdfsdf'),
-(26, 14, 75, 'Thanks for your feedback');
 
 -- --------------------------------------------------------
 
@@ -564,7 +556,10 @@ INSERT INTO `t_proposal` (`t_proposal_id`, `t_sub`, `t_years`, `t_brief`, `t_up_
 (14, 'Technology', '1', 'empty yes', 25, '', 27),
 (15, 'Technology', '2', 'yan yes cooks', 26, '', 28),
 (16, 'Science, adasdasd', '1', 'dsfdgdvbvbdfgwr', 27, '', 29),
-(18, 'Technology, Engineering', '1', 'qweqweqweasd', 28, '', 31);
+(18, 'Technology, Engineering', '1', 'qweqweqweasd', 28, '', 31),
+(19, 'Science', '2', 'This is an brief experience ', 79, '', 32),
+(20, 'Science', '3', 'I have been working in school for 3 years', 81, '', 33),
+(21, 'Technology', '4', '1231233', 83, '123123123123', 34);
 
 -- --------------------------------------------------------
 
@@ -642,7 +637,12 @@ INSERT INTO `uploads` (`up_id`, `file_name`, `uploaded_on`, `status`) VALUES
 (75, 'image_2021-07-22_154538.png', '2021-07-22 15:46:12', '1'),
 (76, 'image_2021-07-22_172023.png', '2021-07-22 17:21:46', '1'),
 (77, 'image_2021-07-23_205152.png', '2021-07-23 20:53:37', '1'),
-(78, 'image_2021-07-24_144925.png', '2021-07-24 14:54:16', '1');
+(78, 'image_2021-07-24_144925.png', '2021-07-24 14:54:16', '1'),
+(79, 'maxresdefault.jpg', '2021-07-29 11:56:50', '1'),
+(80, 'maxresdefault.jpg', '2021-07-29 12:01:57', '1'),
+(81, 'two.gif', '2021-08-04 21:05:18', '1'),
+(82, 'two.gif', '2021-08-04 21:08:41', '1'),
+(83, 'two.gif', '2021-08-04 21:49:21', '1');
 
 --
 -- Indexes for dumped tables
@@ -795,31 +795,31 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT for table `learners`
 --
 ALTER TABLE `learners`
-  MODIFY `l_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `l_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `materials`
 --
 ALTER TABLE `materials`
-  MODIFY `mat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `mat_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT for table `quiz`
 --
 ALTER TABLE `quiz`
-  MODIFY `quiz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `quiz_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=125;
 
 --
 -- AUTO_INCREMENT for table `quizz_choices`
 --
 ALTER TABLE `quizz_choices`
-  MODIFY `choice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `choice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `subject`
@@ -831,13 +831,13 @@ ALTER TABLE `subject`
 -- AUTO_INCREMENT for table `subtopic`
 --
 ALTER TABLE `subtopic`
-  MODIFY `sub_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `sub_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `teacher`
 --
 ALTER TABLE `teacher`
-  MODIFY `t_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `t_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `topic`
@@ -849,13 +849,13 @@ ALTER TABLE `topic`
 -- AUTO_INCREMENT for table `t_proposal`
 --
 ALTER TABLE `t_proposal`
-  MODIFY `t_proposal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `t_proposal_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `uploads`
 --
 ALTER TABLE `uploads`
-  MODIFY `up_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `up_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
 
 --
 -- Constraints for dumped tables
