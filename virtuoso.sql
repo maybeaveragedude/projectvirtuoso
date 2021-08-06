@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2021 at 04:10 PM
+-- Generation Time: Aug 06, 2021 at 03:05 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.3.28
 
@@ -65,7 +65,6 @@ INSERT INTO `course` (`course_id`, `course_name`, `course_desc`, `t_fid`, `appro
 (76, 'Freshgrad Course', 'Refresh your mind with this course compiled by out dear contributors.', 26, NULL, 0),
 (77, 'Carl\'s Special Course', 'Very special course for Carl, by Carl.', 31, 2, 1),
 (81, 'Crash Course', 'Testing', 26, 2, 1),
-(82, 'NEW', 'qweqweqwe', 26, NULL, 0),
 (85, 'Clement\'s Course', 'Very nice course indeed', 29, 2, 2);
 
 -- --------------------------------------------------------
@@ -98,8 +97,6 @@ INSERT INTO `course_subtopics` (`course_fid`, `sub_fid`, `display_order`) VALUES
 (77, 10, 5),
 (81, 5, 1),
 (81, 1, 2),
-(82, 1, 1),
-(82, 5, 2),
 (85, 6, 1),
 (85, 5, 2),
 (85, 16, 3),
@@ -135,7 +132,8 @@ INSERT INTO `learners` (`l_ID`, `l_email`, `l_pwd`, `l_username`, `l_name`) VALU
 (12, 'test@mail.com', '$2y$10$Jx/0n8OKs16c1MqXIsO0/.fGo2LjnePr3hBHp26SjcWW3.jFf2pPC', 'testforemail', 'Test For Email'),
 (13, 'test@learner.com', '$2y$10$7WDa5Ft6aNO5cL4kXvQzu.SmUfBBdzWI31OAlcK0kYg1piyClBSai', 'newesttestlearner', 'Newest Test Learner'),
 (14, 'final@test.com', '$2y$10$NleiyxCIOExjJ8d2qaFVg.x2fJqqWUMpC1w7buZ.hdVZmapnuncfC', 'finaltest', 'Final Test'),
-(15, 'jdoe@gmail.com', '$2y$10$dW72XxCIemAWHq6iXqUTwOEK9/.jmMsw9wcjJzlS1URHJAxqNYV3y', 'jdoe', 'John Doe');
+(15, 'jdoe@gmail.com', '$2y$10$dW72XxCIemAWHq6iXqUTwOEK9/.jmMsw9wcjJzlS1URHJAxqNYV3y', 'jdoe', 'John Doe'),
+(16, 'chong@kyle.com', '$2y$10$fUfEmycnmbKrvyfWnJoKk.K.2VCx.gHhIgQtr4kwi8QXPp3gUwDZW', 'kyle', 'Kyle Chong');
 
 -- --------------------------------------------------------
 
@@ -160,7 +158,10 @@ CREATE TABLE `learners_course` (
 INSERT INTO `learners_course` (`l_fid`, `course_fid`, `total_progress`, `quiz_scores`, `subscription_date`, `material_progress`, `quiz_progress`) VALUES
 (13, 76, 27, 20, '2021-07-25 18:35:59', '[\"mat97\",\"mat93\"]', '[\"quiz112\"]'),
 (10, 81, 0, 0, '2021-07-28 19:01:28', NULL, NULL),
-(6, 81, 21, 17, '2021-08-04 22:00:18', '[\"mat97\",\"mat93\"]', '[\"quiz112\"]');
+(6, 81, 21, 17, '2021-08-04 22:00:18', '[\"mat97\",\"mat93\"]', '[\"quiz112\"]'),
+(6, 77, 0, 0, '2021-08-05 02:46:27', NULL, NULL),
+(16, 77, 0, 0, '2021-08-05 02:47:07', NULL, NULL),
+(16, 81, 0, 0, '2021-08-05 02:51:13', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -461,11 +462,10 @@ INSERT INTO `teacher` (`t_ID`, `t_username`, `t_name`, `t_email`, `t_pwd`, `t_st
 (27, 'emptyteacher', 'Empty New Teacher', 'empty@mail.com', '$2y$10$MF8Rybph61xRbCMCf6LF9.SXak7qETo81ez8GcQflptymSLNykZmm', 0, NULL),
 (28, 'yanteaches', 'Leysu Yan', 'yan@mail.com', '$2y$10$H4YJakfIZ6tOyPiX33G2X.1GeJEQBDS..jfo5UDSFqSG2PG.dWV8i', 1, 2),
 (29, 'clementteaches', 'Clement Ho', 'clement@mail.com', '$2y$10$BMTNRdp8HN7Sj8VcHzA6Pumahpu755bJbl3zDaNNqs9IaV/FlclNO', 2, 2),
-(30, 'helloworld', 'another yes sir', 'another@mail.com', '$2y$10$fxU1iUiK5O7QiAvHu41s4uOM52gZ/Ek0ZF.ktqMqgxgU0.PIisKWC', 2, 2),
-(31, 'testfile', 'TestFile', 'testfile@mail.com', '$2y$10$ONbb/7I/d/js3Udh4M0NVOFBEpK4WCDym02KlRYw2nFiY72Qe3A2y', 0, NULL),
-(32, 'newesttest', 'This is a teacher', 'mail@test.com', '$2y$10$bGTgHK1egQ0lOomjThG29uVuI5UdKMmeiJBGqqLLzOwFXSGYQynpO', 0, NULL),
-(33, 'janedoe', 'Jane Doe', 'jane@gmail.com', '$2y$10$tTZDGT6D27a9U/tksP5eAehYin1ZmEWZYgf717BEHIhPFNBaJsGya', 1, 2),
-(34, '123', 'Shawn Lee Wen Xuen', 'owieri@mail.com', '$2y$10$8RULCliUVm1UwSKWuRSddOFGMxbu.wMeuLPpDm7YP3STVRgnIqRn6', 0, NULL);
+(30, 'dummyteacher', 'another yes sir', 'another@mail.com', '$2y$10$fxU1iUiK5O7QiAvHu41s4uOM52gZ/Ek0ZF.ktqMqgxgU0.PIisKWC', 2, 2),
+(31, 'extrateacher', 'TestFile', 'testfile@mail.com', '$2y$10$ONbb/7I/d/js3Udh4M0NVOFBEpK4WCDym02KlRYw2nFiY72Qe3A2y', 0, NULL),
+(32, 'imateacher', 'This is a teacher', 'mail@test.com', '$2y$10$bGTgHK1egQ0lOomjThG29uVuI5UdKMmeiJBGqqLLzOwFXSGYQynpO', 0, NULL),
+(33, 'janedoe', 'Jane Doe', 'jane@gmail.com', '$2y$10$tTZDGT6D27a9U/tksP5eAehYin1ZmEWZYgf717BEHIhPFNBaJsGya', 1, 2);
 
 -- --------------------------------------------------------
 
@@ -558,8 +558,7 @@ INSERT INTO `t_proposal` (`t_proposal_id`, `t_sub`, `t_years`, `t_brief`, `t_up_
 (16, 'Science, adasdasd', '1', 'dsfdgdvbvbdfgwr', 27, '', 29),
 (18, 'Technology, Engineering', '1', 'qweqweqweasd', 28, '', 31),
 (19, 'Science', '2', 'This is an brief experience ', 79, '', 32),
-(20, 'Science', '3', 'I have been working in school for 3 years', 81, '', 33),
-(21, 'Technology', '4', '1231233', 83, '123123123123', 34);
+(20, 'Science', '3', 'I have been working in school for 3 years', 81, '', 33);
 
 -- --------------------------------------------------------
 
@@ -795,13 +794,13 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `course`
 --
 ALTER TABLE `course`
-  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `course_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT for table `learners`
 --
 ALTER TABLE `learners`
-  MODIFY `l_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `l_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `materials`
